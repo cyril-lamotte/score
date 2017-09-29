@@ -1,0 +1,4 @@
+node_modules/
+dist/
+*.orig
+sources/sprites/scss/theme/___global/_sprites.scss

@@ -1,0 +1,31 @@
+
+.score {
+  display: table;
+  margin: 20px 0;
+}
+
+.score__row {
+  display: table-row;
+
+  &:nth-child(odd) {
+    background: $grey--light;
+  }
+
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px;
+    text-align: right;
+  }
+}
+
+.score__name {
+
+}
+
+.score__header {
+  font-weight: bold;
+  text-transform: uppercase;
+  background: $grey--light;
+  text-align: center;
+}

@@ -1,0 +1,22 @@
+
+/*
+---
+name: Bloc de base
+category: Blocs
+---
+
+Style de bloc par défaut.
+
+```html
+<div class="block--default">Lorem ipsum</div>
+```
+
+```sass
+@include block--default;
+```
+*/
+@mixin block--default {
+  margin: 20px 0;
+}
+
+

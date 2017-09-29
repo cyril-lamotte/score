@@ -1,0 +1,65 @@
+
+/*
+---
+name: Radio
+category: Formulaires
+---
+
+```html
+<div class="form__row">
+  <fieldset class="fieldset">
+    <legend>Options &ndash; Radios</legend>
+
+    <div class="options__row">
+      <input type="radio" value="" name="radio" id="radio-1" class="input--radio" checked />
+      <label for="radio-1">Option 1</label>
+    </div>
+
+    <div class="options__row">
+      <input type="radio" value="" name="radio" id="radio-2" class="input--radio" />
+      <label for="radio-2">Option 2</label>
+    </div>
+
+  </fieldset>
+</div>
+```
+
+```sass
+@include radio;
+```
+*/
+@mixin radio {
+  @include checkbox;
+
+  &:not(:checked),
+  &:checked {
+
+    + label {
+
+      &:before {
+        border-radius: 50%;
+      }
+
+      &:after {
+        border-radius: 50%;
+        animation-name: check-radio;
+      }
+    }
+  }
+
+  // Animation definition.
+  @keyframes check-radio {
+    from {
+      transform: scale(0);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+
+} // /@mixin radio

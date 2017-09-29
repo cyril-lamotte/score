@@ -1,0 +1,36 @@
+
+.pager {
+  @include reset-list;
+  text-align: center;
+  margin: 15px 0;
+  line-height: 3;
+
+  @mixin active {
+    background: $brand;
+    color: #fff;
+  }
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.5;
+  }
+
+  a {
+    display: block;
+    padding: 5px 10px;
+    background-color: $light-bg;
+
+    @include hover {
+      @include active;
+      text-decoration: none;
+    }
+  }
+
+  .current {
+
+    a {
+      @include active;
+    }
+  }
+}

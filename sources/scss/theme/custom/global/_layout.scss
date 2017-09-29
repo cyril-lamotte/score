@@ -1,0 +1,13 @@
+
+.outer-wrap {
+  position: relative;
+  overflow: hidden; // FIX Firefox positionning bug.
+}
+
+// Centered layout.
+.wrap {
+  @include clearfix;
+  max-width: $max-site-width;
+  margin: 0 auto;
+}
+

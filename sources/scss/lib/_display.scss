@@ -1,0 +1,118 @@
+
+// Hide element except for screen-readers.
+//
+// @link https://developer.yahoo.com/blogs/ydn/clip-hidden-content-better-accessibility-53456.html Yahoo! method
+@mixin hide-text {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}
+
+
+// Remove first & last tags' margins.
+@mixin text-wrap {
+
+  *:first-child {
+    margin-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+
+// Add '...' after text.
+@mixin text-overflow {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+// Spread block to window's edge.
+@mixin full-width {
+  position: relative;
+  width: 99.5vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+}
+
+
+// Maintain iframes/objects ratio.
+//
+// @param {Int} $ratio [9/16] - Ratio 16/9
+@mixin ratio-wrap($ratio: 9/16) {
+  position: relative;
+  padding-bottom: $ratio * 100%;
+  height: 0;
+
+  object,
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Center element in its wrapper.
+//
+// .wrapper {
+//   position: relative;
+//   width: 300px;
+//   height: 300px;
+//
+//   img {
+//     @include center-and-strech;
+//   }
+// }
+@mixin center-and-strech {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+  max-height: none;
+}
+
+
+// Add absolute positioning, full-size of first relative parent.
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+// Get a value of a map.
+//
+// Ex:
+// $map: (
+//   'size': 18rem,
+//   'small': 14rem,
+//   'xs': 13rem,
+//   'default': 10rem
+// );
+//
+//  width: dim($map, 'small');
+@function dim($map, $name: 'default') {
+
+  @if map-has-key($map, $name) {
+    @return map-get($map, $name);
+  }
+
+  @return map-get($map, 'default');
+
+}
