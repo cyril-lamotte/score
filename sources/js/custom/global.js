@@ -197,6 +197,33 @@ app.updateScoreDB = function(playerId, score) {
 
 
 
+/**
+ * Update score for player.
+ */
+app.updatePlayerName = function(name) {
+
+  playerId = app.currentPlayerId;
+
+  var request = app.openDB();
+  request.onsuccess = function(event) {
+
+    var db = event.target.result;
+    var store = db.transaction('players', 'readwrite').objectStore('players');
+
+    store.get(playerId).onsuccess = function(event) {
+      var player = event.target.result;
+
+      player.name = name;
+
+      store.put(player, playerId).onsuccess = function(event) {};
+
+    };
+
+  };
+
+};
+
+
 
 /**
  * Launch DOM

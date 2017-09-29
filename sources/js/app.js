@@ -52,33 +52,13 @@ $(function() {
 
   });
 
+  $('body').on('keyup', '.score__name', function(event) {
+    app.getPlayerId($(this));
+    app.updatePlayerName($(this).text());
+  })
+
 
 }); // /ready
-
-
-/**
- * Update score in interface & launch BDD update.
- */
-app.updateScore = function(value) {
-
-  var $score = $('#score-player-' + app.currentPlayerId);
-  var currentScore = parseInt($score.text());
-  var total = currentScore + value;
-
-  $score.text(total);
-
-  // Update database.
-  app.updateScoreDB(app.currentPlayerId, total);
-
-};
-
-
-/**
- * Get player id in the DOM.
- */
-app.getPlayerId = function($el) {
-  app.currentPlayerId = $el.parents('.score__row').attr('data-score-player-id');
-};
 
 
 })(jQuery);
