@@ -22,6 +22,7 @@
 
 .score__name {
   font-weight: bold;
+  font-size: 2em;
 }
 
 .score__header {
@@ -31,10 +32,34 @@
   text-align: center;
 }
 
-.score__total {
+.score__total:not(.score__header) {
   text-align: right;
+  font-size: 5em;
+  font-weight: bold;
 }
 
 .score__actions {
+  text-align: right;
+}
+
+.btn {
+  background: #87c3ff;
+  @include reset-box-model;
+  padding: 10px;
+  font-size: 1.4em;
+  border-radius: 5px;
   text-align: center;
+  width: 3em;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  @include mq-from('md') {
+    font-size: 2em;
+  }
+}
+
+.btn--zero {
+  background: #ff6e69;
 }

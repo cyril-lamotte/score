@@ -1,3 +1,10 @@
 
 .font--default { font-family: $font-stack; }
 .font--alt     { font-family: $font-stack-alt; }
+
+
+.main-title {
+  font-size: 4rem;
+  text-align: center;
+  text-transform: uppercase;
+}

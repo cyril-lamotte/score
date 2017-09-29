@@ -50,7 +50,14 @@ $(function() {
     app.getPlayerId($(this));
     app.updateScore(value);
 
+  }).on('click', 'button[data-init="init-score"]', function(event) {
+    event.preventDefault();
+
+    app.getPlayerId($(this));
+    app.updateScore(0);
+
   });
+
 
   $('body').on('keyup', '.score__name', function(event) {
     app.getPlayerId($(this));

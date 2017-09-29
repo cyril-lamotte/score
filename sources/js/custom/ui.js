@@ -20,9 +20,10 @@ app.insertPlayer = function(player, playerid) {
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
       '  <div class="score__total" id="score-player-' + playerid + '">' + player.score.total + '</div>' +
       '  <div class="score__actions">' +
-      '    <button type="button" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
-      '    <button type="button" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
-      '    <button type="button" data-init="add-score">+</button>' +
+      '    <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
+      '    <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
+      '    <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
+      '    <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
       '  </div>' +
       '</div>'
     );
@@ -38,7 +39,12 @@ app.updateScore = function(value) {
   var currentScore = parseInt($score.text());
   var total = currentScore + value;
 
+  // RAZ.
+  if (value == 0)
+    total = 0;
+
   $score.text(total);
+
 
   // Update database.
   app.updateScoreDB(app.currentPlayerId, total);
