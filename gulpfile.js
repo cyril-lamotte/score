@@ -52,7 +52,7 @@ try {
       ignore           = require('gulp-ignore'),         // Exclude files.
       postcss          = require('gulp-postcss'),        // Post CSS features.
       autoprefixer     = require('autoprefixer'),        // Add browsers prefix.
-      sourcemaps       = require('gulp-sourcemaps'),     // Generate SASS sourcemap.
+      //sourcemaps       = require('gulp-sourcemaps'),     // Generate SASS sourcemap.
       aigis            = require('gulp-aigis'),          // Generate styleguide.
       spritesmith      = require('gulp.spritesmith'),    // Generate sprites.
       fileinclude      = require('gulp-file-include'),   // HTML includes.
@@ -100,7 +100,7 @@ gulp.task('build-css', function() {
   console.log('');
 
   return gulp.src(paths.scss + '**/*.scss')
-    .pipe(sourcemaps.init())
+    //.pipe(sourcemaps.init())
     .pipe(sass())
     .on('error', onError)
     .pipe(postcss([ autoprefixer({ browsers: ['last 3 versions', '> 1%'] }) ]))
