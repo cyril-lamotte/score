@@ -45,6 +45,9 @@ $(function() {
 
   }).on('click', 'button[data-init="add-score-fixed"]', function(event) {
 
+    event.stopPropagation();
+    event.preventDefault();
+
     var value = parseInt($(this).attr('data-score-value'));
     app.getPlayerId($(this));
     app.updateScore(value);

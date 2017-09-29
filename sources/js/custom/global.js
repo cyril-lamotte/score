@@ -183,12 +183,11 @@ app.updateScoreDB = function(playerId, score) {
     var store = db.transaction('players', 'readwrite').objectStore('players');
 
     store.get(parseInt(playerId)).onsuccess = function(event) {
-      var player = event.target.result
+      var player = event.target.result;
 
       player.score.total = score;
 
-      store.put(player, playerId).onsuccess = function(event) {}
-
+      store.put(player, playerId).onsuccess = function(event) {};
 
     };
 

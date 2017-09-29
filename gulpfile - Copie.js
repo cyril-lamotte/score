@@ -16,9 +16,9 @@
 
 // Project.
 var project = {
-  namespace: 'score',
-  generateStyleguide: false
-  //ftpPath:   '/path/maquette4',
+  namespace: 'mockup',
+  generateStyleguide: false,
+  ftpPath:   '/maquettes/maquette4',
 };
 
 // Paths.
@@ -210,10 +210,6 @@ gulp.task('sprites', function () {
 gulp.task('statics', function() {
 
   // Copy statics fonts.
-  gulp.src(paths.js_src + '**')
-    .pipe(gulp.dest(paths.js));
-
-  // Copy statics fonts.
   return gulp.src(paths.fonts + '**')
     .pipe(gulp.dest(paths.assets_fonts));
 
@@ -244,9 +240,6 @@ gulp.task('data', function() {
 
 // Build styleguide.
 gulp.task('styleguide', function() {
-
-  if (!project.generateStyleguide)
-    return false;
 
   return gulp.src('./sources/styleguide/aigis_config.yml')
     .pipe(aigis());
@@ -340,9 +333,9 @@ gulp.task('deploy', function() {
 
   return gulp.src(paths.dist + '/**')
     .pipe(sftp({
-      host:     'host',
-      user:     'username',
-      password: 'password',
+      host:     '10.10.10.118',
+      user:     'editorial',
+      password: 'editorial',
       remotePath: project.ftpPath
     }));
 

@@ -2,6 +2,8 @@
 .score {
   display: table;
   margin: 20px 0;
+  font-size: 2rem;
+  width: 100%;
 }
 
 .score__row {
@@ -31,4 +33,8 @@
 
 .score__total {
   text-align: right;
+}
+
+.score__actions {
+  text-align: center;
 }

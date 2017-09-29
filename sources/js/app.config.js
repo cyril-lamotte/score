@@ -9,7 +9,7 @@
 
 window.app = {
   dbName: 'score',
-  dbVersion: 1
+  dbVersion: 3
 };
 
 })();
