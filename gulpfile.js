@@ -18,7 +18,7 @@
 var project = {
   namespace: 'score',
   generateStyleguide: false
-  //ftpPath:   '/maquettes/maquette4',
+  //ftpPath:   '/path/maquette4',
 };
 
 // Paths.
@@ -340,9 +340,9 @@ gulp.task('deploy', function() {
 
   return gulp.src(paths.dist + '/**')
     .pipe(sftp({
-      host:     '10.10.10.118',
-      user:     'editorial',
-      password: 'editorial',
+      host:     'host',
+      user:     'username',
+      password: 'password',
       remotePath: project.ftpPath
     }));
 

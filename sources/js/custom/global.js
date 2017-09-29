@@ -13,23 +13,20 @@ app.createDB = function() {
 
     // Create Objects stores.
     var objStore = db.createObjectStore('players', { autoIncrement : true });
-    var objStoreSc = db.createObjectStore('scores', { autoIncrement : true });
+    //var objStoreSc = db.createObjectStore('scores', { autoIncrement : true });
 
     // Create index.
     objStore.createIndex('by-name', 'name', { unique: true });
-    objStoreSc.createIndex('by-player-id', 'playerid', { unique: true });
 
-    // POURQUOI ? On ne passe jamais ici :
-    //objStoreSc.transaction.oncomplete = function(event) {
-    //};
+    // Objects stores are created, store default data.
+    objStore.transaction.oncomplete = function(event) {
+      app.populateObjStore('players');
+    };
 
   };
 
   request.onsuccess = function(event) {
-
-    // Objects stores are created, store default data.
-    app.populateObjStore('players');
-    app.populateObjStore('scores');
+    app.bddReady();
   };
 
 };
@@ -75,21 +72,21 @@ app.initData = function() {
 
   var defaultData = {};
   var playersData = [];
-  var scoresData  = [];
+  //var scoresData  = [];
 
   // Data for default players.
   for (var i = 1; i <= 6; i++) {
-    playersData.push({ name: 'Joueur ' + i });
-
-    // Score for default players.
-    scoresData.push({
-      total: i*4,
-      playerid: i
+    playersData.push({
+      'name': 'Joueur ' + i,
+      'score' : {
+        'total': 0
+      }
     });
+
   }
 
   defaultData.players = playersData;
-  defaultData.scores  = scoresData;
+  //defaultData.scores  = scoresData;
 
   return defaultData;
 
@@ -137,7 +134,7 @@ app.getPlayersList = function() {
 
     var db = event.target.result;
     var objStore = db.transaction('players').objectStore('players');
-    var objStoreSc = db.transaction('scores').objectStore('scores');
+    //var objStoreSc = db.transaction('scores').objectStore('scores');
 
     // Browse players.
     objStore.openCursor().onsuccess = function(event) {
@@ -151,14 +148,12 @@ app.getPlayersList = function() {
 
     };
 
-    db.close();
-
   };
 
 };
 
-
- app.getScore = function(playerId) {
+/*
+app.getScore = function(playerId) {
 
   var request = app.openDB();
   request.onsuccess = function(event) {
@@ -171,5 +166,47 @@ app.getPlayersList = function() {
 
   };
 
+};*/
+
+
+/**
+ * Update score for player.
+ */
+app.updateScoreDB = function(playerId, score) {
+
+  playerId = parseInt(playerId);
+
+  var request = app.openDB();
+  request.onsuccess = function(event) {
+
+    var db = event.target.result;
+    var store = db.transaction('players', 'readwrite').objectStore('players');
+
+    store.get(parseInt(playerId)).onsuccess = function(event) {
+      var player = event.target.result
+
+      player.score.total = score;
+
+      store.put(player, playerId).onsuccess = function(event) {}
+
+
+    };
+
+  };
+
 };
 
+
+
+
+/**
+ * Launch DOM
+ */
+app.bddReady = function() {
+
+  // Execute code when the DOM is fully loaded.
+  $(function() {
+    app.getPlayersList();
+  }); // /ready
+
+};
