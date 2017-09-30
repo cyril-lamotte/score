@@ -2,7 +2,21 @@
 <html lang="fr">
 <head>
 
-  <!-- @@include('includes/head.html', {"title": "Score"}) -->
+  <title>Score</title>
+
+  <!-- Define Internet Explorer's compatibility mode  -->
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+
+  <meta charset="utf-8">
+
+  <!-- Responsive markup -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Do not allow phone numbers to be detected -->
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+
 
 </head>
 
@@ -11,7 +25,13 @@
 <div class="outer-wrap">
 <div class="wrap">
 
-  <!-- @@include('includes/header.html') -->
+  
+  <header class="main-header" role="banner">
+
+    <h1 class="main-title">Score</h1>
+
+  </header>
+
 
   <div id="score-table" class="score">
     <div class="score__row">
@@ -57,12 +77,24 @@
     </div>
   </div><!--/modal-add-->
 
-  <!-- @@include('includes/footer.html') -->
+  
+
+  <footer class="main-footer" role="contentinfo">
+    <!--a href="https://github.com/cyril-lamotte">Contact / Remonter un bug</a-->
+  </footer>
+
 
 </div><!--/wrap-->
 </div><!--/outer-wrap-->
 
-<!-- @@include('includes/scripts.html') -->
+<!-- Scripts at the bottom for better performances -->
+<script src="assets/js/lib/jquery.min.js"></script>
+<script src="assets/js/app.config.js"></script>
+<script src="assets/js/custom/global.js"></script>
+<script src="assets/js/custom/ui.js"></script>
+<script src="assets/js/custom/db.js"></script>
+<script src="assets/js/app.js"></script>
+
 
 </body>
 </html>

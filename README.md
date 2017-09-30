@@ -1,2 +1,0 @@
-# score
-Score panel webapp
