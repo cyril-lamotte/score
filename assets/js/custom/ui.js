@@ -18,12 +18,17 @@ app.insertPlayer = function(player, playerid) {
     .append(
       '<div data-score-player-id="' + playerid + '" class="score__row">' +
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
-      '  <div class="score__total" id="score-player-' + playerid + '">' + player.score.total + '</div>' +
-      '  <div class="score__actions">' +
-      '    <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
-      '    <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
-      '    <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
-      '    <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
+      '  <div class="score__total">' +
+      '    <button type="button" class="score__btn" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
+      '    <div class="score__actions">' +
+      '      <span class="score__actions-bullet"></span>' +
+      '      <div class="score__actions-inner">' +
+      '        <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
+      '        <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
+      '        <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
+      '        <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
+      '      </div>' +
+      '    </div>' +
       '  </div>' +
       '</div>'
     );
@@ -57,4 +62,23 @@ app.updateScore = function(value) {
  */
 app.getPlayerId = function($el) {
   app.currentPlayerId = parseInt($el.parents('.score__row').attr('data-score-player-id'));
+};
+
+
+
+/**
+ * Display player's modal.
+ */
+app.showModal = function($btn) {
+
+  // Unactive other rows.
+  $('.score__row').removeClass('score__row--is-active');
+
+  $('body').addClass('modal-open');
+  $btn.parents('.score__row').addClass('score__row--is-active');
+
+
+
+  //$(this)
+
 };

@@ -19,13 +19,19 @@ app.init();
 
 $(function() {
 
+  var $body = $('body');
+
+  $body.on('click', '.score__total', function() {
+    app.showModal($(this));
+  });
+
 
   // Set current player.
-  $('body').on('click', '.score__row', function() {
+  $body.on('click', '.score__row', function() {
     app.currentPlayerId = $(this).attr('data-score-player-id');
   });
 
-  $('body')
+  $body
     .on('click', 'button[data-init="add-score"]', function(event) {
 
       // Show score form.
@@ -59,7 +65,7 @@ $(function() {
   });
 
 
-  $('body').on('keyup', '.score__name', function(event) {
+  $body.on('keyup', '.score__name', function(event) {
     app.getPlayerId($(this));
     app.updatePlayerName($(this).text());
   })
