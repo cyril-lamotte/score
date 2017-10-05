@@ -355,7 +355,7 @@ gulp.task('deploy', function() {
 ============================================================================= */
 
 // Init.
-gulp.task('start', ['clean', 'statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'lint-css', 'styleguide', 'data', 'webserver', 'browser-sync']);
+gulp.task('start', ['statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'lint-css', 'data', 'webserver', 'browser-sync']);
 
 // Watch.
 gulp.task('watch', function() {
@@ -364,7 +364,7 @@ gulp.task('watch', function() {
   gulp.watch([
     paths.fonts + '**/*',
     paths.img_src + '**/*',
-    paths.js_src + '**/*'
+    paths.js_src + '**/*.js'
   ], ['images', 'statics']);
 
   gulp.watch([paths.html + '**/*.html', '!' + paths.html + '**/*Copie.html'], ['build-html']);

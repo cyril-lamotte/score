@@ -1,0 +1,85 @@
+
+.score__actions {
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 10px;
+  right: 10px;
+  text-align: center;
+  border-radius: 10px;
+  //overflow: hidden;
+  min-height: 200px;
+
+  button {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.score__actions-bullet {
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  transform: translate3d(0, -100px, 0);
+
+  &:before {
+    content: '';
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    font-size: 3rem;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: $red;
+    border-radius: 50%;
+  }
+}
+
+.score__row--is-active {
+  z-index: 1;
+
+  .score__actions {
+    //animation: move-modal 200ms ease-out 1 normal forwards;
+  }
+
+  .score__actions-bullet {
+    animation: curve 200ms ease-out 1 normal forwards;
+
+    &:before {
+      animation: scale 500ms ease-out 1 normal forwards;
+      animation-delay: 200ms;
+    }
+
+  }
+}
+
+// Move modal to its final position.
+@keyframes move-modal {
+  to {
+    transform: translate3d(-150px, 100px, 0);
+  }
+}
+
+// Curvy trajectory.
+@keyframes curve {
+  from {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+// Scale after moving.
+@keyframes scale {
+  to {
+    transform: scale(20);
+  }
+}
