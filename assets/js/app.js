@@ -21,19 +21,9 @@ $(function() {
 
   var $body = $('body');
 
-console.log('test');
-
-  $(window).on('online', function() {
-    console.log('Online');
-  });
-
-  $(window).on('offline', function() {
-    console.log('Offline');
-  });
-
-  $body.on('click', '.score__total', function() {
+  /*$body.on('click', '.score__total', function() {
     app.toggleModal($(this));
-  });
+  });*/
 
 
   // Set current player.

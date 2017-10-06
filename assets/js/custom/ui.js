@@ -20,14 +20,13 @@ app.insertPlayer = function(player, playerid) {
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
       '  <div class="score__total">' +
       '    <button type="button" class="score__btn" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
-      '    <div class="score__modal">' +
-      '      <span class="score__modal-bullet"></span>' +
-      '      <div class="score__modal-inner">' +
-      '        <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
-      '        <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
-      '        <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
-      '        <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
-      '      </div>' +
+      '  </div>' +
+      '  <div class="score__action">' +
+      '    <div class="score__action-inner">' +
+      '      <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button>' +
+      '      <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button>' +
+      '      <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
+      '      <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
       '    </div>' +
       '  </div>' +
       '</div>'
@@ -69,7 +68,7 @@ app.getPlayerId = function($el) {
 /**
  * Display player's modal.
  */
-app.toggleModal = function($btn) {
+/*app.toggleModal = function($btn) {
 
   // Hide modal.
   if ($('body.modal-open').length) {
@@ -87,4 +86,4 @@ app.toggleModal = function($btn) {
 
   }
 
-};
+};*/
