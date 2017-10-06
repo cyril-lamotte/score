@@ -25,8 +25,7 @@ app.insertPlayer = function(player, playerid) {
       '    <div class="score__action-inner">' +
       '      <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button>' +
       '      <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button>' +
-      '      <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
-      '      <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
+      '      <button type="button" class="btn btn--plus-x" data-init="add-score">&hellip;</button>' +
       '    </div>' +
       '  </div>' +
       '</div>'
@@ -47,8 +46,11 @@ app.updateScore = function(value) {
   if (value == 0)
     total = 0;
 
-  $score.text(total);
+  $score.text(total).addClass('anim-bounce');
 
+  window.setTimeout(function() {
+    $score.removeClass('anim-bounce');
+  }, 150);
 
   // Update database.
   app.updateScoreDB(app.currentPlayerId, total);
@@ -59,10 +61,12 @@ app.updateScore = function(value) {
 /**
  * Get player id in the DOM.
  */
-app.getPlayerId = function($el) {
+app.setPlayerId = function($el) {
 
   // If a modal is open, the player id is already known.
   if ($('body').hasClass('modal-open')) {
+    app.currentPlayerId = parseInt($('.score__row--is-active').attr('data-score-player-id'));
+    console.log('test', app.currentPlayerId);
     return false;
   }
 
@@ -70,26 +74,98 @@ app.getPlayerId = function($el) {
 };
 
 
+/**
+ * Show custom score form.
+ */
+app.showCustomScoreForm = function() {
+
+  var $body = $('body');
+
+  $body.on('click', 'button[data-init="add-score"]', function(event) {
+
+    var $row = $(this).parents('.score__row');
+    var rowOffset = $row.offset().top;
+
+
+    // Scroll to top.
+    $('body, html').animate({ scrollTop: rowOffset }, 200);
+
+    // Disable others rows.
+    $('.score__row--is-active').removeClass('score__row--is-active');
+
+    // Show score form.
+    $('#modal-add').addClass('is-visible');
+
+    // Blur background.
+    $body.addClass('modal-open');
+
+    // Active row.
+    $(this).parents('.score__row').addClass('score__row--is-active');
+
+    app.setPlayerId($(this));
+
+  })
+
+};
+
+
 
 /**
- * Display player's modal.
+ * Enable button for hiding score form.
  */
-/*app.toggleModal = function($btn) {
+app.hideCustomScoreForm = function() {
 
-  // Hide modal.
-  if ($('body.modal-open').length) {
+  var $body = $('body');
 
-    $('body').removeClass('modal-open');
-    $('.score__row').removeClass('score__row--is-active');
+  $body.on('click', 'button[data-init="close-modal"]', function(event) {
+    app.hideScoreForm();
+  });
 
-  }
-  else {
-    // Show modal.
+};
 
-    // Add blur FX.
-    $('body').addClass('modal-open');
-    $btn.parents('.score__row').addClass('score__row--is-active');
 
-  }
+/**
+ * Hide score form.
+ */
+app.hideScoreForm = function() {
+  var $body = $('body');
 
-};*/
+  $('#modal-add').removeClass('is-visible');
+  $body.removeClass('modal-open');
+  $('.score__row--is-active').removeClass('score__row--is-active');
+};
+
+
+
+
+/**
+ * Add score buttons.
+ */
+app.addScore = function() {
+
+  var $body = $('body');
+
+  $body.on('click', 'button[data-score-add-to]', function(event) {
+
+    // Add custom value from input.
+    var value = parseInt($('#add').val());
+    app.updateScore(value);
+
+  }).on('click', 'button[data-init="add-score-fixed"]', function(event) {
+    event.preventDefault();
+
+    var value = parseInt($(this).attr('data-score-value'));
+
+    app.hideScoreForm();
+    app.setPlayerId($(this));
+    app.updateScore(value);
+
+  }).on('click', 'button[data-init="init-score"]', function(event) {
+    event.preventDefault();
+
+    app.setPlayerId($(this));
+    app.updateScore(0);
+
+  });
+
+};
