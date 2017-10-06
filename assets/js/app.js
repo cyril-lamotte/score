@@ -21,6 +21,16 @@ $(function() {
 
   var $body = $('body');
 
+console.log('test');
+
+  $(window).on('online', function() {
+    console.log('Online');
+  });
+
+  $(window).on('offline', function() {
+    console.log('Offline');
+  });
+
   $body.on('click', '.score__total', function() {
     app.toggleModal($(this));
   });
@@ -68,7 +78,7 @@ $(function() {
   $body.on('keyup', '.score__name', function(event) {
     app.getPlayerId($(this));
     app.updatePlayerName($(this).text());
-  })
+  });
 
 
 }); // /ready

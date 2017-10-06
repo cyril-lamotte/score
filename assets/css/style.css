@@ -1,5 +1,37 @@
 @charset "UTF-8";
 
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans/opensans-regular-webfont.eot");
+  src: url(../fonts/OpenSans/opensans-regular-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-regular-webfont.woff2"), url("../fonts/OpenSans/opensans-regular-webfont.woff"), url("../fonts/OpenSans/opensans-regular-webfont.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans/opensans-bold-webfont.eot");
+  src: url(../fonts/OpenSans/opensans-bold-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-bold-webfont.woff2"), url("../fonts/OpenSans/opensans-bold-webfont.woff"), url("../fonts/OpenSans/opensans-bold-webfont.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans/opensans-semibold-webfont.eot");
+  src: url(../fonts/OpenSans/opensans-semibold-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-semibold-webfont.woff2"), url("../fonts/OpenSans/opensans-semibold-webfont.woff"), url("../fonts/OpenSans/opensans-semibold-webfont.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("../fonts/OpenSans/opensans-light-webfont.eot");
+  src: url(../fonts/OpenSans/opensans-light-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-light-webfont.woff2"), url("../fonts/OpenSans/opensans-light-webfont.woff"), url("../fonts/OpenSans/opensans-light-webfont.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
 /*
 ---
 name: Open Sans
