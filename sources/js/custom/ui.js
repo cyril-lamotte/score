@@ -60,6 +60,12 @@ app.updateScore = function(value) {
  * Get player id in the DOM.
  */
 app.getPlayerId = function($el) {
+
+  // If a modal is open, the player id is already known.
+  if ($('body').hasClass('modal-open')) {
+    return false;
+  }
+
   app.currentPlayerId = parseInt($el.parents('.score__row').attr('data-score-player-id'));
 };
 

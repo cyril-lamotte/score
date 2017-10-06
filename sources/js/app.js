@@ -21,27 +21,28 @@ $(function() {
 
   var $body = $('body');
 
-  /*$body.on('click', '.score__total', function() {
-    app.toggleModal($(this));
-  });*/
-
-
   // Set current player.
-  $body.on('click', '.score__row', function() {
-    app.currentPlayerId = $(this).attr('data-score-player-id');
-  });
+  //$body.on('click', '.score__row', function() {
+  //  app.currentPlayerId = $(this).attr('data-score-player-id');
+  //});
+
 
   $body
     .on('click', 'button[data-init="add-score"]', function(event) {
 
+      $('.score__row--is-active').removeClass('.score__row--is-active');
+
       // Show score form.
       $('#modal-add').show();
+      $body.addClass('modal-open');
+      $(this).parents('.score__row').addClass('score__row--is-active')
       app.getPlayerId($(this));
 
   }).on('click', 'button[data-init="close-modal"]', function(event) {
 
     // Hide score form.
     $('#modal-add').hide();
+    $body.removeClass('modal-open');
 
   }).on('click', 'button[data-score-add-to]', function(event) {
 
