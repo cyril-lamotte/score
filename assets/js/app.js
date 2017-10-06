@@ -22,7 +22,7 @@ $(function() {
   var $body = $('body');
 
   $body.on('click', '.score__total', function() {
-    app.showModal($(this));
+    app.toggleModal($(this));
   });
 
 

@@ -1370,7 +1370,7 @@ a:active {
   text-align: center;
 }
 
-.score__actions {
+.score__modal {
   position: absolute;
   top: calc(100% + 20px);
   left: 10px;
@@ -1380,97 +1380,109 @@ a:active {
   min-height: 200px;
 }
 
-.score__actions button {
+.score__row--is-active .score__modal {
+  -webkit-animation: modal-overflow 1ms linear 1 normal forwards;
+  animation: modal-overflow 1ms linear 1 normal forwards;
+  -webkit-animation-delay: 200ms;
+  animation-delay: 200ms;
+}
+
+.score__modal button {
   display: table-cell;
   vertical-align: middle;
 }
 
-.score__actions-bullet {
-  display: block;
-  margin: 0 auto;
-  position: absolute;
-  top: 20px;
-  left: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
-  -webkit-transform: translate3d(0, -100px, 0);
-  transform: translate3d(0, -100px, 0);
+@-webkit-keyframes modal-overflow {
+  to {
+    overflow: visible;
+  }
+
+  to {
+    overflow: hidden;
+  }
 }
 
-.score__actions-bullet:before {
-  content: '';
-  color: #fff;
-  text-align: center;
-  line-height: 1;
-  font-size: 3rem;
-  display: block;
-  width: 40px;
-  height: 40px;
-  background: #ff4f46;
-  border-radius: 50%;
+@keyframes modal-overflow {
+  to {
+    overflow: visible;
+  }
+
+  to {
+    overflow: hidden;
+  }
 }
 
 .score__row--is-active {
   z-index: 1;
 }
 
-.score__row--is-active .score__actions-bullet {
-  -webkit-animation: curve 200ms ease-out 1 normal forwards;
-  animation: curve 200ms ease-out 1 normal forwards;
+.score__modal-bullet {
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  visibility: visible;
+  top: 50px;
+  left: calc(50% - 20px);
+  width: 40px;
+  height: 40px;
+  -webkit-transform: translate3d(0, -150px, 0);
+  transform: translate3d(0, -150px, 0);
 }
 
-.score__row--is-active .score__actions-bullet:before {
+.score__modal-bullet:before {
+  content: '';
+  color: #fff;
+  text-align: center;
+  line-height: 1;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: #ff4f46;
+  border-radius: 50%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 200ms ease-out;
+  transition: -webkit-transform 200ms ease-out;
+  -o-transition: transform 200ms ease-out;
+  transition: transform 200ms ease-out;
+  transition: transform 200ms ease-out, -webkit-transform 200ms ease-out;
+}
+
+.score__row--is-active .score__modal-bullet {
+  -webkit-animation: x-axis 100ms ease-out 2 alternate forwards;
+  animation: x-axis 100ms ease-out 2 alternate forwards;
+}
+
+.score__row--is-active .score__modal-bullet:before {
+  -webkit-transform: translate3d(0, 150px, 0);
+  transform: translate3d(0, 150px, 0);
   -webkit-animation: scale 500ms ease-out 1 normal forwards;
   animation: scale 500ms ease-out 1 normal forwards;
   -webkit-animation-delay: 200ms;
   animation-delay: 200ms;
 }
 
-@-webkit-keyframes move-modal {
-  to {
-    -webkit-transform: translate3d(-150px, 100px, 0);
-    transform: translate3d(-150px, 100px, 0);
-  }
-}
-
-@keyframes move-modal {
-  to {
-    -webkit-transform: translate3d(-150px, 100px, 0);
-    transform: translate3d(-150px, 100px, 0);
-  }
-}
-
-@-webkit-keyframes curve {
+@-webkit-keyframes x-axis {
   from {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
-
-  50% {
-    -webkit-transform: translateX(50px);
-    transform: translateX(50px);
+    -webkit-transform: translate3d(0, -150px, 0);
+    transform: translate3d(0, -150px, 0);
   }
 
   to {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translate3d(50px, -150px, 0);
+    transform: translate3d(50px, -150px, 0);
   }
 }
 
-@keyframes curve {
+@keyframes x-axis {
   from {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
-
-  50% {
-    -webkit-transform: translateX(50px);
-    transform: translateX(50px);
+    -webkit-transform: translate3d(0, -150px, 0);
+    transform: translate3d(0, -150px, 0);
   }
 
   to {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translate3d(50px, -150px, 0);
+    transform: translate3d(50px, -150px, 0);
   }
 }
 
@@ -1584,7 +1596,7 @@ a:active {
   cursor: pointer;
 }
 
-.score__actions-inner {
+.score__modal-inner {
   display: none;
 }
 
