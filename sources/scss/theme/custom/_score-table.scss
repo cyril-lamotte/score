@@ -27,7 +27,7 @@
   }
 
   &:nth-child(odd) {
-    background: rgba(255, 255, 255, 0.1);
+    //background: rgba(255, 255, 255, 0.1);
   }
 
   > div {
@@ -46,8 +46,15 @@
 .score__total {
   grid-row: 1 / 2;
   grid-column: 8 / 13;
+}
+
+.score__action {
+  grid-row: 2 / 3;
+  grid-column: 1 / 13;
+  text-align: center;
   background: rgba(0, 0, 0, 0.4);
 }
+
 
 .score__btn {
   @include reset-box-model;
@@ -64,29 +71,38 @@
   cursor: pointer;
 }
 
-.score__actions-inner {
-  display: none;
-}
-
 .btn {
   @include reset-box-model;
   background: darken($blue, 10%);
-  padding: 10px;
+  padding: 15px 10px;
   font-size: 1.4em;
   border-radius: 5px;
   text-align: center;
-  width: 3em;
   color: #fff;
 
   &:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   @include mq-from('md') {
     font-size: 2em;
   }
+
+  .score__action & {
+    width: 2em;
+  }
 }
 
 .btn--zero {
   background: #ff6e69;
+}
+
+.btn--cancel {
+  background: #ccc;
+  color: #555;
+}
+
+.btn--submit {
+  background: $green;
+  color: #fff;
 }

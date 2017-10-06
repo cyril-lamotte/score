@@ -21,9 +21,9 @@ $(function() {
 
   var $body = $('body');
 
-  $body.on('click', '.score__total', function() {
-    app.showModal($(this));
-  });
+  /*$body.on('click', '.score__total', function() {
+    app.toggleModal($(this));
+  });*/
 
 
   // Set current player.
@@ -68,7 +68,7 @@ $(function() {
   $body.on('keyup', '.score__name', function(event) {
     app.getPlayerId($(this));
     app.updatePlayerName($(this).text());
-  })
+  });
 
 
 }); // /ready

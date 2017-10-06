@@ -1,13 +1,14 @@
 
-.score__actions {
-  position: absolute;
-  top: calc(100% + 20px);
-  left: 10px;
-  right: 10px;
-  text-align: center;
-  border-radius: 10px;
-  //overflow: hidden;
-  min-height: 200px;
+$bullet-move-duration: 200ms;
+$bullet-offset: 150px;
+
+
+.score__modal {
+
+  .score__row--is-active & {
+    animation: modal-overflow 1ms linear 1 normal forwards;
+    animation-delay: $bullet-move-duration;
+  }
 
   button {
     display: table-cell;
@@ -15,65 +16,65 @@
   }
 }
 
-.score__actions-bullet {
+// Overflow hidden after delay.
+@keyframes modal-overflow {
+  to {
+    overflow: visible;
+  }
+  to {
+    overflow: hidden;
+  }
+}
+
+.score__row--is-active {
+  z-index: 1;
+}
+
+.score__modal-bullet {
   display: block;
   margin: 0 auto;
   position: absolute;
-  top: 20px;
+  visibility: visible;
+  top: 50px;
   left: calc(50% - 20px);
   width: 40px;
   height: 40px;
-  transform: translate3d(0, -100px, 0);
+  transform: translate3d(0, -$bullet-offset, 0);
 
   &:before {
     content: '';
     color: #fff;
     text-align: center;
     line-height: 1;
-    font-size: 3rem;
     display: block;
     width: 40px;
     height: 40px;
     background: $red;
     border-radius: 50%;
-  }
-}
-
-.score__row--is-active {
-  z-index: 1;
-
-  .score__actions {
-    //animation: move-modal 200ms ease-out 1 normal forwards;
+    transform: translate3d(0, 0, 0);
+    transition: transform $bullet-move-duration ease-out;
   }
 
-  .score__actions-bullet {
-    animation: curve 200ms ease-out 1 normal forwards;
+  .score__row--is-active & {
+    animation: x-axis $bullet-move-duration/2 ease-out 2 alternate forwards;
 
     &:before {
+      transform: translate3d(0, $bullet-offset, 0);
       animation: scale 500ms ease-out 1 normal forwards;
-      animation-delay: 200ms;
+      animation-delay: $bullet-move-duration;
     }
 
   }
-}
 
-// Move modal to its final position.
-@keyframes move-modal {
-  to {
-    transform: translate3d(-150px, 100px, 0);
-  }
 }
 
 // Curvy trajectory.
-@keyframes curve {
+@keyframes x-axis {
   from {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(50px);
+    transform: translate3d(0, -$bullet-offset, 0);
   }
   to {
-    transform: translateX(0);
+    transform: translate3d(50px, -$bullet-offset, 0);
   }
 }
 
@@ -83,3 +84,4 @@
     transform: scale(20);
   }
 }
+

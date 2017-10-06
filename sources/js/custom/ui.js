@@ -20,14 +20,13 @@ app.insertPlayer = function(player, playerid) {
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
       '  <div class="score__total">' +
       '    <button type="button" class="score__btn" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
-      '    <div class="score__actions">' +
-      '      <span class="score__actions-bullet"></span>' +
-      '      <div class="score__actions-inner">' +
-      '        <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+ 1</button>' +
-      '        <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">- 1</button>' +
-      '        <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
-      '        <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
-      '      </div>' +
+      '  </div>' +
+      '  <div class="score__action">' +
+      '    <div class="score__action-inner">' +
+      '      <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button>' +
+      '      <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button>' +
+      '      <button type="button" class="btn btn--plus-x" data-init="add-score">+</button>' +
+      '      <button type="button" class="btn btn--zero" data-init="init-score">0</button>' +
       '    </div>' +
       '  </div>' +
       '</div>'
@@ -69,16 +68,22 @@ app.getPlayerId = function($el) {
 /**
  * Display player's modal.
  */
-app.showModal = function($btn) {
+/*app.toggleModal = function($btn) {
 
-  // Unactive other rows.
-  $('.score__row').removeClass('score__row--is-active');
+  // Hide modal.
+  if ($('body.modal-open').length) {
 
-  $('body').addClass('modal-open');
-  $btn.parents('.score__row').addClass('score__row--is-active');
+    $('body').removeClass('modal-open');
+    $('.score__row').removeClass('score__row--is-active');
 
+  }
+  else {
+    // Show modal.
 
+    // Add blur FX.
+    $('body').addClass('modal-open');
+    $btn.parents('.score__row').addClass('score__row--is-active');
 
-  //$(this)
+  }
 
-};
+};*/

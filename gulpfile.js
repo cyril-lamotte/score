@@ -209,7 +209,7 @@ gulp.task('sprites', function () {
 // Copy statics ressources.
 gulp.task('statics', function() {
 
-  // Copy statics fonts.
+  // Copy statics scripts.
   gulp.src(paths.js_src + '**')
     .pipe(gulp.dest(paths.js));
 

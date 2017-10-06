@@ -2,18 +2,30 @@
 .modal-add {
   display: none;
   position: fixed;
-  background: #ccc;
-  top: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   left: 0;
   bottom: 0;
   right: 0;
   z-index: 9;
 
   select {
+    display: inline-block;
+    vertical-align: middle;
     font-size: 2rem;
+    background: $blue;
+    border: 1px solid $blue;
+    color: #fff;
+    height: 5rem;
+    margin: 0 20px 0 0;
+    padding: 0 10px;
+  }
+
+  .btn--submit {
+    margin-right: 20px;
   }
 }
 
 .modal-add__inner {
   text-align: center;
+  padding: 20px 10px;
 }
