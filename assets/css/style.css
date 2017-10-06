@@ -1663,14 +1663,14 @@ a:active {
 .modal-add {
   display: none;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   left: 0;
   bottom: 0;
   right: 0;
   z-index: 9;
 }
 
-.modal-add select {
+.modal-add input {
   display: inline-block;
   vertical-align: middle;
   font-size: 2rem;
@@ -1680,10 +1680,23 @@ a:active {
   height: 5rem;
   margin: 0 20px 0 0;
   padding: 0 10px;
+  width: 80px;
+  text-align: center;
 }
 
 .modal-add .btn--submit {
   margin-right: 20px;
+}
+
+.add__title {
+  margin: 20px 0 10px;
+  font-size: 2rem;
+  font-weight: 300;
+  text-align: left;
+}
+
+.add__title:first-child {
+  margin-top: 0;
 }
 
 .modal-add__inner {
