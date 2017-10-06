@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 0;
-  margin: 20px 0;
+  margin: 20px 0 300px;
   font-size: 2rem;
 
   @include mq-from('xs') {
@@ -24,10 +24,6 @@
 
   .modal-open &:not(.score__row--is-active) {
     filter: blur(3px);
-  }
-
-  &:nth-child(odd) {
-    //background: rgba(255, 255, 255, 0.1);
   }
 
   > div {
@@ -71,6 +67,18 @@
   cursor: pointer;
 }
 
+.anim-bounce {
+  animation: bounce 100ms ease-in 2 alternate forwards;
+}
+
+// Scale after moving.
+@keyframes bounce {
+  to {
+    transform: scale(1.2);
+  }
+}
+
+
 .btn {
   @include reset-box-model;
   background: darken($blue, 10%);
@@ -103,6 +111,6 @@
 }
 
 .btn--submit {
-  background: $green;
+  background: $brand;
   color: #fff;
 }

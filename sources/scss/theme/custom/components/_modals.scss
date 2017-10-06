@@ -85,3 +85,32 @@ $bullet-offset: 150px;
   }
 }
 
+
+
+
+
+
+.btn-close {
+  @include reset-box-model;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1;
+
+  &:before {
+    content: 'X';
+    color: #fff;
+  }
+
+  span {
+    @include hide-text;
+  }
+}

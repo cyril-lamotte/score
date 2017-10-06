@@ -19,7 +19,9 @@
   <div id="modal-add" class="modal-add">
     <div class="modal-add__inner">
 
-    <h2 class="add__title">Ajouter un score X</h2>
+    <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
+
+    <h2 class="add__title">Ajouter un score</h2>
 
     <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="5">+5</button>
     <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="10">+10</button>
@@ -28,11 +30,14 @@
     <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button>
     <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button>
 
-    <h2 class="add__title">Ajouter un score X</h2>
+    <h2 class="add__title">Ajouter un score personnalisé</h2>
 
-    <input type="number" name="add" id="add" value="10">
+    <input type="number" name="add" id="add" value="" placeholder="ex : 8, 12, 42...">
     <button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">+ Ajouter</button>
-    <button type="button" data-init="close-modal" class="btn btn--cancel">Annuler</button>
+
+
+    <h2 class="add__title">Réinitialiser</h2>
+    <button type="button" class="btn btn--zero" data-init="init-score">Mise à zéro</button>
 
     </div>
   </div><!--/modal-add-->
