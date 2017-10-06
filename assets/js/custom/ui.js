@@ -156,7 +156,6 @@ app.addScore = function() {
 
     var value = parseInt($(this).attr('data-score-value'));
 
-    app.hideScoreForm();
     app.setPlayerId($(this));
     app.updateScore(value);
 
