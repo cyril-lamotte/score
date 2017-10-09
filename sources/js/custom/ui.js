@@ -104,7 +104,7 @@ app.showCustomScoreForm = function() {
 
     app.setPlayerId($(this));
 
-  })
+  });
 
 };
 
