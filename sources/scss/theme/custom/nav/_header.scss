@@ -1,4 +1,17 @@
 
 .main-header {
   @include clearfix;
+  text-align: center;
+  padding: 10px;
+
+  .btn {
+  	display: inline-block;
+  	vertical-align: middle;
+  	margin-left: 10px;
+  }
+}
+
+.main-title {
+	display: inline-block;
+	vertical-align: middle;
 }

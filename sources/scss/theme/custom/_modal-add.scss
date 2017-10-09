@@ -1,17 +1,6 @@
 
 .modal-add {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.9);
-  left: 0;
-  top: 100%;
-  right: 0;
-  z-index: 9;
-  transition: transform 200ms;
-
-  &.is-visible {
-    transform: translate3d(0, -100%, 0);
-  }
-
+ 
   input {
     display: inline-block;
     vertical-align: middle;
@@ -33,19 +22,4 @@
   .btn--plus-x {
     width: 5rem;
   }
-}
-
-.add__title {
-  margin: 20px 0 10px;
-  font-size: 2rem;
-  font-weight: 300;
-  text-align: left;
-
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.modal-add__inner {
-  padding: 20px 10px;
 }

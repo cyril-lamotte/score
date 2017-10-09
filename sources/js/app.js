@@ -28,9 +28,10 @@ $(function() {
 
 
   app.showCustomScoreForm();
-  app.hideCustomScoreForm();
-
+  app.showMenu();
   app.addScore();
+  app.closeModal();
+
 
   $body.on('keyup', '.score__name', function(event) {
     app.getPlayerId($(this));

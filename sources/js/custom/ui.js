@@ -66,7 +66,6 @@ app.setPlayerId = function($el) {
   // If a modal is open, the player id is already known.
   if ($('body').hasClass('modal-open')) {
     app.currentPlayerId = parseInt($('.score__row--is-active').attr('data-score-player-id'));
-    console.log('test', app.currentPlayerId);
     return false;
   }
 
@@ -93,48 +92,57 @@ app.showCustomScoreForm = function() {
     // Disable others rows.
     $('.score__row--is-active').removeClass('score__row--is-active');
 
-    // Show score form.
-    $('#modal-add').addClass('is-visible');
-
-    // Blur background.
-    $body.addClass('modal-open');
+    app.toggleModal('modal-add');
 
     // Active row.
     $(this).parents('.score__row').addClass('score__row--is-active');
 
     app.setPlayerId($(this));
 
-  })
+  });
 
 };
 
-
-
-/**
- * Enable button for hiding score form.
- */
-app.hideCustomScoreForm = function() {
+app.showMenu = function() {
 
   var $body = $('body');
 
-  $body.on('click', 'button[data-init="close-modal"]', function(event) {
-    app.hideScoreForm();
+  $body.on('click', 'button[data-init="toggle-menu"]', function(event) {
+    app.toggleModal('modal-menu');
   });
 
 };
 
 
-/**
- * Hide score form.
- */
-app.hideScoreForm = function() {
+app.toggleModal = function(modalId) {
+
   var $body = $('body');
 
-  $('#modal-add').removeClass('is-visible');
-  $body.removeClass('modal-open');
-  $('.score__row--is-active').removeClass('score__row--is-active');
+  // Blur background.
+  $body.toggleClass('modal-open');
+
+  // Toggle modal.
+  $('#' + modalId).toggleClass('is-visible');
+
+  if (!$body.hasClass('modal-open')) {
+    // Disable rows.
+    $('.score__row--is-active').removeClass('score__row--is-active');
+  }
 };
 
+
+/**
+ * Enable button for closing modals.
+ */
+app.closeModal = function() {
+
+  var $body = $('body');
+
+  $body.on('click', 'button[data-init="close-modal"]', function(event) {
+    app.toggleModal($(this).parents('.modal').attr('id'));
+  });
+
+};
 
 
 
