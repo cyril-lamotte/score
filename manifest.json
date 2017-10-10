@@ -1,0 +1,16 @@
+{
+  "name": "Score",
+  "short_name": "Score",
+  "start_url": "./?utm_source=web_app_manifest",
+  "display": "standalone",
+  "icons": [{
+    "src": "apple-touch-icon/img/apple-touch-icon.png",
+    "sizes": "180x180",
+    "type": "image/png"
+  }],
+  "related_applications": [{
+    "platform": "web"
+  }],
+  "background_color": "#3859a0",
+  "theme_color": "#512DA8"
+}
