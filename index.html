@@ -17,10 +17,11 @@
   <meta name="apple-mobile-web-app-title" content="Score">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#512DA8"/>
 
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" href="assets/img/app/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
 
 
@@ -74,9 +75,9 @@
       <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button>
       <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button>
 
-      <h2 class="modal__title">Ajouter un score personnalisé</h2>
+      <h2 class="modal__title" id="add-custom-score">Ajouter un score personnalisé</h2>
 
-      <input type="number" name="add" id="add" value="" placeholder="ex : 8, 12, 42...">
+      <input type="number" name="add" id="add" value="" placeholder="ex : 8, 12, 42..." aria-labelledby="add-custom-score">
       <button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">+ Ajouter</button>
 
 
@@ -103,6 +104,18 @@
 <script src="assets/js/custom/ui.js"></script>
 <script src="assets/js/custom/db.js"></script>
 <script src="assets/js/app.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    navigator.serviceWorker.register('service-worker.js')
+      .then(function(reg){
+        console.log("Yes, it did.");
+      }).catch(function(err) {
+        console.log("No it didn't. This happened: ", err)
+      });
+  }
+</script>
 
 
 </body>

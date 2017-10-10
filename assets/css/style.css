@@ -1095,7 +1095,8 @@ a {
 
 .modal {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #fff;
   left: 0;
   top: 100%;
   right: 0;
@@ -1268,7 +1269,8 @@ a {
     width: 2em; }
 
 .btn--zero {
-  background: #ff6e69; }
+  background: #C00000;
+  color: #fff; }
 
 .btn--cancel {
   background: #ccc;

@@ -8,9 +8,11 @@
     "src": "assets/img/apple-touch-icon.png",
     "sizes": "180x180",
     "type": "image/png"
-  }],
-  "related_applications": [{
-    "platform": "web"
+  },
+  {
+    "src": "assets/img/512.png",
+    "sizes": "512x512",
+    "type": "image/png"
   }],
   "background_color": "#3859a0",
   "theme_color": "#512DA8"
