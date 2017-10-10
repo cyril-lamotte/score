@@ -1,36 +1,31 @@
 @charset "UTF-8";
-
 @font-face {
   font-family: "Open Sans";
   src: url("../fonts/OpenSans/opensans-regular-webfont.eot");
   src: url(../fonts/OpenSans/opensans-regular-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-regular-webfont.woff2"), url("../fonts/OpenSans/opensans-regular-webfont.woff"), url("../fonts/OpenSans/opensans-regular-webfont.ttf");
   font-weight: normal;
-  font-style: normal;
-}
+  font-style: normal; }
 
 @font-face {
   font-family: "Open Sans";
   src: url("../fonts/OpenSans/opensans-bold-webfont.eot");
   src: url(../fonts/OpenSans/opensans-bold-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-bold-webfont.woff2"), url("../fonts/OpenSans/opensans-bold-webfont.woff"), url("../fonts/OpenSans/opensans-bold-webfont.ttf");
   font-weight: bold;
-  font-style: normal;
-}
+  font-style: normal; }
 
 @font-face {
   font-family: "Open Sans";
   src: url("../fonts/OpenSans/opensans-semibold-webfont.eot");
   src: url(../fonts/OpenSans/opensans-semibold-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-semibold-webfont.woff2"), url("../fonts/OpenSans/opensans-semibold-webfont.woff"), url("../fonts/OpenSans/opensans-semibold-webfont.ttf");
   font-weight: 600;
-  font-style: normal;
-}
+  font-style: normal; }
 
 @font-face {
   font-family: "Open Sans";
   src: url("../fonts/OpenSans/opensans-light-webfont.eot");
   src: url(../fonts/OpenSans/opensans-light-webfont.eot?#iefix) format('embedded-opentype'), url("../fonts/OpenSans/opensans-light-webfont.woff2"), url("../fonts/OpenSans/opensans-light-webfont.woff"), url("../fonts/OpenSans/opensans-light-webfont.ttf");
   font-weight: 300;
-  font-style: normal;
-}
+  font-style: normal; }
 
 /*
 ---
@@ -46,7 +41,6 @@ category: Polices
 font-family: $font-stack;
 ```
 */
-
 /*
 ---
 name: Arial
@@ -61,7 +55,6 @@ category: Polices
 font-family: $font-stack-alt;
 ```
 */
-
 /*
 ---
 name: Bouton par défaut
@@ -78,7 +71,6 @@ Appliquer ce style pour obtenir un bouton stylé.
 @include btn;
 ```
 */
-
 /*
 ---
 name: Bloc de base
@@ -95,7 +87,6 @@ Style de bloc par défaut.
 @include block--default;
 ```
 */
-
 /*
 ---
 name: Liste de choix
@@ -117,7 +108,6 @@ category: Formulaires
 @include select;
 ```
 */
-
 /*
 ---
 name: Checkbox
@@ -147,7 +137,6 @@ category: Formulaires
 @include checkbox;
 ```
 */
-
 /*
 ---
 name: Radio
@@ -177,264 +166,211 @@ category: Formulaires
 @include radio;
 ```
 */
-
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
-
 /* Document
    ========================================================================== */
-
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
  */
-
 html {
   line-height: 1.15;
   /* 1 */
   -ms-text-size-adjust: 100%;
   /* 2 */
   -webkit-text-size-adjust: 100%;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Sections
    ========================================================================== */
-
 /**
  * Remove the margin in all browsers (opinionated).
  */
-
 body {
-  margin: 0;
-}
+  margin: 0; }
 
 /**
  * Add the correct display in IE 9-.
  */
-
 article,
 aside,
 footer,
 header,
 nav,
 section {
-  display: block;
-}
+  display: block; }
 
 /**
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
-
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
-}
+  margin: 0.67em 0; }
 
 /* Grouping content
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  * 1. Add the correct display in IE.
  */
-
 figcaption,
 figure,
 main {
   /* 1 */
-  display: block;
-}
+  display: block; }
 
 /**
  * Add the correct margin in IE 8.
  */
-
 figure {
-  margin: 1em 40px;
-}
+  margin: 1em 40px; }
 
 /**
  * 1. Add the correct box sizing in Firefox.
  * 2. Show the overflow in Edge and IE.
  */
-
 hr {
   -webkit-box-sizing: content-box;
-  box-sizing: content-box;
+          box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
   overflow: visible;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 pre {
   font-family: monospace, monospace;
   /* 1 */
   font-size: 1em;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Text-level semantics
    ========================================================================== */
-
 /**
  * 1. Remove the gray background on active links in IE 10.
  * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
  */
-
 a {
   background-color: transparent;
   /* 1 */
   -webkit-text-decoration-skip: objects;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * 1. Remove the bottom border in Chrome 57- and Firefox 39-.
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
-
 abbr[title] {
   border-bottom: none;
   /* 1 */
   text-decoration: underline;
   /* 2 */
   -webkit-text-decoration: underline dotted;
-  text-decoration: underline dotted;
-  /* 2 */
-}
+          text-decoration: underline dotted;
+  /* 2 */ }
 
 /**
  * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
  */
-
 b,
 strong {
-  font-weight: inherit;
-}
+  font-weight: inherit; }
 
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
-
 b,
 strong {
-  font-weight: bolder;
-}
+  font-weight: bolder; }
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-
 code,
 kbd,
 samp {
   font-family: monospace, monospace;
   /* 1 */
   font-size: 1em;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Add the correct font style in Android 4.3-.
  */
-
 dfn {
-  font-style: italic;
-}
+  font-style: italic; }
 
 /**
  * Add the correct background and color in IE 9-.
  */
-
 mark {
   background-color: #ff0;
-  color: #000;
-}
+  color: #000; }
 
 /**
  * Add the correct font size in all browsers.
  */
-
 small {
-  font-size: 80%;
-}
+  font-size: 80%; }
 
 /**
  * Prevent `sub` and `sup` elements from affecting the line height in
  * all browsers.
  */
-
 sub,
 sup {
   font-size: 75%;
   line-height: 0;
   position: relative;
-  vertical-align: baseline;
-}
+  vertical-align: baseline; }
 
 sub {
-  bottom: -0.25em;
-}
+  bottom: -0.25em; }
 
 sup {
-  top: -0.5em;
-}
+  top: -0.5em; }
 
 /* Embedded content
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  */
-
 audio,
 video {
-  display: inline-block;
-}
+  display: inline-block; }
 
 /**
  * Add the correct display in iOS 4-7.
  */
-
 audio:not([controls]) {
   display: none;
-  height: 0;
-}
+  height: 0; }
 
 /**
  * Remove the border on images inside links in IE 10-.
  */
-
 img {
-  border-style: none;
-}
+  border-style: none; }
 
 /**
  * Hide the overflow in IE.
  */
-
 svg:not(:root) {
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 /* Forms
    ========================================================================== */
-
 /**
  * 1. Change the font styles in all browsers (opinionated).
  * 2. Remove the margin in Firefox and Safari.
  */
-
 button,
 input,
 optgroup,
@@ -447,75 +383,62 @@ textarea {
   line-height: 1.15;
   /* 1 */
   margin: 0;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Show the overflow in IE.
  * 1. Show the overflow in Edge.
  */
-
 button,
 input {
   /* 1 */
-  overflow: visible;
-}
+  overflow: visible; }
 
 /**
  * Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 1. Remove the inheritance of text transform in Firefox.
  */
-
 button,
 select {
   /* 1 */
-  text-transform: none;
-}
+  text-transform: none; }
 
 /**
  * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
  *    controls in Android 4.
  * 2. Correct the inability to style clickable types in iOS and Safari.
  */
-
 button,
 html [type="button"],
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Remove the inner border and padding in Firefox.
  */
-
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
   border-style: none;
-  padding: 0;
-}
+  padding: 0; }
 
 /**
  * Restore the focus styles unset by the previous rule.
  */
-
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
+  outline: 1px dotted ButtonText; }
 
 /**
  * Correct the padding in Firefox.
  */
-
 fieldset {
-  padding: 0.35em 0.75em 0.625em;
-}
+  padding: 0.35em 0.75em 0.625em; }
 
 /**
  * 1. Correct the text wrapping in Edge and IE.
@@ -523,10 +446,9 @@ fieldset {
  * 3. Remove the padding so developers are not caught out when they zero out
  *    `fieldset` elements in all browsers.
  */
-
 legend {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -537,168 +459,134 @@ legend {
   padding: 0;
   /* 3 */
   white-space: normal;
-  /* 1 */
-}
+  /* 1 */ }
 
 /**
  * 1. Add the correct display in IE 9-.
  * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
  */
-
 progress {
   display: inline-block;
   /* 1 */
   vertical-align: baseline;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Remove the default vertical scrollbar in IE.
  */
-
 textarea {
-  overflow: auto;
-}
+  overflow: auto; }
 
 /**
  * 1. Add the correct box sizing in IE 10-.
  * 2. Remove the padding in IE 10-.
  */
-
 [type="checkbox"],
 [type="radio"] {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   padding: 0;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
-
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
+  height: auto; }
 
 /**
  * 1. Correct the odd appearance in Chrome and Safari.
  * 2. Correct the outline style in Safari.
  */
-
 [type="search"] {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
-  /* 2 */
-}
+  /* 2 */ }
 
 /**
  * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
  */
-
 [type="search"]::-webkit-search-cancel-button,
 [type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
+  -webkit-appearance: none; }
 
 /**
  * 1. Correct the inability to style clickable types in iOS and Safari.
  * 2. Change font properties to `inherit` in Safari.
  */
-
 ::-webkit-file-upload-button {
   -webkit-appearance: button;
   /* 1 */
   font: inherit;
-  /* 2 */
-}
+  /* 2 */ }
 
 /* Interactive
    ========================================================================== */
-
 /*
  * Add the correct display in IE 9-.
  * 1. Add the correct display in Edge, IE, and Firefox.
  */
-
 details,
 menu {
-  display: block;
-}
+  display: block; }
 
 /*
  * Add the correct display in all browsers.
  */
-
 summary {
-  display: list-item;
-}
+  display: list-item; }
 
 /* Scripting
    ========================================================================== */
-
 /**
  * Add the correct display in IE 9-.
  */
-
 canvas {
-  display: inline-block;
-}
+  display: inline-block; }
 
 /**
  * Add the correct display in IE.
  */
-
 template {
-  display: none;
-}
+  display: none; }
 
 /* Hidden
    ========================================================================== */
-
 /**
  * Add the correct display in IE 10-.
  */
-
 [hidden] {
-  display: none;
-}
+  display: none; }
 
 html {
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
+          box-sizing: border-box; }
 
 *,
 *:before,
 *:after {
   -webkit-box-sizing: inherit;
-  box-sizing: inherit;
-}
+          box-sizing: inherit; }
 
 /**
  * 1. Fluid images for responsive purposes.
  * 2. Offset `alt` text from surrounding copy.
  */
-
 img {
   max-width: 100%;
   /* [1] */
   font-style: italic;
   /* [2] */
-  height: auto;
-}
+  height: auto; }
 
 /* -----------------------------------------------------------------------------
    Display
 ----------------------------------------------------------------------------- */
-
 .is-hidden {
-  display: none !important;
-}
+  display: none !important; }
 
 .visually-hidden {
   position: absolute !important;
@@ -707,129 +595,96 @@ img {
   border: 0 !important;
   height: 1px !important;
   width: 1px !important;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 /* -----------------------------------------------------------------------------
    Alignments
 ----------------------------------------------------------------------------- */
-
 .align-left {
-  text-align: left !important;
-}
+  text-align: left !important; }
 
 .align-right {
-  text-align: right !important;
-}
+  text-align: right !important; }
 
 .align-center {
-  text-align: center !important;
-}
+  text-align: center !important; }
 
 .valign-top {
-  vertical-align: top !important;
-}
+  vertical-align: top !important; }
 
 .valign-middle {
-  vertical-align: middle !important;
-}
+  vertical-align: middle !important; }
 
 .valign-bottom {
-  vertical-align: bottom !important;
-}
+  vertical-align: bottom !important; }
 
 .align-start {
-  float: left !important;
-}
+  float: left !important; }
 
 .align-end {
-  float: right !important;
-}
+  float: right !important; }
 
 .align-clear {
-  clear: both !important;
-}
+  clear: both !important; }
 
 .outer-wrap {
-  position: relative;
-}
+  position: relative; }
 
 .wrap {
   display: flow-root;
   max-width: 1280px;
-  margin: 0 auto;
-}
-
-.wrap:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+  margin: 0 auto; }
+  .wrap:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 ::-moz-selection {
   background-color: #3859a0;
-  color: #fff;
-}
+  color: #fff; }
 
 ::selection {
   background-color: #3859a0;
-  color: #fff;
-}
+  color: #fff; }
 
 ::-moz-selection {
   background-color: #3859a0;
-  color: #fff;
-}
+  color: #fff; }
 
 html {
   -webkit-tap-highlight-color: rgba(56, 89, 160, 0.5);
   font: 0.625em/1.5 "Open Sans", arial, helvetica, sans-serif;
   color: #333;
-  margin: 0;
-}
+  margin: 0; }
 
 body {
   font-size: 1.2rem;
   background: #3859a0;
-  color: #fff;
-}
+  color: #fff; }
 
 iframe {
-  border: 0;
-}
+  border: 0; }
 
 a {
   text-decoration: none;
-  color: #333;
-}
-
-a:hover,
-a:focus,
-a:active {
-  text-decoration: underline;
-}
+  color: #333; }
+  a:hover, a:focus, a:active {
+    text-decoration: underline; }
 
 .list {
   margin: 1em 0;
   padding: 0;
-  list-style: none;
-}
-
-.list:first-child {
-  margin-top: 0;
-}
-
-.list:last-child {
-  margin-bottom: 0;
-}
+  list-style: none; }
+  .list:first-child {
+    margin-top: 0; }
+  .list:last-child {
+    margin-bottom: 0; }
 
 .font--default {
-  font-family: "Open Sans", arial, helvetica, sans-serif;
-}
+  font-family: "Open Sans", arial, helvetica, sans-serif; }
 
 .font--alt {
-  font-family: arial, helvetica, sans-serif;
-}
+  font-family: arial, helvetica, sans-serif; }
 
 .main-title {
   margin: 0;
@@ -837,73 +692,60 @@ a:active {
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
-  font-weight: 300;
-}
+  font-weight: 300; }
 
 .options__row,
 .form__row {
   position: relative;
-  clear: left;
-}
+  clear: left; }
 
 .form__row--inline input {
   display: inline-block;
-  width: auto;
-}
+  width: auto; }
 
 .label--block {
   display: block;
   float: none;
   text-align: left;
   width: auto;
-  margin-bottom: 5px;
-}
+  margin-bottom: 5px; }
 
 .label--inline {
   display: inline-block;
   float: none;
   text-align: left;
   width: auto;
-  line-height: 1.5;
-}
+  line-height: 1.5; }
 
 .fieldset {
   margin: 0;
   padding: 0;
   border: 0;
   border: 1px solid #333;
-  padding: 10px;
-}
-
-.fieldset legend {
-  padding: 0 10px;
-}
+  padding: 10px; }
+  .fieldset legend {
+    padding: 0 10px; }
 
 .fieldset--invisible {
   margin: 0;
   padding: 0;
-  border: 0;
-}
-
-.fieldset--invisible legend {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
-}
+  border: 0; }
+  .fieldset--invisible legend {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden; }
 
 .input--wide {
   display: block;
-  width: 100%;
-}
+  width: 100%; }
 
 .input--inline {
   display: inline-block;
-  width: auto;
-}
+  width: auto; }
 
 .input--text {
   margin: 0;
@@ -912,42 +754,29 @@ a:active {
   font-family: inherit;
   font-size: inherit;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   padding: 5px 10px;
   border: 1px solid #333;
   border-radius: 0;
-  color: #333;
-}
-
-.input--text::-ms-clear {
-  display: none;
-}
-
-.input--text.placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--text:-moz-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--text::-moz-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--text:-ms-input-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--text::-webkit-input-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
+  color: #333; }
+  .input--text::-ms-clear {
+    display: none; }
+  .input--text.placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--text:-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--text::-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--text:-ms-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--text::-webkit-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
 
 .input--textarea {
   margin: 0;
@@ -956,8 +785,8 @@ a:active {
   font-family: inherit;
   font-size: inherit;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   padding: 5px 10px;
   border: 1px solid #333;
   border-radius: 0;
@@ -965,415 +794,283 @@ a:active {
   min-height: 5em;
   overflow: auto;
   vertical-align: top;
-  resize: vertical;
-}
+  resize: vertical; }
+  .input--textarea::-ms-clear {
+    display: none; }
+  .input--textarea.placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--textarea:-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--textarea::-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--textarea:-ms-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .input--textarea::-webkit-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
 
-.input--textarea::-ms-clear {
-  display: none;
-}
-
-.input--textarea.placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--textarea:-moz-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--textarea::-moz-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--textarea:-ms-input-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--textarea::-webkit-input-placeholder {
-  opacity: 1;
-  font-style: italic;
-}
-
-.input--checkbox:not(:checked),
-.input--checkbox:checked {
+.input--checkbox:not(:checked), .input--checkbox:checked {
   position: absolute;
-  left: -9999px;
-}
-
-.input--checkbox:not(:checked) + label,
-.input--checkbox:checked + label {
-  cursor: pointer;
-  position: relative;
-  padding-left: 24px;
-}
-
-.input--checkbox:not(:checked) + label:before,
-.input--checkbox:checked + label:before {
-  content: '';
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #333;
-  background: #fff;
-}
-
-.input--checkbox:not(:checked) + label:hover:before,
-.input--checkbox:checked + label:hover:before {
-  background-color: #f4f4f4;
-}
-
-.input--checkbox:not(:checked) + label:hover:after,
-.input--checkbox:checked + label:hover:after {
-  background-color: #314e8d;
-}
-
-.input--checkbox:not(:checked) + label:after,
-.input--checkbox:checked + label:after {
-  content: '';
-  width: 12px;
-  height: 12px;
-  background: #3859a0;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  line-height: 1.2;
-  -webkit-animation-name: check;
-  animation-name: check;
-  -webkit-animation-duration: 300ms;
-  animation-duration: 300ms;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
-  -webkit-animation-direction: normal;
-  animation-direction: normal;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
-.input--checkbox:not(:checked):focus + label:before,
-.input--checkbox:checked:focus + label:before {
-  background-color: #f4f4f4;
-}
-
-.input--checkbox:not(:checked):focus + label:after,
-.input--checkbox:checked:focus + label:after {
-  background-color: #314e8d;
-}
+  left: -9999px; }
+  .input--checkbox:not(:checked) + label, .input--checkbox:checked + label {
+    cursor: pointer;
+    position: relative;
+    padding-left: 24px; }
+    .input--checkbox:not(:checked) + label:before, .input--checkbox:checked + label:before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #333;
+      background: #fff; }
+    .input--checkbox:not(:checked) + label:hover:before, .input--checkbox:checked + label:hover:before {
+      background-color: #f4f4f4; }
+    .input--checkbox:not(:checked) + label:hover:after, .input--checkbox:checked + label:hover:after {
+      background-color: #314e8d; }
+    .input--checkbox:not(:checked) + label:after, .input--checkbox:checked + label:after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #3859a0;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      line-height: 1.2;
+      -webkit-animation-name: check;
+              animation-name: check;
+      -webkit-animation-duration: 300ms;
+              animation-duration: 300ms;
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+      -webkit-animation-direction: normal;
+              animation-direction: normal;
+      -webkit-animation-iteration-count: 1;
+              animation-iteration-count: 1;
+      -webkit-animation-fill-mode: forwards;
+              animation-fill-mode: forwards; }
+  .input--checkbox:not(:checked):focus + label:before, .input--checkbox:checked:focus + label:before {
+    background-color: #f4f4f4; }
+  .input--checkbox:not(:checked):focus + label:after, .input--checkbox:checked:focus + label:after {
+    background-color: #314e8d; }
 
 .input--checkbox:not(:checked) + label:after {
-  display: none;
-}
+  display: none; }
 
 .input--checkbox:checked + label:after {
-  display: block;
-}
+  display: block; }
 
-.input--checkbox[disabled]:not(:checked) + label,
-.input--checkbox[disabled]:checked + label {
-  color: #ccc;
-}
-
-.input--checkbox[disabled]:not(:checked) + label:before,
-.input--checkbox[disabled]:checked + label:before {
-  background-color: #aaa;
-}
-
-.input--checkbox[disabled]:not(:checked) + label:after,
-.input--checkbox[disabled]:checked + label:after {
-  color: #eee;
-  background-color: #ddd;
-}
+.input--checkbox[disabled]:not(:checked) + label, .input--checkbox[disabled]:checked + label {
+  color: #ccc; }
+  .input--checkbox[disabled]:not(:checked) + label:before, .input--checkbox[disabled]:checked + label:before {
+    background-color: #aaa; }
+  .input--checkbox[disabled]:not(:checked) + label:after, .input--checkbox[disabled]:checked + label:after {
+    color: #eee;
+    background-color: #ddd; }
 
 .input--checkbox:not(:checked) + label.checkbox-right,
 .input--checkbox:checked + label.checkbox-right {
   padding-left: 0;
-  padding-right: 20px;
-}
-
-.input--checkbox:not(:checked) + label.checkbox-right:before,
-.input--checkbox:checked + label.checkbox-right:before {
-  left: auto;
-  right: 0;
-}
-
-.input--checkbox:not(:checked) + label.checkbox-right:after,
-.input--checkbox:checked + label.checkbox-right:after {
-  left: auto;
-  right: 2px;
-}
+  padding-right: 20px; }
+  .input--checkbox:not(:checked) + label.checkbox-right:before,
+  .input--checkbox:checked + label.checkbox-right:before {
+    left: auto;
+    right: 0; }
+  .input--checkbox:not(:checked) + label.checkbox-right:after,
+  .input--checkbox:checked + label.checkbox-right:after {
+    left: auto;
+    right: 2px; }
 
 .input--checkbox:not(:checked) + label.label-hidden,
 .input--checkbox:checked + label.label-hidden {
-  margin-right: 0;
-}
-
-.input--checkbox:not(:checked) + label.label-hidden span,
-.input--checkbox:checked + label.label-hidden span {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
-}
+  margin-right: 0; }
+  .input--checkbox:not(:checked) + label.label-hidden span,
+  .input--checkbox:checked + label.label-hidden span {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden; }
 
 @-webkit-keyframes check {
   from {
     -webkit-transform: scale(0);
-    transform: scale(0);
-    border-radius: 50%;
-  }
-
+            transform: scale(0);
+    border-radius: 50%; }
   50% {
     -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    border-radius: 50%;
-  }
-
+            transform: scale(1.1);
+    border-radius: 50%; }
   to {
     -webkit-transform: scale(1);
-    transform: scale(1);
-    border-radius: 2px;
-  }
-}
+            transform: scale(1);
+    border-radius: 2px; } }
 
 @keyframes check {
   from {
     -webkit-transform: scale(0);
-    transform: scale(0);
-    border-radius: 50%;
-  }
-
+            transform: scale(0);
+    border-radius: 50%; }
   50% {
     -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    border-radius: 50%;
-  }
-
+            transform: scale(1.1);
+    border-radius: 50%; }
   to {
     -webkit-transform: scale(1);
-    transform: scale(1);
-    border-radius: 2px;
-  }
-}
+            transform: scale(1);
+    border-radius: 2px; } }
 
-.input--radio:not(:checked),
-.input--radio:checked {
+.input--radio:not(:checked), .input--radio:checked {
   position: absolute;
-  left: -9999px;
-}
-
-.input--radio:not(:checked) + label,
-.input--radio:checked + label {
-  cursor: pointer;
-  position: relative;
-  padding-left: 24px;
-}
-
-.input--radio:not(:checked) + label:before,
-.input--radio:checked + label:before {
-  content: '';
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #333;
-  background: #fff;
-}
-
-.input--radio:not(:checked) + label:hover:before,
-.input--radio:checked + label:hover:before {
-  background-color: #f4f4f4;
-}
-
-.input--radio:not(:checked) + label:hover:after,
-.input--radio:checked + label:hover:after {
-  background-color: #314e8d;
-}
-
-.input--radio:not(:checked) + label:after,
-.input--radio:checked + label:after {
-  content: '';
-  width: 12px;
-  height: 12px;
-  background: #3859a0;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  line-height: 1.2;
-  -webkit-animation-name: check;
-  animation-name: check;
-  -webkit-animation-duration: 300ms;
-  animation-duration: 300ms;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
-  -webkit-animation-direction: normal;
-  animation-direction: normal;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
-.input--radio:not(:checked):focus + label:before,
-.input--radio:checked:focus + label:before {
-  background-color: #f4f4f4;
-}
-
-.input--radio:not(:checked):focus + label:after,
-.input--radio:checked:focus + label:after {
-  background-color: #314e8d;
-}
+  left: -9999px; }
+  .input--radio:not(:checked) + label, .input--radio:checked + label {
+    cursor: pointer;
+    position: relative;
+    padding-left: 24px; }
+    .input--radio:not(:checked) + label:before, .input--radio:checked + label:before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border: 1px solid #333;
+      background: #fff; }
+    .input--radio:not(:checked) + label:hover:before, .input--radio:checked + label:hover:before {
+      background-color: #f4f4f4; }
+    .input--radio:not(:checked) + label:hover:after, .input--radio:checked + label:hover:after {
+      background-color: #314e8d; }
+    .input--radio:not(:checked) + label:after, .input--radio:checked + label:after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #3859a0;
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      line-height: 1.2;
+      -webkit-animation-name: check;
+              animation-name: check;
+      -webkit-animation-duration: 300ms;
+              animation-duration: 300ms;
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+      -webkit-animation-direction: normal;
+              animation-direction: normal;
+      -webkit-animation-iteration-count: 1;
+              animation-iteration-count: 1;
+      -webkit-animation-fill-mode: forwards;
+              animation-fill-mode: forwards; }
+  .input--radio:not(:checked):focus + label:before, .input--radio:checked:focus + label:before {
+    background-color: #f4f4f4; }
+  .input--radio:not(:checked):focus + label:after, .input--radio:checked:focus + label:after {
+    background-color: #314e8d; }
 
 .input--radio:not(:checked) + label:after {
-  display: none;
-}
+  display: none; }
 
 .input--radio:checked + label:after {
-  display: block;
-}
+  display: block; }
 
-.input--radio[disabled]:not(:checked) + label,
-.input--radio[disabled]:checked + label {
-  color: #ccc;
-}
-
-.input--radio[disabled]:not(:checked) + label:before,
-.input--radio[disabled]:checked + label:before {
-  background-color: #aaa;
-}
-
-.input--radio[disabled]:not(:checked) + label:after,
-.input--radio[disabled]:checked + label:after {
-  color: #eee;
-  background-color: #ddd;
-}
+.input--radio[disabled]:not(:checked) + label, .input--radio[disabled]:checked + label {
+  color: #ccc; }
+  .input--radio[disabled]:not(:checked) + label:before, .input--radio[disabled]:checked + label:before {
+    background-color: #aaa; }
+  .input--radio[disabled]:not(:checked) + label:after, .input--radio[disabled]:checked + label:after {
+    color: #eee;
+    background-color: #ddd; }
 
 .input--radio:not(:checked) + label.checkbox-right,
 .input--radio:checked + label.checkbox-right {
   padding-left: 0;
-  padding-right: 20px;
-}
-
-.input--radio:not(:checked) + label.checkbox-right:before,
-.input--radio:checked + label.checkbox-right:before {
-  left: auto;
-  right: 0;
-}
-
-.input--radio:not(:checked) + label.checkbox-right:after,
-.input--radio:checked + label.checkbox-right:after {
-  left: auto;
-  right: 2px;
-}
+  padding-right: 20px; }
+  .input--radio:not(:checked) + label.checkbox-right:before,
+  .input--radio:checked + label.checkbox-right:before {
+    left: auto;
+    right: 0; }
+  .input--radio:not(:checked) + label.checkbox-right:after,
+  .input--radio:checked + label.checkbox-right:after {
+    left: auto;
+    right: 2px; }
 
 .input--radio:not(:checked) + label.label-hidden,
 .input--radio:checked + label.label-hidden {
-  margin-right: 0;
-}
-
-.input--radio:not(:checked) + label.label-hidden span,
-.input--radio:checked + label.label-hidden span {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
-}
+  margin-right: 0; }
+  .input--radio:not(:checked) + label.label-hidden span,
+  .input--radio:checked + label.label-hidden span {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden; }
 
 @keyframes check {
   from {
     -webkit-transform: scale(0);
-    transform: scale(0);
-    border-radius: 50%;
-  }
-
+            transform: scale(0);
+    border-radius: 50%; }
   50% {
     -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    border-radius: 50%;
-  }
-
+            transform: scale(1.1);
+    border-radius: 50%; }
   to {
     -webkit-transform: scale(1);
-    transform: scale(1);
-    border-radius: 2px;
-  }
-}
+            transform: scale(1);
+    border-radius: 2px; } }
 
-.input--radio:not(:checked) + label:before,
-.input--radio:checked + label:before {
-  border-radius: 50%;
-}
+.input--radio:not(:checked) + label:before, .input--radio:checked + label:before {
+  border-radius: 50%; }
 
-.input--radio:not(:checked) + label:after,
-.input--radio:checked + label:after {
+.input--radio:not(:checked) + label:after, .input--radio:checked + label:after {
   border-radius: 50%;
   -webkit-animation-name: check-radio;
-  animation-name: check-radio;
-}
+          animation-name: check-radio; }
 
 @-webkit-keyframes check-radio {
   from {
     -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-
+            transform: scale(0); }
   50% {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-
+            transform: scale(1.2); }
   to {
     -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
+            transform: scale(1); } }
 
 @keyframes check-radio {
   from {
     -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-
+            transform: scale(0); }
   50% {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-
+            transform: scale(1.2); }
   to {
     -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
+            transform: scale(1); } }
 
 .input--select {
   max-width: 100%;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   padding: 5px 10px;
   border: 1px solid #333;
   border-radius: 0;
   color: #333;
   background-image: url("../img/select-arrows.png");
   background-repeat: no-repeat;
-  background-position: 95% 50%;
-}
-
-.input--select::-ms-expand {
-  display: none;
-}
+  background-position: 95% 50%; }
+  .input--select::-ms-expand {
+    display: none; }
 
 .btn {
   margin: 0;
@@ -1386,21 +1083,15 @@ a:active {
   text-align: left;
   line-height: 1.2;
   font-size: inherit;
-  font-family: inherit;
-}
-
-.btn:hover,
-.btn:focus,
-.btn:active {
-  text-decoration: none;
-}
+  font-family: inherit; }
+  .btn:hover, .btn:focus, .btn:active {
+    text-decoration: none; }
 
 .btn--wide {
   display: block;
   width: 100%;
   float: none;
-  text-align: center;
-}
+  text-align: center; }
 
 .modal {
   position: fixed;
@@ -1413,28 +1104,21 @@ a:active {
   transition: -webkit-transform 200ms;
   -o-transition: transform 200ms;
   transition: transform 200ms;
-  transition: transform 200ms, -webkit-transform 200ms;
-}
-
-.modal.is-visible {
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
+  transition: transform 200ms, -webkit-transform 200ms; }
+  .modal.is-visible {
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0); }
 
 .modal__title {
   margin: 20px 0 10px;
   font-size: 2rem;
   font-weight: 300;
-  text-align: left;
-}
-
-.modal__title:first-child {
-  margin-top: 0;
-}
+  text-align: left; }
+  .modal__title:first-child {
+    margin-top: 0; }
 
 .modal__inner {
-  padding: 20px 10px;
-}
+  padding: 20px 10px; }
 
 .btn-close {
   margin: 0;
@@ -1451,77 +1135,56 @@ a:active {
   height: 30px;
   text-align: center;
   font-size: 1rem;
-  line-height: 1;
-}
-
-.btn-close:before {
-  content: 'X';
-  color: #fff;
-}
-
-.btn-close span {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
-}
+  line-height: 1; }
+  .btn-close:before {
+    content: 'X';
+    color: #fff; }
+  .btn-close span {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden; }
 
 .main-header {
   display: flow-root;
   text-align: center;
-  padding: 10px;
-}
-
-.main-header:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.main-header .btn {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 10px;
-}
+  padding: 10px; }
+  .main-header:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .main-header .btn {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px; }
 
 .main-title {
   display: inline-block;
-  vertical-align: middle;
-}
+  vertical-align: middle; }
 
 .main-footer {
-  display: flow-root;
-}
-
-.main-footer:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+  display: flow-root; }
+  .main-footer:after {
+    content: "";
+    display: table;
+    clear: both; }
 
 .score {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-gap: 0;
   margin: 20px 0 300px;
-  font-size: 2rem;
-}
-
-@media only screen and (min-width: 30em) {
-  .score {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 2rem;
-  }
-}
-
-@media only screen and (min-width: 62em) {
-  .score {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+  font-size: 2rem; }
+  @media only screen and (min-width: 30em) {
+    .score {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 2rem; } }
+  @media only screen and (min-width: 62em) {
+    .score {
+      grid-template-columns: repeat(3, 1fr); } }
 
 .score__row {
   position: relative;
@@ -1532,37 +1195,29 @@ a:active {
   transition: -webkit-filter 300ms;
   -o-transition: filter 300ms;
   transition: filter 300ms;
-  transition: filter 300ms, -webkit-filter 300ms;
-}
-
-.modal-open .score__row:not(.score__row--is-active) {
-  -webkit-filter: blur(3px);
-  filter: blur(3px);
-}
-
-.score__row > div {
-  padding: 10px;
-}
+  transition: filter 300ms, -webkit-filter 300ms; }
+  .modal-open .score__row:not(.score__row--is-active) {
+    -webkit-filter: blur(3px);
+            filter: blur(3px); }
+  .score__row > div {
+    padding: 10px; }
 
 .score__name {
   grid-row: 1 / 2;
   grid-column: 1 / 7;
   font-weight: 300;
   font-size: 1.6em;
-  line-height: 1.1;
-}
+  line-height: 1.1; }
 
 .score__total {
   grid-row: 1 / 2;
-  grid-column: 7 / 13;
-}
+  grid-column: 7 / 13; }
 
 .score__action {
   grid-row: 2 / 3;
   grid-column: 1 / 13;
   text-align: center;
-  background: rgba(0, 0, 0, 0.4);
-}
+  background: rgba(0, 0, 0, 0.4); }
 
 .score__btn {
   margin: 0;
@@ -1578,27 +1233,21 @@ a:active {
   text-align: right;
   font-size: 4em;
   line-height: 1;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .anim-bounce {
   -webkit-animation: bounce 100ms ease-in 2 alternate forwards;
-  animation: bounce 100ms ease-in 2 alternate forwards;
-}
+          animation: bounce 100ms ease-in 2 alternate forwards; }
 
 @-webkit-keyframes bounce {
   to {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-}
+            transform: scale(1.2); } }
 
 @keyframes bounce {
   to {
     -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-}
+            transform: scale(1.2); } }
 
 .btn {
   margin: 0;
@@ -1609,36 +1258,25 @@ a:active {
   font-size: 1.4em;
   border-radius: 5px;
   text-align: center;
-  color: #fff;
-}
-
-.btn:not(:last-child) {
-  margin-right: 5px;
-}
-
-@media only screen and (min-width: 62em) {
-  .btn {
-    font-size: 2em;
-  }
-}
-
-.score__action .btn {
-  width: 2em;
-}
+  color: #fff; }
+  .btn:not(:last-child) {
+    margin-right: 5px; }
+  @media only screen and (min-width: 62em) {
+    .btn {
+      font-size: 2em; } }
+  .score__action .btn {
+    width: 2em; }
 
 .btn--zero {
-  background: #ff6e69;
-}
+  background: #ff6e69; }
 
 .btn--cancel {
   background: #ccc;
-  color: #555;
-}
+  color: #555; }
 
 .btn--submit {
   background: #3859a0;
-  color: #fff;
-}
+  color: #fff; }
 
 .modal-add input {
   display: inline-block;
@@ -1651,21 +1289,15 @@ a:active {
   margin: 0 20px 0 0;
   padding: 0 10px;
   width: 140px;
-  text-align: center;
-}
+  text-align: center; }
 
 .modal-add .btn--submit {
-  margin-right: 20px;
-}
+  margin-right: 20px; }
 
 .modal-add .btn--plus-x {
-  width: 5rem;
-}
+  width: 5rem; }
 
 .qr-code {
-  text-align: center;
-}
-
-.qr-code img {
-  max-width: 200px;
-}
+  text-align: center; }
+  .qr-code img {
+    max-width: 200px; }
