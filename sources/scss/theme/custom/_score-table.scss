@@ -8,11 +8,11 @@
 
   @include mq-from('xs') {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
   }
 
-  @include mq-from('sm') {
+  @include mq-from('md') {
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
   }
 }
 
@@ -34,7 +34,7 @@
 
 .score__name {
   grid-row: 1 / 2;
-  grid-column: 1 / 8;
+  grid-column: 1 / 7;
   font-weight: 300;
   font-size: 1.6em;
   line-height: 1.1;
@@ -42,7 +42,7 @@
 
 .score__total {
   grid-row: 1 / 2;
-  grid-column: 8 / 13;
+  grid-column: 7 / 13;
 }
 
 .score__action {

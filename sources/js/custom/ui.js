@@ -46,11 +46,8 @@ app.updateScore = function(value) {
   if (value == 0)
     total = 0;
 
-  $score.text(total).addClass('anim-bounce');
-
-  window.setTimeout(function() {
-    $score.removeClass('anim-bounce');
-  }, 150);
+  $score.text(total);
+  app.bounceAnim($score);
 
   // Update database.
   app.updateScoreDB(app.currentPlayerId, total);
@@ -174,5 +171,39 @@ app.addScore = function() {
     app.updateScore(0);
 
   });
+
+  // Reset all scores.
+  $body.on('click', 'button[data-init="init-score-all"]', function(event) {
+
+    $('.score__row').each(function() {
+
+      var playerId = $(this).attr('data-score-player-id');
+      var $score = $(this).find('.score__btn');
+
+      $score.text(0);
+      app.bounceAnim($score);
+
+      // Update database.
+      app.updateScoreDB(playerId, 0);
+
+    });
+
+  });
+
+};
+
+
+/**
+ * Launch "bounce" animation, then remove the class.
+ *
+ * @param {Object} element - DOM element
+ */
+app.bounceAnim = function($element) {
+
+  $element.addClass('anim-bounce');
+
+  window.setTimeout(function() {
+    $element.removeClass('anim-bounce');
+  }, 150);
 
 };
