@@ -1,0 +1,19 @@
+{
+  "name": "Score",
+  "short_name": "Score",
+  "description": "L'application pour compter les scores entre amis !",
+  "start_url": "./?utm_source=web_app_manifest",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/img/apple-touch-icon.png",
+    "sizes": "180x180",
+    "type": "image/png"
+  },
+  {
+    "src": "assets/img/512.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#3859a0",
+  "theme_color": "#512DA8"
+}

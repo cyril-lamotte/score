@@ -29,14 +29,13 @@ var paths = {
   fonts:        'sources/fonts/',
   img_src:      'sources/img/',
   js_src:       'sources/js/',
-  data:         'sources/data/',
+  root:         'sources/root/',
 
   dist:         'dist/',
   js:           'dist/assets/js/',
   css:          'dist/assets/css/',
   img:          'dist/assets/img/',
-  assets_fonts: 'dist/assets/fonts/',
-  assets_data:  'dist/data/'
+  assets_fonts: 'dist/assets/fonts/'
 };
 
 try {
@@ -61,9 +60,7 @@ try {
       imagemin         = require('gulp-imagemin'),       // Images optimisation.
       rename           = require("gulp-rename"),         // Rename files.
       concat           = require('gulp-concat-util'),    // Concat files.
-      bless            = require('gulp-bless'),          // Detect number of CSS selector (to FIX IE9).
-      sftp             = require('gulp-sftp'),           // SFTP.
-      webserver        = require('gulp-webserver');      // Webserver.
+      sftp             = require('gulp-sftp');           // SFTP.
 
   var browserSync = require('browser-sync').create();
 
@@ -104,12 +101,6 @@ gulp.task('build-css', function() {
     .pipe(sass())
     .on('error', onError)
     .pipe(postcss([ autoprefixer({ browsers: ['last 3 versions', '> 1%'] }) ]))
-    //.pipe(sourcemaps.write())
-    .pipe(bless({
-      log: true,
-      imports: false,
-      suffix: '-part-'
-    }))
     //.pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.css))
     .pipe(browserSync.stream());
@@ -213,6 +204,10 @@ gulp.task('statics', function() {
   gulp.src(paths.js_src + '**')
     .pipe(gulp.dest(paths.js));
 
+  // Copy statics data.
+  gulp.src(paths.root + '**')
+    .pipe(gulp.dest(paths.dist));
+
   // Copy statics fonts.
   return gulp.src(paths.fonts + '**')
     .pipe(gulp.dest(paths.assets_fonts));
@@ -229,15 +224,6 @@ gulp.task('images', function() {
       'verbose' : false
     }))
     .pipe(gulp.dest(paths.img));
-
-});
-
-// Copy data ressources.
-gulp.task('data', function() {
-
-  // Copy data.
-  return gulp.src(paths.data + '**')
-    .pipe(gulp.dest(paths.assets_data));
 
 });
 
@@ -288,15 +274,6 @@ gulp.task('jshint', function() {
    Server
 ============================================================================= */
 
-gulp.task('webserver', function() {
-  gulp.src('.')
-    .pipe(webserver({
-      port: 8000,
-      path: '/',
-      directoryListing: true
-    }));
-});
-
 // Static server.
 gulp.task('browser-sync', function() {
   browserSync.init({
@@ -329,7 +306,6 @@ gulp.task('archive', function () {
 // Remove files for a fresh start.
 gulp.task('clean', function() {
   return del([
-    'dist/**/*',
     'dist/'
   ]);
 });
@@ -338,13 +314,9 @@ gulp.task('clean', function() {
 // Remove files for a fresh start.
 gulp.task('deploy', function() {
 
-  return gulp.src(paths.dist + '/**')
-    .pipe(sftp({
-      host:     'host',
-      user:     'username',
-      password: 'password',
-      remotePath: project.ftpPath
-    }));
+  // Copy to web.
+  gulp.src(paths.dist + '**')
+    .pipe(gulp.dest('../score-ghpages/'));
 
 });
 
@@ -355,7 +327,7 @@ gulp.task('deploy', function() {
 ============================================================================= */
 
 // Init.
-gulp.task('start', ['statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'lint-css', 'data', 'webserver', 'browser-sync']);
+gulp.task('start', ['statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'lint-css', 'browser-sync']);
 
 // Watch.
 gulp.task('watch', function() {
@@ -377,9 +349,6 @@ gulp.task('watch', function() {
 
   gulp.watch(paths.js_src + '**/*.js', ['jshint']);
   gulp.watch(paths.sprites + '*.png', ['sprites']);
-
-  // Copy json data.
-  //gulp.watch(paths.data + '*.json', ['data']);
 
 });
 
