@@ -641,6 +641,7 @@ img {
 
 .actions {
   display: table;
+  table-layout: fixed;
   width: 100%; }
 
 .actions__item {
@@ -1177,7 +1178,8 @@ a {
   .main-header .btn {
     display: inline-block;
     vertical-align: middle;
-    margin-left: 10px; }
+    margin-left: 10px;
+    width: 50px; }
 
 .main-title {
   display: inline-block;
