@@ -646,7 +646,9 @@ img {
 .actions__item {
   display: table-cell;
   vertical-align: middle;
-  width: 1%; }
+  width: 50%; }
+  .actions--gutter .actions__item {
+    padding: 0 5px; }
 
 ::-moz-selection {
   background-color: #3859a0;
@@ -767,7 +769,7 @@ a {
           appearance: none;
   padding: 5px 10px;
   border: 1px solid #3859a0;
-  border-radius: 0;
+  border-radius: 5px;
   color: #3859a0;
   height: 5rem;
   font-size: 2rem;
@@ -801,7 +803,7 @@ a {
           appearance: none;
   padding: 5px 10px;
   border: 1px solid #3859a0;
-  border-radius: 0;
+  border-radius: 5px;
   color: #3859a0;
   height: 5rem;
   font-size: 2rem;
@@ -1121,18 +1123,10 @@ a {
   background: #c00000;
   color: #fff; }
 
-.btn--cancel {
-  background: #ccc;
-  color: #555; }
-
-.btn--submit {
-  background: #3859a0;
-  color: #fff; }
-
 .modal {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.85);
-  color: #3859a0;
+  color: #000;
   left: 0;
   top: 100%;
   right: 0;
@@ -1164,26 +1158,13 @@ a {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #3859a0;
-  border: 1px solid #3859a0;
+  background: none;
+  border: 1px solid #000;
   padding: 10px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  border-radius: 5px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 1; }
-  .btn-close:before {
-    content: 'X';
-    color: #fff; }
-  .btn-close span {
-    position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    padding: 0 !important;
-    border: 0 !important;
-    height: 1px !important;
-    width: 1px !important;
-    overflow: hidden; }
 
 .main-header {
   display: flow-root;
@@ -1301,14 +1282,10 @@ a {
 
 .modal-add .input--text {
   margin: 0 20px 0 0;
-  width: 140px;
-  text-align: center; }
+  width: 100%; }
 
-.modal-add .btn--submit {
-  margin-right: 20px; }
-
-.modal-add .btn--plus-x {
-  width: 5rem; }
+.modal-add .btn {
+  width: 100%; }
 
 .qr-code {
   text-align: center; }

@@ -169,10 +169,16 @@ app.addScore = function() {
     app.setPlayerId($(this));
     app.updateScore(0);
 
+    // Close modal.
+    app.toggleModal('modal-add');
+
   });
 
   // Reset all scores.
   $body.on('click', 'button[data-init="init-score-all"]', function(event) {
+
+    // Close modal.
+    app.toggleModal('modal-menu');
 
     $('.score__row').each(function() {
 
