@@ -19,13 +19,12 @@ app.insertPlayer = function(player, playerid) {
       '<div data-score-player-id="' + playerid + '" class="score__row">' +
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
       '  <div class="score__total">' +
-      '    <button type="button" class="score__btn" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
+      '    <button type="button" class="score__btn" data-init="add-score" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
       '  </div>' +
       '  <div class="score__action">' +
       '    <div class="score__action-inner">' +
-      '      <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button>' +
-      '      <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button>' +
-      '      <button type="button" class="btn btn--plus-x" data-init="add-score">&hellip;</button>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button></div>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button></div>' +
       '    </div>' +
       '  </div>' +
       '</div>'

@@ -639,6 +639,15 @@ img {
     display: table;
     clear: both; }
 
+.actions {
+  display: table;
+  width: 100%; }
+
+.actions__item {
+  display: table-cell;
+  vertical-align: middle;
+  width: 1%; }
+
 ::-moz-selection {
   background-color: #3859a0;
   color: #fff; }
@@ -757,9 +766,12 @@ a {
      -moz-appearance: none;
           appearance: none;
   padding: 5px 10px;
-  border: 1px solid #333;
+  border: 1px solid #3859a0;
   border-radius: 0;
-  color: #333; }
+  color: #3859a0;
+  height: 5rem;
+  font-size: 2rem;
+  background: #fff; }
   .input--text::-ms-clear {
     display: none; }
   .input--text.placeholder {
@@ -788,9 +800,12 @@ a {
      -moz-appearance: none;
           appearance: none;
   padding: 5px 10px;
-  border: 1px solid #333;
+  border: 1px solid #3859a0;
   border-radius: 0;
-  color: #333;
+  color: #3859a0;
+  height: 5rem;
+  font-size: 2rem;
+  background: #fff;
   min-height: 5em;
   overflow: auto;
   vertical-align: top;
@@ -1083,9 +1098,18 @@ a {
   text-align: left;
   line-height: 1.2;
   font-size: inherit;
-  font-family: inherit; }
+  font-family: inherit;
+  background: #2b447a;
+  padding: 15px 10px;
+  font-size: 1.4em;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff; }
   .btn:hover, .btn:focus, .btn:active {
     text-decoration: none; }
+  @media only screen and (min-width: 62em) {
+    .btn {
+      font-size: 2em; } }
 
 .btn--wide {
   display: block;
@@ -1093,10 +1117,22 @@ a {
   float: none;
   text-align: center; }
 
+.btn--zero {
+  background: #c00000;
+  color: #fff; }
+
+.btn--cancel {
+  background: #ccc;
+  color: #555; }
+
+.btn--submit {
+  background: #3859a0;
+  color: #fff; }
+
 .modal {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #3859a0;
   left: 0;
   top: 100%;
   right: 0;
@@ -1128,8 +1164,8 @@ a {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
-  border: 1px solid #fff;
+  background: #3859a0;
+  border: 1px solid #3859a0;
   padding: 10px;
   border-radius: 50%;
   width: 30px;
@@ -1208,7 +1244,7 @@ a {
   grid-column: 1 / 7;
   font-weight: 300;
   font-size: 1.6em;
-  line-height: 1.1; }
+  line-height: 8rem; }
 
 .score__total {
   grid-row: 1 / 2;
@@ -1219,6 +1255,19 @@ a {
   grid-column: 1 / 13;
   text-align: center;
   background: rgba(0, 0, 0, 0.4); }
+
+.score__action-inner {
+  display: table;
+  width: 100%;
+  text-align: left; }
+
+.action__item {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 10px; }
+  .action__item .btn--large {
+    width: 100%;
+    padding: 20px; }
 
 .score__btn {
   margin: 0;
@@ -1250,46 +1299,8 @@ a {
     -webkit-transform: scale(1.2);
             transform: scale(1.2); } }
 
-.btn {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: #2b447a;
-  padding: 15px 10px;
-  font-size: 1.4em;
-  border-radius: 5px;
-  text-align: center;
-  color: #fff; }
-  .btn:not(:last-child) {
-    margin-right: 5px; }
-  @media only screen and (min-width: 62em) {
-    .btn {
-      font-size: 2em; } }
-  .score__action .btn {
-    width: 2em; }
-
-.btn--zero {
-  background: #c00000;
-  color: #fff; }
-
-.btn--cancel {
-  background: #ccc;
-  color: #555; }
-
-.btn--submit {
-  background: #3859a0;
-  color: #fff; }
-
-.modal-add input {
-  display: inline-block;
-  vertical-align: middle;
-  font-size: 2rem;
-  background: #fff;
-  border: 1px solid #3859a0;
-  color: #3859a0;
-  height: 5rem;
+.modal-add .input--text {
   margin: 0 20px 0 0;
-  padding: 0 10px;
   width: 140px;
   text-align: center; }
 
