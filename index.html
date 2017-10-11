@@ -108,26 +108,7 @@
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
-      .then(function(reg){
-
-
-        this.addEventListener('install', function(event) {
-          console.log('install');
-          event.waitUntil(
-
-            caches.open('v1').then(function(cache) {
-              return cache.addAll([
-                '/',
-                '/index.html',
-                '/assets/css/style.css',
-                '/assets/js/app.js'
-              ]);
-            })
-          );
-        });
-
-
-      }).catch(function(err) {
+      .then(function(reg){}).catch(function(err) {
         //console.log("No it didn't. This happened: ", err)
       });
   }
