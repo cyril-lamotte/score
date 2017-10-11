@@ -62,15 +62,16 @@ Appliquer ce style pour obtenir un bouton stylé.
 */
 @mixin btn {
   @include btn-default;
+  background: darken($blue, 10%);
+  padding: 15px 10px;
+  font-size: 1.4em;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
 
-  //@include hover {
-
-  //}
-
-  // Pushed
-  //&:active {
-
-  //}
+  @include mq-from('md') {
+    font-size: 2em;
+  }
 
 }
 

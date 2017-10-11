@@ -22,49 +22,12 @@
 .input--select     { @include select; }
 
 
-// Apply default formating to a form.
-//
-// form {
-//   @include form;
-// }
-@mixin form {
-
-  label {
-    @extend .label--block;
-  }
-
-  input[type="text"],
-  input[type="password"] {
-    @extend .input--text;
-  }
-
-  textarea {
-    @extend textarea;
-  }
-
-  .form__item {
-    @extend .form__row;
-  }
-
-  .form__submit {
-    @extend .btn;
-  }
-
-  input[type="radio"] {
-    @extend .input--radio;
-  }
-
-  input[type="checkbox"] {
-    @extend .input--checkbox;
-  }
-
-  select {
-    @extend .input--select;
-  }
-
-}
-
 
 // Buttons.
 .btn       { @include btn; }
 .btn--wide { @include btn--wide; }
+
+.btn--zero {
+  background: $red;
+  color: #fff;
+}

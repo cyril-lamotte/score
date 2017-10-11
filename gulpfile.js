@@ -336,6 +336,7 @@ gulp.task('watch', function() {
   gulp.watch([
     paths.fonts + '**/*',
     paths.img_src + '**/*',
+    paths.js_src + '**/*.js',
     paths.root + '**/*.js'
   ], ['images', 'statics']);
 

@@ -10,3 +10,21 @@
   max-width: $max-site-width;
   margin: 0 auto;
 }
+
+
+
+.actions {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.actions__item {
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+
+  .actions--gutter & {
+    padding: 0 5px;
+  }
+}

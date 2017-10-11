@@ -32,9 +32,11 @@ $(function() {
   app.addScore();
   app.closeModal();
 
+  app.managePlayers();
+
 
   $body.on('keyup', '.score__name', function(event) {
-    app.getPlayerId($(this));
+    app.setPlayerId($(this));
     app.updatePlayerName($(this).text());
   });
 

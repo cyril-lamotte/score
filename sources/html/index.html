@@ -20,8 +20,11 @@
 
       <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
 
+      <h2 class="modal__title">Listes des joueurs</h2>
+      <button type="button" class="btn btn--zero btn--wide" data-init="remove-players">Retirer des joueurs</button>
+
       <h2 class="modal__title">Réinitialiser</h2>
-      <button type="button" class="btn btn--zero" data-init="init-score-all">Mise à zéro pour tous les joueurs</button>
+      <button type="button" class="btn btn--zero btn--wide" data-init="init-score-all">Mise à zéro pour tous les joueurs</button>
 
       <h2 class="modal__title">Partager l'application</h2>
       <div class="qr-code">
@@ -40,17 +43,21 @@
 
       <h2 class="modal__title">Ajouter un score</h2>
 
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="-1">-1</button>
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="1">+1</button>
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="5">+5</button>
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="10">+10</button>
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button>
-      <button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button>
+      <div class="actions actions--gutter">
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="-1">-1</button></div>
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="1">+1</button></div>
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="5">+5</button></div>
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="10">+10</button></div>
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button></div>
+        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button></div>
+      </div>
 
       <h2 class="modal__title" id="add-custom-score">Ajouter un score personnalisé</h2>
 
-      <input type="number" name="add" id="add" value="" placeholder="ex : 8, 12, 42..." aria-labelledby="add-custom-score">
-      <button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">+ Ajouter</button>
+      <div class="actions actions--gutter">
+        <div class="actions__item"><input type="number" class="input--text" name="add" id="add" value="" placeholder="ex : 8, 12, 42..." aria-labelledby="add-custom-score"></div>
+        <div class="actions__item"><button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">Ajouter</button></div>
+      </div>
 
 
       <h2 class="modal__title">Réinitialiser</h2>

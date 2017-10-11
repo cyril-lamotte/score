@@ -1,8 +1,8 @@
 
 .modal {
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #000;
   left: 0;
   top: 100%;
   right: 0;
@@ -39,21 +39,20 @@
   top: 10px;
   right: 10px;
   background: none;
-  border: 1px solid #fff;
+  border: 1px solid #000;
   padding: 10px;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  border-radius: 5px;
+  //width: 30px;
+  //height: 30px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.4rem;
   line-height: 1;
 
-  &:before {
-    content: 'X';
-    color: #fff;
-  }
+  //&:before {
+  //  content: '';
+  //  color: #000;
+  //  font-weight: bold;
+  //}
 
-  span {
-    @include hide-text;
-  }
+
 }

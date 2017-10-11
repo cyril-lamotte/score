@@ -1,25 +1,13 @@
 
 .modal-add {
- 
-  input {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 2rem;
-    background: #fff;
-    border: 1px solid $blue;
-    color: $blue;
-    height: 5rem;
+
+  .input--text {
     margin: 0 20px 0 0;
-    padding: 0 10px;
-    width: 140px;
-    text-align: center;
+    width: 100%;
   }
 
-  .btn--submit {
-    margin-right: 20px;
-  }
-
-  .btn--plus-x {
-    width: 5rem;
+  .btn {
+    width: 100%;
   }
 }
+

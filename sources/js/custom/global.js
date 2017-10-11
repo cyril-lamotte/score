@@ -72,15 +72,22 @@ app.initData = function() {
 
   var defaultData = {};
   var playersData = [];
-  //var scoresData  = [];
+  var hidden  = false;
+
 
   // Data for default players.
   for (var i = 1; i <= 6; i++) {
+
+    if (i >= 5) {
+      hidden = true;
+    }
+
     playersData.push({
       'name': 'Joueur ' + i,
-      'score' : {
+      'score': {
         'total': 0
-      }
+      },
+      'hidden': hidden
     });
 
   }
@@ -190,9 +197,7 @@ app.updateScoreDB = function(playerId, score) {
       store.put(player, playerId).onsuccess = function(event) {};
 
     };
-
   };
-
 };
 
 
@@ -202,7 +207,7 @@ app.updateScoreDB = function(playerId, score) {
  */
 app.updatePlayerName = function(name) {
 
-  playerId = app.currentPlayerId;
+  var playerId = app.currentPlayerId;
 
   var request = app.openDB();
   request.onsuccess = function(event) {

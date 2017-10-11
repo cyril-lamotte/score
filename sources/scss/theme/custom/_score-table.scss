@@ -37,7 +37,11 @@
   grid-column: 1 / 7;
   font-weight: 300;
   font-size: 1.6em;
-  line-height: 1.1;
+  line-height: 8rem;
+
+  .overlay-remove-players & {
+    animation: shake 500ms ease-in infinite alternate forwards;
+  }
 }
 
 .score__total {
@@ -50,6 +54,23 @@
   grid-column: 1 / 13;
   text-align: center;
   background: rgba(0, 0, 0, 0.4);
+}
+
+.score__action-inner {
+  display: table;
+  width: 100%;
+  text-align: left;
+}
+
+.action__item {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 10px;
+
+  .btn--large {
+    width: 100%;
+    padding: 20px;
+  }
 }
 
 
@@ -80,39 +101,42 @@
 }
 
 
-.btn {
+
+.score__remove {
   @include reset-box-model;
-  background: darken($blue, 10%);
-  padding: 15px 10px;
-  font-size: 1.4em;
-  border-radius: 5px;
-  text-align: center;
-  color: #fff;
-
-  &:not(:last-child) {
-    margin-right: 5px;
-  }
-
-  @include mq-from('md') {
-    font-size: 2em;
-  }
-
-  .score__action & {
-    width: 2em;
-  }
-}
-
-.btn--zero {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
   background: $red;
+  border-radius: 10px;
   color: #fff;
+  padding: 10px 20px;
+
+  .overlay-remove-players & {
+    display: block;
+  }
+
 }
 
-.btn--cancel {
-  background: #ccc;
-  color: #555;
+// Scale after moving.
+@keyframes shake {
+  from {
+    transform: translate3d(2px, -2px, 0);
+  },
+  25% {
+    transform: translate3d(-2px, 2px, 0);
+  },
+  50% {
+    transform: translate3d(2px, 2px, 0);
+  },
+  to {
+    transform: translate3d(-2px, -2px, 0);
+  }
 }
 
-.btn--submit {
-  background: $brand;
-  color: #fff;
+
+.player__hidden {
+  display: none;
 }

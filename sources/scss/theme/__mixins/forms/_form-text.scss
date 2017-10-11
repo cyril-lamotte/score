@@ -31,9 +31,12 @@
 @mixin input {
   @include input--default;
   padding: 5px 10px;
-  border: 1px solid $inputs-borders;
-  border-radius: 0;
-  color: $base-color;
+  border: 1px solid $blue;
+  border-radius: 5px;
+  color: $blue;
+  height: 5rem;
+  font-size: 2rem;
+  background: #fff;
 }
 
 // Textarea theme.

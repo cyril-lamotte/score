@@ -14,18 +14,24 @@ app.checkCompatibility = function() {
 
 
 app.insertPlayer = function(player, playerid) {
+
+  var playerVisibility = ' player__visible';
+  if (player.hidden) {
+    playerVisibility = ' player__hidden';
+  }
+
   $('#score-table')
     .append(
-      '<div data-score-player-id="' + playerid + '" class="score__row">' +
+      '<div data-score-player-id="' + playerid + '" class="score__row' + playerVisibility + '">' +
+      '  <button type="button" class="score__remove" data-init="remove-player">Retirer</button>' +
       '  <div class="score__name" contenteditable="true">' + player.name + '</div>' +
       '  <div class="score__total">' +
-      '    <button type="button" class="score__btn" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
+      '    <button type="button" class="score__btn" data-init="add-score" id="score-player-' + playerid + '">' + player.score.total + '</button>' +
       '  </div>' +
       '  <div class="score__action">' +
       '    <div class="score__action-inner">' +
-      '      <button type="button" class="btn btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button>' +
-      '      <button type="button" class="btn btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button>' +
-      '      <button type="button" class="btn btn--plus-x" data-init="add-score">&hellip;</button>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button></div>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button></div>' +
       '    </div>' +
       '  </div>' +
       '</div>'
@@ -53,6 +59,7 @@ app.updateScore = function(value) {
   app.updateScoreDB(app.currentPlayerId, total);
 
 };
+
 
 
 /**
@@ -170,10 +177,16 @@ app.addScore = function() {
     app.setPlayerId($(this));
     app.updateScore(0);
 
+    // Close modal.
+    app.toggleModal('modal-add');
+
   });
 
   // Reset all scores.
   $body.on('click', 'button[data-init="init-score-all"]', function(event) {
+
+    // Close modal.
+    app.toggleModal('modal-menu');
 
     $('.score__row').each(function() {
 
@@ -206,4 +219,64 @@ app.bounceAnim = function($element) {
     $element.removeClass('anim-bounce');
   }, 150);
 
+};
+
+
+/**
+ * Add or remove players.
+ */
+app.managePlayers = function() {
+
+  var $body = $('body');
+
+  $('[data-init="remove-players"]').on('click', function (event) {
+    $body.addClass('overlay-remove-players');
+
+    // Close modal.
+    app.toggleModal('modal-menu');
+  });
+
+
+  $body.on('click', '[data-init="remove-player"]', function (event) {
+    app.setPlayerId($(this));
+    app.hidePlayer();
+  });
+
+};
+
+
+/**
+ * Hide player.
+ */
+app.hidePlayer = function() {
+
+  var $score = $('.score__row[data-score-player-id="' + app.currentPlayerId + '"');
+  $score.slideUp('fast');
+  app.saveHidePlayer();
+
+};
+
+
+/**
+ * Update player state.
+ */
+app.saveHidePlayer = function() {
+
+  var playerId = app.currentPlayerId;
+
+  var request = app.openDB();
+  request.onsuccess = function(event) {
+
+    var db = event.target.result;
+    var store = db.transaction('players', 'readwrite').objectStore('players');
+
+    store.get(parseInt(playerId)).onsuccess = function(event) {
+      var player = event.target.result;
+
+      player.hidden = true;
+
+      store.put(player, playerId).onsuccess = function(event) {};
+
+    };
+  };
 };
