@@ -1293,15 +1293,12 @@ a {
   from {
     -webkit-transform: translate3d(2px, -2px, 0);
             transform: translate3d(2px, -2px, 0); }
-  
   25% {
     -webkit-transform: translate3d(-2px, 2px, 0);
             transform: translate3d(-2px, 2px, 0); }
-  
   50% {
     -webkit-transform: translate3d(2px, 2px, 0);
             transform: translate3d(2px, 2px, 0); }
-  
   to {
     -webkit-transform: translate3d(-2px, -2px, 0);
             transform: translate3d(-2px, -2px, 0); } }
@@ -1310,21 +1307,44 @@ a {
   from {
     -webkit-transform: translate3d(2px, -2px, 0);
             transform: translate3d(2px, -2px, 0); }
-  
   25% {
     -webkit-transform: translate3d(-2px, 2px, 0);
             transform: translate3d(-2px, 2px, 0); }
-  
   50% {
     -webkit-transform: translate3d(2px, 2px, 0);
             transform: translate3d(2px, 2px, 0); }
-  
   to {
     -webkit-transform: translate3d(-2px, -2px, 0);
             transform: translate3d(-2px, -2px, 0); } }
 
 .player__hidden {
   display: none; }
+
+.btn--plus-1 {
+  height: 100px; }
+  .btn--plus-1:after, .btn--plus-1:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: #fff; }
+  .btn--plus-1:after {
+    -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+            transform: rotate(90deg); }
+
+.btn--minus-1 {
+  height: 100px; }
+  .btn--minus-1:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: #fff; }
 
 .modal-add .input--text {
   margin: 0 20px 0 0;

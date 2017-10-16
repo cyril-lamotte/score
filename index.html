@@ -59,6 +59,18 @@
     }
   </script>
 
+  <script>
+  // Images lazy loading.
+  window.addEventListener('load', function(){
+    var images = document.querySelectorAll('.js-lazy');
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].getAttribute('data-src')) {
+        images[i].setAttribute('src', images[i].getAttribute('data-src'));
+      }
+    }
+  }, false);
+  </script>
+
 
 </head>
 
@@ -92,7 +104,7 @@
 
       <h2 class="modal__title">Partager l'application</h2>
       <div class="qr-code">
-        <img src="assets/img/qrcode.jpg" alt="QR Code https://cyril-lamotte.github.io/score/">
+        <img data-src="assets/img/qrcode.jpg" class="js-lazy" alt="QR Code https://cyril-lamotte.github.io/score/">
       </div>
 
     </div>
