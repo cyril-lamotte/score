@@ -22,6 +22,7 @@
 
       <h2 class="modal__title">Listes des joueurs</h2>
       <button type="button" class="btn btn--zero btn--wide" data-init="remove-players">Retirer des joueurs</button>
+      <button type="button" class="btn btn--wide" data-init="add-players">Ajouter des joueurs</button>
 
       <h2 class="modal__title">Réinitialiser</h2>
       <button type="button" class="btn btn--zero btn--wide" data-init="init-score-all">Mise à zéro pour tous les joueurs</button>
@@ -30,6 +31,41 @@
       <div class="qr-code">
         <img src="assets/img/qrcode.jpg" alt="QR Code https://cyril-lamotte.github.io/score/">
       </div>
+
+      <!--Preload font to prevent FOUT-->
+      <link rel="preload" href="assets/fonts/OpenSans/opensans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
+      <link rel="preload" href="assets/fonts/OpenSans/opensans-light-webfont.woff2" as="font" type="font/woff2" crossorigin>
+
+      <!--JS preload-->
+      <script>
+        if ('FontFace' in window) {
+          var myfontReg = new FontFace(
+            'Open Sans',
+            'url(assets/fonts/OpenSans/opensans-regular-webfont.woff2)',
+            {
+              style: 'normal',
+              weight: '400',
+            }
+          );
+
+          var myfontLight = new FontFace(
+            'Open Sans',
+            'url(assets/fonts/OpenSans/opensans-light-webfont.woff2)',
+            {
+              style: 'normal',
+              weight: '300',
+            }
+          );
+
+          myfontReg.load().then(function() {
+            document.fonts.add(myfontReg);
+          });
+
+          myfontLight.load().then(function() {
+            document.fonts.add(myfontLight);
+          });
+        }
+      </script>
 
     </div>
   </div>

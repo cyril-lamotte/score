@@ -76,7 +76,7 @@ app.initData = function() {
 
 
   // Data for default players.
-  for (var i = 1; i <= 6; i++) {
+  for (var i = 1; i <= 10; i++) {
 
     if (i >= 5) {
       hidden = true;
