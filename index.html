@@ -24,6 +24,41 @@
   <link rel="apple-touch-icon" href="assets/img/app/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
 
+  <!--Preload font to prevent FOUT-->
+  <link rel="preload" href="assets/fonts/OpenSans/opensans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/OpenSans/opensans-light-webfont.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!--JS preload-->
+  <script>
+    if ('FontFace' in window) {
+      var myfontReg = new FontFace(
+        'Open Sans',
+        'url(assets/fonts/OpenSans/opensans-regular-webfont.woff2)',
+        {
+          style: 'normal',
+          weight: '400',
+        }
+      );
+
+      var myfontLight = new FontFace(
+        'Open Sans',
+        'url(assets/fonts/OpenSans/opensans-light-webfont.woff2)',
+        {
+          style: 'normal',
+          weight: '300',
+        }
+      );
+
+      myfontReg.load().then(function() {
+        document.fonts.add(myfontReg);
+      });
+
+      myfontLight.load().then(function() {
+        document.fonts.add(myfontLight);
+      });
+    }
+  </script>
+
 
 </head>
 
@@ -59,41 +94,6 @@
       <div class="qr-code">
         <img src="assets/img/qrcode.jpg" alt="QR Code https://cyril-lamotte.github.io/score/">
       </div>
-
-      <!--Preload font to prevent FOUT-->
-      <link rel="preload" href="assets/fonts/OpenSans/opensans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
-      <link rel="preload" href="assets/fonts/OpenSans/opensans-light-webfont.woff2" as="font" type="font/woff2" crossorigin>
-
-      <!--JS preload-->
-      <script>
-        if ('FontFace' in window) {
-          var myfontReg = new FontFace(
-            'Open Sans',
-            'url(assets/fonts/OpenSans/opensans-regular-webfont.woff2)',
-            {
-              style: 'normal',
-              weight: '400',
-            }
-          );
-
-          var myfontLight = new FontFace(
-            'Open Sans',
-            'url(assets/fonts/OpenSans/opensans-light-webfont.woff2)',
-            {
-              style: 'normal',
-              weight: '300',
-            }
-          );
-
-          myfontReg.load().then(function() {
-            document.fonts.add(myfontReg);
-          });
-
-          myfontLight.load().then(function() {
-            document.fonts.add(myfontLight);
-          });
-        }
-      </script>
 
     </div>
   </div>
