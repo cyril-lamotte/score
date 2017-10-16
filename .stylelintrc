@@ -23,7 +23,10 @@
     'declaration-block-semicolon-newline-before': 'never-multi-line',
     'declaration-block-trailing-semicolon': 'always',
 
-    'block-closing-brace-newline-after': 'always',
+    'block-closing-brace-newline-after': ['always-multi-line', {
+        "ignoreAtRules": ["@keyframes", "from"]
+      }
+    ],
     'block-closing-brace-newline-before': 'always-multi-line',
     'block-opening-brace-space-before': 'always-multi-line',
     'block-opening-brace-space-after': 'always-single-line',
@@ -36,7 +39,7 @@
     'selector-max-empty-lines': 0,
     'selector-pseudo-element-case': 'lower',
     'selector-list-comma-newline-before': 'never-multi-line',
-    'selector-list-comma-newline-after': 'always',
+    'selector-list-comma-newline-after': 'always-multi-line',
     'selector-list-comma-space-before': 'never',
 
     'media-feature-colon-space-after': 'always',

@@ -29,43 +29,8 @@
 
       <h2 class="modal__title">Partager l'application</h2>
       <div class="qr-code">
-        <img src="assets/img/qrcode.jpg" alt="QR Code https://cyril-lamotte.github.io/score/">
+        <img data-src="assets/img/qrcode.jpg" class="js-lazy" alt="QR Code https://cyril-lamotte.github.io/score/">
       </div>
-
-      <!--Preload font to prevent FOUT-->
-      <link rel="preload" href="assets/fonts/OpenSans/opensans-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
-      <link rel="preload" href="assets/fonts/OpenSans/opensans-light-webfont.woff2" as="font" type="font/woff2" crossorigin>
-
-      <!--JS preload-->
-      <script>
-        if ('FontFace' in window) {
-          var myfontReg = new FontFace(
-            'Open Sans',
-            'url(assets/fonts/OpenSans/opensans-regular-webfont.woff2)',
-            {
-              style: 'normal',
-              weight: '400',
-            }
-          );
-
-          var myfontLight = new FontFace(
-            'Open Sans',
-            'url(assets/fonts/OpenSans/opensans-light-webfont.woff2)',
-            {
-              style: 'normal',
-              weight: '300',
-            }
-          );
-
-          myfontReg.load().then(function() {
-            document.fonts.add(myfontReg);
-          });
-
-          myfontLight.load().then(function() {
-            document.fonts.add(myfontLight);
-          });
-        }
-      </script>
 
     </div>
   </div>

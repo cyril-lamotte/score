@@ -30,8 +30,8 @@ app.insertPlayer = function(player, playerid) {
       '  </div>' +
       '  <div class="score__action">' +
       '    <div class="score__action-inner">' +
-      '      <div class="action__item"><button type="button" class="btn btn--large btn--plus-1" data-init="add-score-fixed" data-score-value="1">+1</button></div>' +
-      '      <div class="action__item"><button type="button" class="btn btn--large btn--minus-1" data-init="add-score-fixed" data-score-value="-1">-1</button></div>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--plus-1" data-init="add-score-fixed" data-score-value="1"></button></div>' +
+      '      <div class="action__item"><button type="button" class="btn btn--large btn--minus-1" data-init="add-score-fixed" data-score-value="-1"></button></div>' +
       '    </div>' +
       '  </div>' +
       '</div>'

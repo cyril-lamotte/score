@@ -124,14 +124,14 @@
 @keyframes shake {
   from {
     transform: translate3d(2px, -2px, 0);
-  },
-  25% {
+  }
+  , 25% {
     transform: translate3d(-2px, 2px, 0);
-  },
-  50% {
+  }
+  , 50% {
     transform: translate3d(2px, 2px, 0);
-  },
-  to {
+  }
+  , to {
     transform: translate3d(-2px, -2px, 0);
   }
 }
@@ -140,3 +140,38 @@
 .player__hidden {
   display: none;
 }
+
+.btn--plus-1 {
+  height: 100px;
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: #fff;
+  }
+
+  &:after {
+    transform: rotate(90deg);
+  }
+}
+
+.btn--minus-1 {
+  height: 100px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: #fff;
+  }
+}
+
+
