@@ -1,47 +1,42 @@
 {
   "name": "base",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Base for frontend projet",
-  "author": "Cyril Lamotte",
+  "author": "CYL",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git:github.com/cyril-lamotte/base.git"
   },
-  "scripts": {
-    "doc": "node node_modules/scss-down/lib/index.js"
-  },
   "devDependencies": {
-    "autoprefixer": "^7.1.3",
+    "autoprefixer": "^8.0.0",
+    "backstopjs": "^3.0.26",
     "browser-sync": "^2.18.8",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-aigis": "^1.3.0",
-    "gulp-bless": "^4.0.0",
     "gulp-clean-css": "^3.0.4",
     "gulp-concat-util": "^0.5.5",
-    "gulp-file-include": "^1.2.0",
+    "gulp-exec": "^3.0.1",
+    "gulp-file-include": "^2.0.1",
     "gulp-ignore": "^2.0.2",
-    "gulp-imagemin": "^3.3.0",
+    "gulp-imagemin": "^4.1.0",
     "gulp-jshint": "^2.0.4",
     "gulp-load-plugins": "^1.4.0",
-    "gulp-minify": "^1.0.0",
+    "gulp-minify": "^2.1.0",
     "gulp-postcss": "^7.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-sass-glob": "^1.0.8",
     "gulp-sftp": "^0.1.5",
-    "gulp-stylelint": "latest",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-stylelint": "^6.0.0",
     "gulp-uglify": "^3.0.0",
-    "gulp-util": "latest",
-    "gulp-webserver": "^0.9.1",
     "gulp-zip": "^4.0.0",
     "gulp.spritesmith": "^6.5.1",
     "jshint": "^2.9.5",
     "jshint-stylish": "^2.2.1",
     "node-sass": "^4.5.3",
-    "susy": "^3.0.0"
-  },
-  "dependencies": {
-    "scss-down": "^1.0.1"
+    "postcss-normalize": "^4.0.0",
+    "stylelint": "^9.1.1"
   }
 }
