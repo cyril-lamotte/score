@@ -1,0 +1,24 @@
+
+@mixin select {
+  max-width: 100%;
+  appearance: none;
+  padding: 5px 10px;
+  border: 1px solid $inputs-borders;
+  border-radius: 0;
+  color: $base-color;
+  //background-image: url('../img/select-arrows.png');
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+
+  // Remove IE arrows.
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+
+// Select disabled theme.
+@mixin select-disabled {
+  background: #aaa;
+  color: #555;
+}

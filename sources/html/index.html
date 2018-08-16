@@ -11,61 +11,41 @@
 <div class="outer-wrap">
 <div class="wrap">
 
-  <!-- @@include('includes/header.html') -->
+  <div id="app">
 
-  <div id="score-table" class="score"></div>
+    <!-- @@include('includes/header.html') -->
 
-  <div id="modal-menu" class="modal modal-menu">
-    <div class="modal__inner">
+    <section class="player-list">
 
-      <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
+      <player
+        v-for="player in players"
+        :player="player"
+        :key="player.id"
+        v-if="player.visible">
+      </player>
 
-      <h2 class="modal__title">Listes des joueurs</h2>
-      <button type="button" class="btn btn--zero btn--wide" data-init="remove-players">Retirer des joueurs</button>
-      <button type="button" class="btn btn--wide" data-init="add-players">Ajouter des joueurs</button>
-
-      <h2 class="modal__title">Réinitialiser</h2>
-      <button type="button" class="btn btn--zero btn--wide" data-init="init-score-all">Mise à zéro pour tous les joueurs</button>
-
-      <h2 class="modal__title">Partager l'application</h2>
-      <div class="qr-code">
-        <img data-src="assets/img/qrcode.jpg" class="js-lazy" alt="QR Code https://cyril-lamotte.github.io/score/">
-      </div>
-
-    </div>
-  </div>
+    </section><!--/player-list-->
 
 
+    <section class="other-players">
 
-  <div id="modal-add" class="modal modal-add">
-    <div class="modal__inner">
+      <h2 class="other-players__title">Joueurs inactifs</h2>
 
-      <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
+      <ul class="other-players__list">
+        <other_player
+          v-for="player in players"
+          :player="player"
+          :key="player.id"
+          v-if="!player.visible">
+        </other_player>
+      </ul>
 
-      <h2 class="modal__title">Ajouter un score</h2>
-
-      <div class="actions actions--gutter">
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="-1">-1</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="1">+1</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="5">+5</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="10">+10</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button></div>
-      </div>
-
-      <h2 class="modal__title" id="add-custom-score">Ajouter un score personnalisé</h2>
-
-      <div class="actions actions--gutter">
-        <div class="actions__item"><input type="number" class="input--text" name="add" id="add" value="" placeholder="ex : 8, 12, 42..." aria-labelledby="add-custom-score"></div>
-        <div class="actions__item"><button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">Ajouter</button></div>
-      </div>
+    </section>
 
 
-      <h2 class="modal__title">Réinitialiser</h2>
-      <button type="button" class="btn btn--zero" data-init="init-score">Mise à zéro</button>
+  </div><!--/app-->
 
-    </div>
-  </div><!--/modal-add-->
+
 
   <!-- @@include('includes/footer.html') -->
 

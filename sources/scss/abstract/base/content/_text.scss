@@ -1,0 +1,26 @@
+
+
+
+// Remove first and last margins.
+@mixin text-wrap {
+
+  *:first-child {
+    margin-top: 0;
+  }
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+
+// Add '...' after text.
+// Works only for single line content.
+@mixin text-overflow {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+

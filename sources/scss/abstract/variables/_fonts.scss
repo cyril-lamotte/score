@@ -1,0 +1,13 @@
+
+// Font-face are defined in _content.scss.
+$font-stack:     ('Open Sans', arial, helvetica, sans-serif);
+$font-stack-alt: (arial, helvetica, sans-serif);
+
+// Base font-size (Use REM unit if IE9+)
+$base-font-size: 10px; // rem unit : 1.2rem = 12px / 2rem = 20px
+
+// Base line-height
+$base-line-height: 1.5;
+
+// Font-size for body.
+$global-font-size: 1.2rem; // REM unit (IE9+).

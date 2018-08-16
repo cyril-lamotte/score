@@ -1,0 +1,50 @@
+
+// Add absolute positioning, full-size of first relative parent.
+@mixin absolute-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+// Spread block to window's edge.
+@mixin full-width {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+}
+
+// Center block.
+@mixin center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Center element in its wrapper.
+@mixin center-and-strech {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+  max-height: none;
+}
+
+
+// Hide element except for screen-readers.
+//
+// @link https://developer.yahoo.com/blogs/ydn/clip-hidden-content-better-accessibility-53456.html Yahoo! method
+@mixin hide {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0 !important;
+  border: 0 !important;
+  height: 1px !important;
+  width: 1px !important;
+  overflow: hidden;
+}

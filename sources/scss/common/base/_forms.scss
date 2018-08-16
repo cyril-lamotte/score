@@ -1,0 +1,43 @@
+
+// <form> tag should have the "form" class.
+
+// Rows.
+.options__row,
+.form__row           { @include form__row; }
+.form__row--inline   { @include form__row--inline; }
+
+// Labels / fieldsets.
+.label--block        { @include label--block; }
+.label--inline       { @include label--inline; }
+.fieldset            { @include fieldset; }
+.fieldset--invisible { @include fieldset--invisible; }
+
+// Helpers.
+.input--wide         { @include input--wide; }
+.input--inline       { @include input--inline; }
+
+// Fields.
+.input--text         { @include input; }
+.input--textarea     { @include textarea; }
+.input--checkbox     { @include checkbox; }
+.input--radio        { @include radio; }
+.input--select       { @include select; }
+
+// Buttons.
+.btn       { @include btn; }
+.btn--wide { @include btn--wide; }
+
+
+// Fields formats.
+//.form {
+//
+//  .input--format-xx   { width: 4rem; }
+//  .input--format-xxxx { width: 6rem; }
+//
+//}
+
+//.form-default {
+//  @include form-default;
+//}
+
+

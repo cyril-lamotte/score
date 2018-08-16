@@ -1,0 +1,76 @@
+
+
+// -----------------------------------------------------------------------------
+// Helpers
+// -----------------------------------------------------------------------------
+
+// 100% width field.
+@mixin input--wide {
+  display: block;
+  width: 100%;
+}
+
+@mixin input--inline {
+  display: inline-block;
+  width: auto;
+}
+
+
+// -----------------------------------------------------------------------------
+// Rows
+// -----------------------------------------------------------------------------
+
+@mixin form__row {
+  position: relative;
+  clear: left;
+}
+
+@mixin form__row--inline {
+
+  input {
+    @include input--inline;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Labels & fieldsets
+// -----------------------------------------------------------------------------
+
+// Label above.
+@mixin label--block {
+  display: block;
+  float: none;
+  text-align: left;
+  width: auto;
+  margin-bottom: 5px;
+}
+
+// Label inline.
+@mixin label--inline {
+  display: inline-block;
+  float: none;
+  text-align: left;
+  width: auto;
+  line-height: 1.5;
+}
+
+@mixin fieldset {
+  @include reset-box-model;
+  border: 1px solid $inputs-borders;
+  padding: 10px;
+
+  legend {
+    padding: 0 10px;
+  }
+
+}
+
+// Invisible fieldset.
+@mixin fieldset--invisible {
+  @include reset-box-model;
+
+  legend {
+    @include hide;
+  }
+
+}

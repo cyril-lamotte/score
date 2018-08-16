@@ -1,0 +1,51 @@
+
+// Default table.
+@mixin table-default {
+  margin: 20px 0;
+  border-collapse: collapse;
+  font-size: 1.4rem;
+  width: 100%;
+  border: 0;
+  border-top: 1px solid $brand;
+  border-bottom: 1px solid $brand;
+  background: #fff;
+
+  caption {
+    font-weight: bold;
+    color: $brand;
+    padding: 5px;
+  }
+
+  th,
+  td {
+    padding: 15px 18px;
+  }
+
+  th {
+    position: relative;
+    font-weight: normal;
+    text-align: left;
+  }
+
+  thead {
+
+    tr {
+      border-bottom: 1px solid $brand;
+    }
+  }
+
+  tbody {
+    tr:nth-child(odd) td {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover td {
+      background: $brand;
+      color: #fff;
+
+      a {
+        color: #fff;
+      }
+    }
+  }
+}

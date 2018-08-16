@@ -1,0 +1,36 @@
+
+@mixin radio {
+  @include checkbox;
+
+  &:not(:checked),
+  &:checked {
+
+    + label {
+
+      &:before {
+        border-radius: 50%;
+      }
+
+      &:after {
+        border-radius: 50%;
+        animation-name: check-radio;
+      }
+    }
+  }
+
+  // Animation definition.
+  @keyframes check-radio {
+    from {
+      transform: scale(0);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
+
+} // /@mixin radio

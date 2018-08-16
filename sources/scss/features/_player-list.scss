@@ -1,0 +1,120 @@
+
+.player-list {
+  font-size: 2rem;
+}
+
+.player {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+
+.player__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: strech;
+  align-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+
+.player__name {
+  margin: 0;
+  font-weight: 300;
+  font-size: 4rem;
+  line-height: 1.2;
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.player__total {
+  margin: 0;
+  padding: 0 1rem;
+  flex: 0 0 100px;
+}
+
+.player__action {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+}
+
+.player__update-btn {
+  flex-grow: 1;
+  width: 100%;
+  padding: 20px;
+  height: 120px;
+}
+
+
+.player__score {
+  @include reset-box-model;
+  background: none;
+  display: block;
+  width: 100%;
+  position: relative;
+  color: #fff;
+  font-family: $font-stack;
+  font-weight: 300;
+  text-align: right;
+  font-size: 4em;
+  line-height: 1;
+  cursor: pointer;
+}
+
+
+.player__update-btn--plus-1 {
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: $brand-bg;
+  }
+
+  &:after {
+    transform: rotate(90deg);
+  }
+
+}
+
+.player__update-btn--minus-1 {
+  background: darken($brand, 5%);
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 15px);
+    width: 30px;
+    height: 6px;
+    background: $brand-bg;
+  }
+
+}
+
+
+
+
+
+
+
+.anim-bounce {
+  animation: bounce 100ms ease-in 2 alternate forwards;
+}
+
+// Bounce animation.
+@keyframes bounce {
+  to {
+    transform: scale(1.2);
+  }
+}
+
+

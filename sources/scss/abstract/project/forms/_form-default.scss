@@ -1,0 +1,45 @@
+
+// Apply default formating to a form.
+@mixin form-default {
+
+  // Layout.
+
+  .form__row {
+    @extend .form__row;
+  }
+
+  label {
+    @extend .label--block;
+  }
+
+
+  // Fields.
+
+  [type="tel"],
+  [type="text"],
+  [type="email"],
+  [type="password"] {
+    @extend .input--text;
+  }
+
+  textarea {
+    @extend .input--textarea;
+  }
+
+  .form__submit {
+    @extend .btn;
+  }
+
+  [type="radio"] {
+    @extend .input--radio;
+  }
+
+  [type="checkbox"] {
+    @extend .input--checkbox;
+  }
+
+  select {
+    @extend .input--select;
+  }
+
+}

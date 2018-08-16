@@ -1,0 +1,56 @@
+
+// -----------------------------------------------------------------------------
+// Colors definitions
+//
+// @see http://www.color-hex.com/color-names.html
+// -----------------------------------------------------------------------------
+
+// Blue.
+$blue:             #0000ff;
+$midnight-blue:    #191970;
+
+// Red.
+$red:              #ff0000;
+$tomato:           #ff6347;
+$orange:           #ff6600;
+$yellow:           #ff9c00;
+
+// Green.
+$green:            #00ff00;
+
+// Gray.
+$grey:             #333;
+$gray10:           #1a1a1a;
+$dim-gray:         #656669;
+$gainsboro:        #dcdcdc;
+$isabelline:       #ecebeb;
+
+
+// -----------------------------------------------------------------------------
+// Colors abstractions
+// -----------------------------------------------------------------------------
+
+// Brand color.
+$brand: $yellow;
+$brand-highlight: lighten($brand, 20%);
+
+// Default text.
+$base-color:      #fff;
+
+// States.
+$error:           $red;
+$success:         $green;
+$warning:         $orange;
+
+// Main background color.
+$brand-bg:        $gray10;
+
+// Blocks background.
+$light-bg:        $isabelline;
+
+// Light borders.
+$light-border:    $grey;
+
+// Forms.
+$inputs-borders:  $grey;
+

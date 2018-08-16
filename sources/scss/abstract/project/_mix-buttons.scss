@@ -1,0 +1,45 @@
+
+// Reset button.
+@mixin btn-default {
+  @include reset-box-model;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.2;
+  font-size: inherit;
+  font-family: inherit;
+  appearance: none;
+
+  @include hover {
+    text-decoration: none;
+  }
+
+}
+
+
+// Wide button.
+@mixin btn--wide {
+  display: block;
+  width: 100%;
+  float: none;
+  text-align: center;
+}
+
+
+@mixin btn {
+  @include btn-default;
+  background-color: $brand;
+  color: $brand-bg;
+
+  @include hover {
+    // background: #000;
+  }
+
+  &[disabled] {
+    // background: #000;
+  }
+
+}
+

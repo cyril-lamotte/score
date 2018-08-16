@@ -1,0 +1,46 @@
+
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+
+@mixin input--default {
+  margin: 0;
+  max-width: 100%;
+  vertical-align: middle;
+  font-family: inherit;
+  font-size: inherit;
+  appearance: none;
+
+  &::-ms-clear {
+    display: none;
+  }
+
+  @include input-placeholder {
+    opacity: 1;
+    font-style: italic;
+  }
+}
+
+
+// Inputs theme (and textareas).
+@mixin input {
+  @include input--default;
+  padding: 5px 10px;
+  border: 1px solid $inputs-borders;
+  border-radius: 0;
+  color: $base-color;
+}
+
+// Textarea theme.
+@mixin textarea {
+  @include input;
+  min-height: 5em;
+  overflow: auto; // Removes vertical scrollbar on empty textarea in IE6/7/8/9.
+  vertical-align: top;
+  resize: vertical;
+}
