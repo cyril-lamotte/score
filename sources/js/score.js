@@ -12,10 +12,10 @@ var data_players = [
 
 // Player.
 
-var player_template = '<div class="player">' +
+var player_template = '<div class="player" :class="{ \'player--zero-point\': player.score == 0 }">' +
 '<div class="player__header">' +
 '  <p class="player__name" contenteditable="true">{{player.name}}</p>' +
-'  <p class="player__total" v-bind:class="{ \'anim-bounce\': player.update }"><span class="player__score">{{player.score}}</span></p>' +
+'  <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>' +
 '</div>' +
 '<div class="player__action">' +
 '  <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>' +
@@ -34,6 +34,9 @@ Vue.component('player', {
     removePoint: function() {
       this.player.score -= 1;
       this.bounce();
+    },
+    setToZero: function() {
+      this.player.score = 0;
     },
     bounce: function() {
 
