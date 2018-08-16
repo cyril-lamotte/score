@@ -17,9 +17,10 @@
   <meta name="apple-mobile-web-app-title" content="Score">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#512DA8"/>
+  <meta name="theme-color" content="#ff9c00"/>
 
-  <link rel="stylesheet" href="assets/css/style.min.css" media="all">
+  <link rel="stylesheet" href="assets/css/common.css" media="all">
+  <link rel="stylesheet" href="assets/css/features.css" media="all">
 
   <link rel="apple-touch-icon" href="assets/img/app/apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
@@ -79,71 +80,103 @@
 <div class="outer-wrap">
 <div class="wrap">
 
+  <div id="app" :class="{ 'modal-is-open': modal_visible }">
+
+    
+    <header class="main-header" role="banner">
+
+      <h1 class="main-title" contenteditable="true">{{ title }}</h1>
+      <button type="button" class="header__btn" @click.prevent="showModal('options')" v-if="!options_visible"><span class="visually-hidden">Options</span><span>Options&hellip;</span></button>
+
+    </header>
+
+
+
+
+    <div class="modal modal--options" :class="{ 'modal--is-visible': options_visible }">
+
+      <div class="modal__close-wrap">
+        <button type="button" @click.prevent="hideModal('options')" class="btn-close"><span class="visually-hidden">Fermer</span></button>
+      </div>
+
+      <div class="modal__inner">
+
+        <section class="other-players">
+
+
+          <template v-if="inactive_player_count">
+
+            <h2 class="other-players__title">Joueurs inactifs</h2>
+
+            <ul class="other-players__list other-players__list--inactives">
+              <other_player
+                v-for="player in players"
+                :player="player"
+                :key="player.id"
+                v-if="!player.visible">
+              </other_player>
+            </ul>
+
+          </template>
+
+
+          <template v-if="player_count">
+
+            <h2 class="other-players__title">Joueurs actifs</h2>
+
+            <ul class="other-players__list">
+              <other_player
+                v-for="player in players"
+                :player="player"
+                :key="player.id"
+                v-if="player.visible">
+              </other_player>
+            </ul>
+
+          </template>
+
+        </section>
+
+
+
+        <section class="options__raz">
+
+          <h2 class="other-players__title">Nouveau joueur</h2>
+          <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
+
+        </section>
+
+
+        <section class="options__raz">
+
+          <h2 class="other-players__title">Réinitaliser les scores</h2>
+          <button type="button" class="btn-important btn--wide" @click.prevent="raz">Tous les scores à 0</button>
+
+        </section>
+
+
+      </div><!--/modal__inner-->
+    </div><!--/modal-->
+
+
+    <section class="player-list">
+
+      <player
+        v-for="player in players"
+        :player="player"
+        :key="player.id"
+        v-if="player.visible">
+      </player>
+
+    </section><!--/player-list-->
+
+
+
+  </div><!--/app-->
+
+
+
   
-  <header class="main-header" role="banner">
-
-    <h1 class="main-title" contenteditable="true">Score</h1>
-    <button type="button" id="btn-options" data-init="toggle-menu" class="btn">...</button>
-
-  </header>
-
-
-  <div id="score-table" class="score"></div>
-
-  <div id="modal-menu" class="modal modal-menu">
-    <div class="modal__inner">
-
-      <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
-
-      <h2 class="modal__title">Listes des joueurs</h2>
-      <button type="button" class="btn btn--zero btn--wide" data-init="remove-players">Retirer des joueurs</button>
-      <button type="button" class="btn btn--wide" data-init="add-players">Ajouter des joueurs</button>
-
-      <h2 class="modal__title">Réinitialiser</h2>
-      <button type="button" class="btn btn--zero btn--wide" data-init="init-score-all">Mise à zéro pour tous les joueurs</button>
-
-      <h2 class="modal__title">Partager l'application</h2>
-      <div class="qr-code">
-        <img data-src="assets/img/qrcode.jpg" class="js-lazy" alt="QR Code https://cyril-lamotte.github.io/score/">
-      </div>
-
-    </div>
-  </div>
-
-
-
-  <div id="modal-add" class="modal modal-add">
-    <div class="modal__inner">
-
-      <button type="button" data-init="close-modal" class="btn-close"><span>Fermer</span></button>
-
-      <h2 class="modal__title">Ajouter un score</h2>
-
-      <div class="actions actions--gutter">
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="-1">-1</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="1">+1</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="5">+5</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="10">+10</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="30">+30</button></div>
-        <div class="actions__item"><button type="button" class="btn btn--plus-x" data-init="add-score-fixed" data-score-value="50">+50</button></div>
-      </div>
-
-      <h2 class="modal__title" id="add-custom-score">Ajouter un score personnalisé</h2>
-
-      <div class="actions actions--gutter">
-        <div class="actions__item"><input type="number" class="input--text" name="add" id="add" value="" placeholder="ex : 8, 12, 42..." aria-labelledby="add-custom-score"></div>
-        <div class="actions__item"><button type="button" id="save" class="btn btn--submit" data-init="close-modal" data-score-add-to="">Ajouter</button></div>
-      </div>
-
-
-      <h2 class="modal__title">Réinitialiser</h2>
-      <button type="button" class="btn btn--zero" data-init="init-score">Mise à zéro</button>
-
-    </div>
-  </div><!--/modal-add-->
-
-  
-
   <footer class="main-footer" role="contentinfo">
     <!--a href="https://github.com/cyril-lamotte">Contact / Remonter un bug</a-->
   </footer>
@@ -153,12 +186,21 @@
 </div><!--/outer-wrap-->
 
 <!-- Scripts at the bottom for better performances -->
+
+<!--DEV-->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!--PROD-->
+<!--script src="https://cdn.jsdelivr.net/npm/vue"></script-->
+
 <script src="assets/js/lib/jquery.min.js"></script>
-<script src="assets/js/app.config.js"></script>
+<script src="assets/js/score.js"></script>
+
+<!--script src="assets/js/app.config.js"></script>
 <script src="assets/js/custom/global.js"></script>
 <script src="assets/js/custom/ui.js"></script>
 <script src="assets/js/custom/db.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app.js"></script-->
 
 <script>
   /*if ('serviceWorker' in navigator) {
