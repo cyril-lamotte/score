@@ -1,0 +1,33 @@
+
+.modal {
+  position: fixed;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba($gray10, 0.9);
+  transition: transform 150ms;
+  padding: 1rem;
+  border-top: 4px solid $brand;
+  height: 80vh;
+}
+
+.modal__inner {
+  overflow: auto;
+  max-height: 69vh;
+  padding-bottom: 1rem;
+}
+
+.modal--is-visible {
+  transform: translate3d(0, -100%, 0);
+}
+
+.modal__close-wrap {
+  text-align: center;
+}
+
+.btn-close {
+  @include reset-box-model;
+  background: none;
+  @include cross(50px, #fff);
+}

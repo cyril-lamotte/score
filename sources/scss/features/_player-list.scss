@@ -1,11 +1,24 @@
 
 .player-list {
   font-size: 2rem;
+
+  @include mq-from('xs') {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;
+  }
+
 }
 
 .player {
   position: relative;
   margin-bottom: 2rem;
+
+  @include mq-from('xs') {
+    flex: 0 0 48%;
+  }
 }
 
 

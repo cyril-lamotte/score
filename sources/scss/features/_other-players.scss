@@ -1,8 +1,4 @@
 
-.other-players {
-  text-align: center;
-}
-
 .other-players__title {
   font-weight: normal;
 }
@@ -14,7 +10,6 @@
   flex-flow: row wrap;
   align-items: center;
   align-content: flex-start;
-  margin: 0 1rem;
 
   li {
     margin-right: 1rem;
@@ -24,6 +19,16 @@
   .btn {
     font-size: 2rem;
     padding: 1rem;
+  }
+
+}
+
+
+.other-players__list--inactives {
+
+  .btn {
+    background-color: $grey;
+    color: $brand;
   }
 
 }

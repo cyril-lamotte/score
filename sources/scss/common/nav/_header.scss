@@ -12,3 +12,20 @@
   font-weight: 300;
   font-size: 3rem;
 }
+
+
+.header__btn {
+  @include btn-default;
+  background: rgba(#000, 0.8);
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 80px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  z-index: 9;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px 0 0 0;
+}

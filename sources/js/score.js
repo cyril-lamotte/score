@@ -1,10 +1,10 @@
 
 
 var data_players = [
-  { id: 1, name: 'Cycy', score: 0, visible: true, update: false },
-  { id: 2, name: 'Vaness', score: 0, visible: false, update: false },
+  { id: 1, name: 'Cycy', score: 0, visible: false, update: false },
+  { id: 2, name: 'Vanessa', score: 0, visible: false, update: false },
   { id: 3, name: 'Nora', score: 0, visible: false, update: false },
-  { id: 4, name: 'Willy', score: 0, visible: true, update: false },
+  { id: 4, name: 'Willy', score: 0, visible: false, update: false },
   { id: 5, name: 'Daniel', score: 0, visible: false, update: false },
   { id: 6, name: 'Arlette', score: 0, visible: false, update: false },
 ];
@@ -12,7 +12,7 @@ var data_players = [
 
 // Player.
 
-var player_template = '<div class="player" :class="{ \'player--zero-point\': player.score == 0 }">' +
+var player_template = '<div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">' +
 '<div class="player__header">' +
 '  <p class="player__name" contenteditable="true">{{player.name}}</p>' +
 '  <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>' +
@@ -57,10 +57,12 @@ Vue.component('other_player', {
   template: '<li><button type="button" @click="setVisible" class="btn">{{ player.name }}</button></li>',
   methods: {
     setVisible: function() {
-      this.player.visible = true;
+      this.player.visible = !this.player.visible;
     }
   }
 });
+
+
 
 
 // Root.
@@ -68,23 +70,79 @@ var app = new Vue({
   el: '#app',
   data: {
     title: 'Score',
-    players: data_players
+    players: data_players,
+    modal_visible: false,
+    options_visible: false
   },
   computed: {
     player_count: function() {
-      return this.players.length;
+
+      var c = 0;
+      this.players.forEach(function(player, key) {
+        if (player.visible) {
+          c++;
+        }
+      });
+
+      return c;
+    },
+
+    inactive_player_count: function() {
+
+      var c = 0;
+      this.players.forEach(function(player, key) {
+        if (!player.visible) {
+          c++;
+        }
+      });
+
+      return c;
+    },
+
+  },
+
+  mounted: function () {
+    //console.log('mounted', this.title);
+
+    if (!this.player_count) {
+      this.showModal('options');
     }
+
   },
-  created: function () {
-    // `this` est une référence à l'instance de vm
-    //console.log('app created', this.title);
-  },
+
   updated: function () {
-    console.log('updated', this.title);
+    //console.log('updated', this.title);
   },
+
   methods: {
     addPlayer: function() {
-      this.players.push({ id: this.player_count + 1, name: 'XXX', score: 0, visible: true });
+      this.players.push({ id: this.player_count + 1, name: 'Joueur X', score: 0, visible: true });
+    },
+
+    raz: function() {
+      this.players.forEach(function(player, key) {
+        player.score = 0;
+      });
+    },
+
+    showModal: function(modal_name) {
+
+      this.modal_visible = true;
+
+      if (modal_name == 'options') {
+        this.options_visible = true;
+      }
+
+    },
+
+    hideModal: function(modal_name) {
+
+      this.modal_visible = false;
+
+      if (modal_name == 'options') {
+        this.options_visible = false;
+      }
+
     },
   }
 });
@@ -92,7 +150,7 @@ var app = new Vue({
 
 
 // Add player.
-app.players.push({ id: 4, name: 'Arnaud', score: 0, visible: false });
+//app.players.push({ id: 4, name: 'Arnaud', score: 0, visible: false });
 
 // Update score.
 //app.players[0].score = 7;

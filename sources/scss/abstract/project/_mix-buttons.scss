@@ -43,3 +43,22 @@
 
 }
 
+
+
+@mixin btn-brand {
+  @include btn;
+  background-color: $brand;
+  color: $brand-bg;
+  padding: 2rem 1rem;
+  font-size: 2rem;
+}
+
+
+@mixin btn-important {
+  @include btn-default;
+  background-color: $red;
+  color: #fff;
+  padding: 2rem 1rem;
+  font-size: 2rem;
+}
+

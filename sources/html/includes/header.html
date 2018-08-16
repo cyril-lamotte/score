@@ -2,6 +2,74 @@
 <header class="main-header" role="banner">
 
   <h1 class="main-title" contenteditable="true">{{ title }}</h1>
-  <!--button type="button" id="btn-options" data-init="toggle-menu" class="btn"><span>Menu&hellip;</span></button-->
+  <button type="button" class="header__btn" @click.prevent="showModal('options')" v-if="!options_visible"><span class="visually-hidden">Options</span><span>Options&hellip;</span></button>
 
 </header>
+
+
+
+
+<div class="modal modal--options" :class="{ 'modal--is-visible': options_visible }">
+
+  <div class="modal__close-wrap">
+    <button type="button" @click.prevent="hideModal('options')" class="btn-close"><span class="visually-hidden">Fermer</span></button>
+  </div>
+
+  <div class="modal__inner">
+
+    <section class="other-players">
+
+
+      <template v-if="inactive_player_count">
+
+        <h2 class="other-players__title">Joueurs inactifs</h2>
+
+        <ul class="other-players__list other-players__list--inactives">
+          <other_player
+            v-for="player in players"
+            :player="player"
+            :key="player.id"
+            v-if="!player.visible">
+          </other_player>
+        </ul>
+
+      </template>
+
+
+      <template v-if="player_count">
+
+        <h2 class="other-players__title">Joueurs actifs</h2>
+
+        <ul class="other-players__list">
+          <other_player
+            v-for="player in players"
+            :player="player"
+            :key="player.id"
+            v-if="player.visible">
+          </other_player>
+        </ul>
+
+      </template>
+
+    </section>
+
+
+
+    <section class="options__raz">
+
+      <h2 class="other-players__title">Nouveau joueur</h2>
+      <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
+
+    </section>
+
+
+    <section class="options__raz">
+
+      <h2 class="other-players__title">Réinitaliser les scores</h2>
+      <button type="button" class="btn-important btn--wide" @click.prevent="raz">Tous les scores à 0</button>
+
+    </section>
+
+
+  </div><!--/modal__inner-->
+</div><!--/modal-->

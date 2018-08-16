@@ -11,7 +11,7 @@
 <div class="outer-wrap">
 <div class="wrap">
 
-  <div id="app">
+  <div id="app" :class="{ 'modal-is-open': modal_visible }">
 
     <!-- @@include('includes/header.html') -->
 
@@ -26,21 +26,6 @@
 
     </section><!--/player-list-->
 
-
-    <section class="other-players">
-
-      <h2 class="other-players__title">Joueurs inactifs</h2>
-
-      <ul class="other-players__list">
-        <other_player
-          v-for="player in players"
-          :player="player"
-          :key="player.id"
-          v-if="!player.visible">
-        </other_player>
-      </ul>
-
-    </section>
 
 
   </div><!--/app-->
