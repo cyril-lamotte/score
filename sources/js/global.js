@@ -1,35 +1,4 @@
 
-/**
- * Create database.
- */
-app.createDB = function() {
-
-  // Get or Create database.
-  var request = app.openDB();
-
-  request.onupgradeneeded = function(event) {
-
-    var db = app.db = event.target.result;
-
-    // Create Objects stores.
-    var objStore = db.createObjectStore('players', { autoIncrement : true });
-    //var objStoreSc = db.createObjectStore('scores', { autoIncrement : true });
-
-    // Create index.
-    objStore.createIndex('by-name', 'name', { unique: true });
-
-    // Objects stores are created, store default data.
-    objStore.transaction.oncomplete = function(event) {
-      app.populateObjStore('players');
-    };
-
-  };
-
-  request.onsuccess = function(event) {
-    app.bddReady();
-  };
-
-};
 
 
 /**
@@ -63,42 +32,6 @@ app.populateObjStore = function(objName) {
   }
 
 };
-
-
-/**
- * Create default data.
- */
-app.initData = function() {
-
-  var defaultData = {};
-  var playersData = [];
-  var hidden  = false;
-
-
-  // Data for default players.
-  for (var i = 1; i <= 10; i++) {
-
-    if (i >= 5) {
-      hidden = true;
-    }
-
-    playersData.push({
-      'name': 'Joueur ' + i,
-      'score': {
-        'total': 0
-      },
-      'hidden': hidden
-    });
-
-  }
-
-  defaultData.players = playersData;
-  //defaultData.scores  = scoresData;
-
-  return defaultData;
-
-};
-
 
 
 /**

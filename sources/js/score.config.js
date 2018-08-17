@@ -1,5 +1,5 @@
 /**
- * @file App initialisation & domready event.
+ * @file App initialisation.
  *
  * Only the "app" variable is exposed to window's context.
  */
@@ -7,9 +7,9 @@
 
 "use strict";
 
-window.app = {
-  dbName: 'score',
-  dbVersion: 3
+window.root = {
+  dbName: 'score_db',
+  dbVersion: 1
 };
 
 })();
