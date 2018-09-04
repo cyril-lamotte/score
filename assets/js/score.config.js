@@ -8,7 +8,7 @@
 "use strict";
 
 window.root = {
-  dbName: 'score',
+  dbName: 'score_db',
   dbVersion: 1
 };
 

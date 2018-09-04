@@ -4,10 +4,8 @@
 
 app.init = function() {
 
-  app.checkCompatibility();
-
   // For dev.
-  //app.deleteDb();
+  app.deleteDb();
 
   // Prod.
   app.createDB();
