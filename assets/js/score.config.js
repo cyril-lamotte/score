@@ -1,7 +1,7 @@
 /**
  * @file App initialisation.
  *
- * Only the "app" variable is exposed to window's context.
+ * Only the "root" variable is exposed to window's context.
  */
 (function($) {
 

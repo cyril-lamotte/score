@@ -63,9 +63,7 @@ root.createDB = function() {
   };
 
   request.onsuccess = function(event) {
-
     root.getLastData();
-
   };
 
 };
