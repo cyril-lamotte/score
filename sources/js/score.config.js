@@ -7,6 +7,7 @@
 
 "use strict";
 
+// Define database's name & version.
 window.root = {
   dbName: 'score_db',
   dbVersion: 1
