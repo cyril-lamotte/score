@@ -21,41 +21,46 @@
 
 
       <template v-if="inactive_player_count">
+        <div class="other-players__active">
 
-        <h2 class="other-players__title">Joueurs inactifs</h2>
+          <h2 class="other-players__title">Joueurs inactifs</h2>
 
-        <ul class="other-players__list other-players__list--inactives">
-          <other_player
-            v-for="player in players"
-            :player="player"
-            :key="player.id"
-            v-if="!player.visible">
-          </other_player>
-        </ul>
+          <ul class="other-players__list other-players__list--inactives">
+            <other_player
+              v-for="player in players"
+              :player="player"
+              :key="player.id"
+              v-if="!player.visible">
+            </other_player>
+          </ul>
+
+        </div>
 
       </template>
 
 
       <template v-if="player_count">
+        <div class="other-players__inactive">
 
-        <h2 class="other-players__title">Joueurs actifs</h2>
+          <h2 class="other-players__title">Joueurs actifs</h2>
 
-        <ul class="other-players__list">
-          <other_player
-            v-for="player in players"
-            :player="player"
-            :key="player.id"
-            v-if="player.visible">
-          </other_player>
-        </ul>
+          <ul class="other-players__list">
+            <other_player
+              v-for="player in players"
+              :player="player"
+              :key="player.id"
+              v-if="player.visible">
+            </other_player>
+          </ul>
 
+        </div>
       </template>
 
     </section>
 
 
 
-    <section class="options__raz">
+    <section class="app__option app__option--new-player">
 
       <h2 class="other-players__title">Nouveau joueur</h2>
       <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
@@ -63,7 +68,7 @@
     </section>
 
 
-    <section class="options__raz">
+    <section class="app__option app__option--raz">
 
       <h2 class="other-players__title">Réinitaliser les scores</h2>
       <button type="button" class="btn-important btn--wide" @click.prevent="raz">Tous les scores à 0</button>

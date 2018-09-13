@@ -1,4 +1,19 @@
 
+.other-players {
+  max-width: 500px;
+  margin: 0 auto;
+
+  @include mq-from('sm') {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: flex-start;
+  }
+
+}
+
+
 .other-players__title {
   font-weight: normal;
 }
