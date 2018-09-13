@@ -11,7 +11,8 @@ root.mainApp = function() {
       title: 'Score',
       players: root.data_players,
       modal_visible: false,
-      options_visible: false
+      options_visible: false,
+      version: root.appVersion
     },
     computed: {
       player_count: function() {

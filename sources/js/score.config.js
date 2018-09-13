@@ -7,10 +7,11 @@
 
 "use strict";
 
-// Define database's name & version.
+// Define database's name & version...
 window.root = {
   dbName: 'score_db',
-  dbVersion: 1
+  dbVersion: 1,
+  appVersion: '1.0.1'
 };
 
 })();

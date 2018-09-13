@@ -31,3 +31,8 @@
   background: none;
   @include cross(50px, #fff);
 }
+
+.app__version {
+  text-align: center;
+  margin: 20px 0;
+}
