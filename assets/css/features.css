@@ -9,6 +9,8 @@
 .app__qrcode-wrap {
   text-align: center;
   background: #fff; }
+  .app__qrcode-wrap img {
+    max-height: 30vh; }
 
 .other-players {
   max-width: 500px;

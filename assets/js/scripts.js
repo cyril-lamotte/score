@@ -11,7 +11,7 @@
 window.root = {
   dbName: 'score_db',
   dbVersion: 1,
-  appVersion: '1.0.1',
+  appVersion: '1.0.2',
   env: 'prod'
 };
 
