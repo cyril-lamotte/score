@@ -12,4 +12,9 @@
 .app__qrcode-wrap {
   text-align: center;
   background: #fff;
+
+  img {
+    max-height: 30vh;
+  }
+
 }
