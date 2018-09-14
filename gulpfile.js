@@ -359,7 +359,8 @@ gulp.task('watch', function() {
   gulp.watch([
     paths.fonts_src + '**/*',
     paths.img_src + '**/*',
-    paths.js_src + '**/*.js'
+    paths.js_src + '**/*.js',
+    paths.root + '**/*.js',
   ], ['images', 'statics']);
 
   gulp.watch([paths.html + '**/*.html', '!' + paths.html + '**/*Copie.html'], ['build-html']);

@@ -1,53 +1,62 @@
-var CACHE_NAME = 'v1';
-var urlsToCache = [
+
+// List all static ressources that will be cached.
+var staticAssets = [
   'index.html',
-  'assets/css/style.css',
-  'assets/js/app.js',
-  'assets/js/app.config.js',
-  'assets/js/lib/jquery.min.js',
-  'assets/js/app.config.js',
-  'assets/js/custom/global.js',
-  'assets/js/custom/ui.js',
-  'assets/js/custom/db.js',
+  'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
+  'assets/css/common.css',
+  'assets/css/features.css',
+  'assets/js/score.config.js',
+  'assets/js/score.db.js',
+  'assets/js/score.ui.js',
+  'assets/js/score.players.js',
+  'assets/js/score.js',
   'assets/img/qrcode.jpg',
   'assets/fonts/OpenSans/opensans-light-webfont.woff2',
   'assets/fonts/OpenSans/opensans-regular-webfont.woff2'
 ];
 
-
-
+// Install is triggered the first time the user hits the page.
+// It cache statics files.
 self.addEventListener('install', function(event) {
-  //console.log('Service Worker installing.');
-  //debugger;
-  event.waitUntil(enableCache());
+
+  event.waitUntil(
+    caches.open('cache').then(function(cache) {
+
+      // addAll() will fail if one ressource or more is not reachable.
+      return cache.addAll(staticAssets);
+
+    })
+  );
+
 });
+
 
 self.addEventListener('activate', function(event) {
-  //console.log('Service Worker activating.');
+  console.log('Service Worker activating.');
 });
 
 
+// Fetch is triggered for every request that is made.
+// Get cached version if exist.
 self.addEventListener('fetch', function(event) {
 
+  //console.log('fetch', event.request.url);
+
   event.respondWith(
-    caches.match(event.request)
+    caches
+      .match(event.request)
       .then(function(response) {
-        // Cache hit - return response
-        if (response) {
-          return response;
+
+        if (!response) {
+          console.log('Not cached :', event.request.url);
         }
-        return fetch(event.request);
-      }
-    )
+
+        return response || fetch(event.request);
+
+      })
   );
+
 });
 
 
-var enableCache = function() {
-
-  caches.open(CACHE_NAME).then(function(cache) {
-    return cache.addAll(urlsToCache);
-  });
-
-};
 

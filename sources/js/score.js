@@ -12,7 +12,7 @@
 root.checkCompatibility();
 
 // Delete database for testing.
-// root.deleteDb();
+//root.deleteDb();
 
 // Create database.
 root.createDB();
