@@ -3,17 +3,40 @@
 var staticAssets = [
   'index.html',
   'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
+  'assets/img/qrcode.jpg',
+  'assets/fonts/OpenSans/opensans-light-webfont.woff2',
+  'assets/fonts/OpenSans/opensans-regular-webfont.woff2'
+];
+
+var staticAssetsDev = [
   'assets/css/common.css',
   'assets/css/features.css',
   'assets/js/score.config.js',
   'assets/js/score.db.js',
   'assets/js/score.ui.js',
   'assets/js/score.players.js',
-  'assets/js/score.js',
-  'assets/img/qrcode.jpg',
-  'assets/fonts/OpenSans/opensans-light-webfont.woff2',
-  'assets/fonts/OpenSans/opensans-regular-webfont.woff2'
+  'assets/js/score.js'
 ];
+
+var staticAssetsProd = [
+  'assets/css/common.min.css',
+  'assets/css/features.min.css',
+  'assets/js/script.min.js'
+];
+
+
+// Determine if it's dev environnement.
+var env = 'prod';
+if (self.location.hostname.indexOf('localhost') !== -1) {
+  env = 'dev';
+}
+
+// Build cache list.
+var staticAssetsToCache = staticAssets.concat(staticAssetsProd);
+if (env == 'dev') {
+  staticAssetsToCache = staticAssets.concat(staticAssetsDev);
+}
+
 
 // Install is triggered the first time the user hits the page.
 // It cache statics files.
@@ -23,7 +46,7 @@ self.addEventListener('install', function(event) {
     caches.open('cache').then(function(cache) {
 
       // addAll() will fail if one ressource or more is not reachable.
-      return cache.addAll(staticAssets);
+      return cache.addAll(staticAssetsToCache);
 
     })
   );

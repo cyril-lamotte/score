@@ -7,6 +7,7 @@
   * `gulp clean`   : Supprimer les fichiers générés automatiquement.
   * `gulp archive` : Générer une archive zip du répertoire.
   * `gulp deploy`  : Déployer les sources par FTP.
+  * `gulp prod`    : Génerer les fichier compressés.
 
   * Test de régressions visuelles :
   * `gulp bs_ref`  : Créer un jeu de référence.
@@ -21,6 +22,7 @@
 
 // Project.
 var project = {
+  env: 'dev',
   namespace: 'mockup',
   ftpPath:   '/',
 };
@@ -122,7 +124,10 @@ gulp.task('build-css', function() {
   */
 gulp.task('minify-css', ['build-css'], function() {
 
-  return gulp.src(paths.css + 'style.css')
+  return gulp.src([
+      paths.css + 'common.css',
+      paths.css + 'features.css'
+    ])
     .pipe(cleanCSS({compatibility: '*'}, function(details) {
        console.log(details.name + ': ' + Math.round(details.stats.originalSize/1024) + 'ko >> min : ' + Math.round(details.stats.minifiedSize/1024) + 'ko');
     }))
@@ -135,16 +140,16 @@ gulp.task('minify-css', ['build-css'], function() {
 
 
 /**
-  * Contact JS
+  * Concat JS
   */
 gulp.task('concat', function() {
 
   gulp.src([
-    paths.js_src + 'lib/**/*.js',
-    paths.js_src + 'plugins/**/*.js',
-    paths.js_src + 'app.js',
-    paths.js_src + 'custom/**/*.js',
-    '!' + paths.js_src + 'lib/modernizr.js'
+    paths.js_src + 'score.config.js',
+    paths.js_src + 'score.db.js',
+    paths.js_src + 'score.ui.js',
+    paths.js_src + 'score.players.js',
+    paths.js_src + 'score.js'
   ])
     .pipe(concat('scripts.js'))
     .pipe(minify({
@@ -152,13 +157,8 @@ gulp.task('concat', function() {
         min: '.min.js'
       }
     }))
-    .pipe(gulp.dest(paths.js))
+    .pipe(gulp.dest(paths.js));
 
-    // Copy modernizr only
-    gulp.src([
-      paths.js_src + 'lib/modernizr.js'
-    ])
-    .pipe(gulp.dest(paths.js + 'lib'));
 });
 
 
@@ -175,13 +175,15 @@ gulp.task('build-html', function() {
       prefix: '<!-- @@',
       suffix: '-->',
       basepath: '@file',
-      indent: true
+      indent: true,
+      context: {
+        env: project.env
+      }
     }))
     .pipe(gulp.dest(paths.dist))
     .pipe(browserSync.stream());
 
 });
-
 
 
 // Build sprites.
@@ -248,6 +250,7 @@ gulp.task('data', function() {
     .pipe(gulp.dest(paths.data));
 
 });
+
 
 
 /* =============================================================================
@@ -350,7 +353,7 @@ gulp.task('bs_approve', () => backstop('approve'));
 ============================================================================= */
 
 // Init.
-gulp.task('start', ['statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'lint-css', 'data', 'browser-sync']);
+gulp.task('start', ['statics', 'images', 'sprites', 'build-css', 'build-html', 'minify-css', 'concat', 'lint-css', 'data', 'browser-sync']);
 
 // Watch.
 gulp.task('watch', function() {
@@ -360,14 +363,14 @@ gulp.task('watch', function() {
     paths.fonts_src + '**/*',
     paths.img_src + '**/*',
     paths.js_src + '**/*.js',
-    paths.root + '**/*.js',
+    paths.root + '**/*',
   ], ['images', 'statics']);
 
   gulp.watch([paths.html + '**/*.html', '!' + paths.html + '**/*Copie.html'], ['build-html']);
   gulp.watch(paths.scss + '**/*.scss', ['build-css', 'minify-css', 'lint-css']);
 
 
-  gulp.watch(paths.js_src + '**/*.js', ['jshint']);
+  gulp.watch(paths.js_src + '**/*.js', ['jshint', 'concat']);
   gulp.watch(paths.sprites + '*.png', ['sprites']);
 });
 
@@ -375,3 +378,11 @@ gulp.task('watch', function() {
 // Define the default task.
 gulp.task('default', ['start', 'watch']);
 
+// Generate prod.
+gulp.task('init-prod', function() {
+  project.env = 'prod';
+});
+
+
+// Generate prod.
+gulp.task('prod', ['init-prod', 'start', 'watch']);
