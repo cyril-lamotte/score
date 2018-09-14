@@ -1,3 +1,35 @@
+.app__version {
+  text-align: center;
+  margin: 20px 0; }
+
+.app__option {
+  max-width: 500px;
+  margin: 0 auto; }
+
+.app__qrcode-wrap {
+  text-align: center;
+  background: #fff; }
+
+.other-players {
+  max-width: 500px;
+  margin: 0 auto; }
+  @media only screen and (min-width: 48em) {
+    .other-players {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-flow: row nowrap;
+              flex-flow: row nowrap;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -ms-flex-line-pack: start;
+          align-content: flex-start; } }
+
 .other-players__title {
   font-weight: normal; }
 

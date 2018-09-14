@@ -1,5 +1,39 @@
 
 /**
+ * Create or get database.
+ * Database is stored in root.db.
+ * An object store "player" is created, it will store all user's datas.
+ * After creation, we init default data or get last user's datas.
+ */
+root.createDB = function() {
+
+  // Get or create database.
+  var request = root.openDB();
+
+  request.onupgradeneeded = function(event) {
+
+    var db = root.db = event.target.result;
+
+    // Create Objects stores.
+    var objStore = db.createObjectStore('players', { autoIncrement : true });
+
+    //objStore.createIndex('by-name', 'id', { unique: true });
+
+    // Objects stores are created, store default data.
+    objStore.transaction.oncomplete = function(event) {
+      //root.save();
+    };
+
+  };
+
+  request.onsuccess = function(event) {
+    root.getLastData();
+  };
+
+};
+
+
+/**
  * Open database.
  */
 root.openDB = function() {
@@ -36,37 +70,6 @@ root.deleteDb = function() {
 
 };
 
-
-
-/**
- * Create database.
- */
-root.createDB = function() {
-
-  // Get or create database.
-  var request = root.openDB();
-
-  request.onupgradeneeded = function(event) {
-
-    var db = root.db = event.target.result;
-
-    // Create Objects stores.
-    var objStore = db.createObjectStore('players', { autoIncrement : true });
-
-    //objStore.createIndex('by-name', 'id', { unique: true });
-
-    // Objects stores are created, store default data.
-    objStore.transaction.oncomplete = function(event) {
-      //root.save();
-    };
-
-  };
-
-  request.onsuccess = function(event) {
-    root.getLastData();
-  };
-
-};
 
 
 /**
@@ -137,6 +140,7 @@ root.initData = function() {
 
 /**
  * Get last recording.
+ * Init default data or get last user's datas.
  */
 root.getLastData = function() {
 
@@ -151,16 +155,21 @@ root.getLastData = function() {
       var result = event.target.result;
       var lastKey = result[result.length-1];
 
+      // If there is already user datas, get them or init default datas.
       if (result.length) {
 
+        // Get the last save.
         objStore.get(lastKey).onsuccess = function(event) {
           root.data_players = event.target.result;
           root.initVue();
         };
 
       } else {
+
+        // Create default data.
         root.data_players = root.initData();
         root.initVue();
+
       }
 
     };
