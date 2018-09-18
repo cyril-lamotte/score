@@ -8,10 +8,13 @@ root.mainApp = function() {
   var app = new Vue({
     el: '#app',
     data: {
-      title: 'Score',
-      players: root.data_players,
+      title: root.appData.title,
+      players: root.appData.players,
+      winner: null,
       modal_visible: false,
       options_visible: false,
+      options_filter: 'all',
+      score_limit: root.appData.score_limit,
       version: root.appVersion
     },
     computed: {
@@ -67,11 +70,20 @@ root.mainApp = function() {
         root.save();
       },
 
-      showModal: function(modal_name) {
+      /**
+       * Show the modal.
+       *
+       * @param {String} modal_name - Modal name
+       * @param {String} filter - Modal filter to hide other options
+       */
+      showModal: function(modal_name, filter = 'all') {
 
+        // This variable toggle a class if true.
         this.modal_visible = true;
+        this.options_filter = filter;
 
         if (modal_name == 'options') {
+          // This variable toggle a class if true.
           this.options_visible = true;
         }
 
@@ -86,6 +98,17 @@ root.mainApp = function() {
         }
 
       },
+
+      show_winner: function(player) {
+        this.winner = player;
+        this.showModal('options', 'winner');
+      },
+
+      play_again: function() {
+        this.hideModal('options');
+        this.raz();
+      }
+
     }
   });
 

@@ -15,6 +15,7 @@
 
 
 .other-players__title {
+  margin: 2rem 0 1rem;
   font-weight: normal;
 }
 
@@ -34,6 +35,12 @@
   .btn {
     font-size: 2rem;
     padding: 1rem;
+
+    &:before {
+      content: '-';
+      margin-right: 5px;
+    }
+
   }
 
 }
@@ -44,6 +51,12 @@
   .btn {
     background-color: $grey;
     color: $brand;
+
+    &:before {
+      content: '+';
+      margin-right: 5px;
+    }
+
   }
 
 }

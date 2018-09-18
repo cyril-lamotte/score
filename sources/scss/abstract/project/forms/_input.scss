@@ -44,3 +44,16 @@
   vertical-align: top;
   resize: vertical;
 }
+
+
+@mixin option-input {
+  @include input--default;
+  padding: 5px 10px;
+  border-radius: 0;
+  width: 100%;
+  color: #fff;
+  background: none;
+  font-size: 3rem;
+  text-align: center;
+  border: 1px solid #fff;
+}

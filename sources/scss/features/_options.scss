@@ -18,3 +18,22 @@
   }
 
 }
+
+.option__input {
+  @include option-input;
+}
+
+.option__winner {
+
+  .other-players__title {
+    text-align: center;
+    font-weight: bold;
+  }
+
+}
+
+.winner__name {
+  text-align: center;
+  font-size: 5rem;
+  margin-bottom: 50px;
+}
