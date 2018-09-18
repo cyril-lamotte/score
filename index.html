@@ -108,8 +108,6 @@
     </header>
 
 
-
-
     <div class="modal modal--options" :class="{ 'modal--is-visible': options_visible }">
 
       <div class="modal__close-wrap">
@@ -118,7 +116,7 @@
 
       <div class="modal__inner">
 
-        <section class="other-players">
+        <section class="other-players" v-if="options_filter == 'all'">
 
 
           <template v-if="inactive_player_count">
@@ -160,8 +158,15 @@
         </section>
 
 
+        <section class="app__option app__option--score-limit" v-if="options_filter == 'all' || options_filter == 'score_limit'">
 
-        <section class="app__option app__option--new-player">
+          <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
+          <input type="number" class="option__input" v-model:value="score_limit" aria-labelled-by="score-limit-label">
+
+        </section>
+
+
+        <section class="app__option app__option--new-player" v-if="options_filter == 'all'">
 
           <h2 class="other-players__title">Nouveau joueur</h2>
           <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
@@ -169,7 +174,7 @@
         </section>
 
 
-        <section class="app__option app__option--raz">
+        <section class="app__option app__option--raz" v-if="options_filter == 'all'">
 
           <h2 class="other-players__title">Réinitaliser les scores</h2>
           <button type="button" class="btn-important btn--wide" @click.prevent="raz">Tous les scores à 0</button>
@@ -177,7 +182,7 @@
         </section>
 
 
-        <section class="app__option app__option--share">
+        <section class="app__option app__option--share" v-if="options_filter == 'all'">
 
           <h2 class="other-players__title">Partager l'application</h2>
           <div class="app__qrcode-wrap">
@@ -188,56 +193,67 @@
 
 
 
-        <div class="app__version">Version {{ version }}</div>
+        <section class="app__option option__winner" v-if="options_filter == 'winner'">
+
+          <h2 class="other-players__title">Nous avons un gagnant&nbsp;!</h2>
+
+          <div class="winner__name">{{ winner.name }}&nbsp;!</div>
+
+          <div class="btn-wrap align-center">
+            <button type="button" class="btn-brand" @click.prevent="play_again">Nouvelle partie</button>
+          </div>
+
+        </section>
+
+
+        <div class="app__version" v-if="options_filter == 'all'">Version {{ version }}</div>
 
       </div><!--/modal__inner-->
     </div><!--/modal-->
 
+
+    <div class="winner" v-if="score_limit > 0">Le premier joueur à <strong @click="showModal('options', 'score_limit')">{{ score_limit }} points</strong>.</div>
 
     <section class="player-list">
 
       <player
         v-for="player in players"
         :player="player"
+        :score_limit="score_limit"
         :key="player.id"
-        v-if="player.visible">
+        v-if="player.visible"
+        @we-got-a-winner="show_winner">
       </player>
 
     </section><!--/player-list-->
 
-  </div><!--/app-->
+    
+    <footer class="main-footer" role="contentinfo">
+      <!--a href="https://github.com/cyril-lamotte">Contact / Remonter un bug</a-->
+    </footer>
 
-  
-  <footer class="main-footer" role="contentinfo">
-    <!--a href="https://github.com/cyril-lamotte">Contact / Remonter un bug</a-->
-  </footer>
+
+  </div><!--/app-->
 
 
 </div><!--/wrap-->
 </div><!--/outer-wrap-->
 
-<!-- Scripts at the bottom for better performances -->
-
-<!--DEV-->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-<!--PROD-->
-<!--script src="https://cdn.jsdelivr.net/npm/vue"></script-->
 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="assets/js/scripts.min.js"></script>
 
 
 <script>
-  if ('serviceWorker' in navigator) {
+  /*if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('service-worker.js')
       .then(function() {
         console.log("Service Worker Registered");
       });
-  }
+  }*/
 </script>
 
 

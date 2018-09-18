@@ -1,3 +1,9 @@
+.winner {
+  text-align: center;
+  font-size: 2rem; }
+  .winner strong {
+    font-size: 2.4rem; }
+
 .app__version {
   text-align: center;
   margin: 20px 0; }
@@ -11,6 +17,50 @@
   background: #fff; }
   .app__qrcode-wrap img {
     max-height: 30vh; }
+
+.option__input {
+  margin: 0;
+  max-width: 100%;
+  vertical-align: middle;
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  padding: 5px 10px;
+  border-radius: 0;
+  width: 100%;
+  color: #fff;
+  background: none;
+  font-size: 3rem;
+  text-align: center;
+  border: 1px solid #fff; }
+  .option__input::-ms-clear {
+    display: none; }
+  .option__input.placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .option__input:-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .option__input::-moz-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .option__input:-ms-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
+  .option__input::-webkit-input-placeholder {
+    opacity: 1;
+    font-style: italic; }
+
+.option__winner .other-players__title {
+  text-align: center;
+  font-weight: bold; }
+
+.winner__name {
+  text-align: center;
+  font-size: 5rem;
+  margin-bottom: 50px; }
 
 .other-players {
   max-width: 500px;
@@ -33,6 +83,7 @@
           align-content: flex-start; } }
 
 .other-players__title {
+  margin: 2rem 0 1rem;
   font-weight: normal; }
 
 .other-players__list {
@@ -58,10 +109,16 @@
   .other-players__list .btn {
     font-size: 2rem;
     padding: 1rem; }
+    .other-players__list .btn:before {
+      content: '-';
+      margin-right: 5px; }
 
 .other-players__list--inactives .btn {
   background-color: #333;
   color: #ff9c00; }
+  .other-players__list--inactives .btn:before {
+    content: '+';
+    margin-right: 5px; }
 
 .player-list {
   font-size: 2rem; }
@@ -209,5 +266,9 @@
   to {
     -webkit-transform: scale(1.2);
             transform: scale(1.2); } }
+
+.player__remain {
+  padding: 5px 10px;
+  font-size: 1.4rem; }
 
 /*# sourceMappingURL=../maps/features.css.map */

@@ -2,13 +2,13 @@
 // List all static ressources that will be cached.
 var staticAssets = [
   'index.html',
-  'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
   'assets/img/qrcode.jpg',
   'assets/fonts/OpenSans/opensans-light-webfont.woff2',
   'assets/fonts/OpenSans/opensans-regular-webfont.woff2'
 ];
 
 var staticAssetsDev = [
+  'https://cdn.jsdelivr.net/npm/vue/dist/vue.js',
   'assets/css/common.css',
   'assets/css/features.css',
   'assets/js/score.config.js',
@@ -19,6 +19,7 @@ var staticAssetsDev = [
 ];
 
 var staticAssetsProd = [
+  'https://cdn.jsdelivr.net/npm/vue',
   'assets/css/common.min.css',
   'assets/css/features.min.css',
   'assets/js/script.min.js'

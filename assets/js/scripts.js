@@ -10,15 +10,10 @@
 // Define database's name & version...
 window.root = {
   dbName: 'score_db',
+  tableName: 'players',
   dbVersion: 1,
-  appVersion: '1.0.2',
-  env: 'prod'
+  appVersion: '1.0.3 (18/09/2018)'
 };
-
-// Determine if it's dev environnement.
-if (window.location.href.indexOf('localhost') !== -1) {
-  root.env = 'dev';
-}
 
 })();
 
@@ -39,7 +34,7 @@ root.createDB = function() {
     var db = root.db = event.target.result;
 
     // Create Objects stores.
-    var objStore = db.createObjectStore('players', { autoIncrement : true });
+    var objStore = db.createObjectStore(root.tableName, { autoIncrement : true });
 
     //objStore.createIndex('by-name', 'id', { unique: true });
 
@@ -106,7 +101,7 @@ root.save = function() {
   request.onsuccess = function(event) {
 
     var db = event.target.result;
-    var objName = 'players';
+    var objName = root.tableName;
 
     // Create transaction.
     var trans = db.transaction(objName, 'readwrite');
@@ -120,7 +115,7 @@ root.save = function() {
 
     // Add new data.
     var objStore = trans.objectStore(objName);
-    var requestObj = objStore.add(root.data_players);
+    var requestObj = objStore.add(root.appData);
 
     requestObj.onsuccess = function() {
       //console.log('Data added for ' + objStore.name);
@@ -136,7 +131,11 @@ root.save = function() {
  */
 root.initData = function() {
 
-  var defaultData = [];
+  var defaultData = {
+    'title': 'Score',
+    'score_limit': 3,
+    'players': []
+  };
   var visible  = true;
 
 
@@ -147,7 +146,7 @@ root.initData = function() {
       visible = false;
     }
 
-    defaultData.push({
+    defaultData.players.push({
       'id': i,
       'name': 'Joueur ' + i,
       'score': 0,
@@ -172,7 +171,7 @@ root.getLastData = function() {
   request.onsuccess = function(event) {
 
     var db = event.target.result;
-    var objStore = db.transaction('players', 'readonly').objectStore('players');
+    var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
 
     objStore.getAllKeys().onsuccess = function(event) {
 
@@ -184,14 +183,14 @@ root.getLastData = function() {
 
         // Get the last save.
         objStore.get(lastKey).onsuccess = function(event) {
-          root.data_players = event.target.result;
+          root.appData = event.target.result;
           root.initVue();
         };
 
       } else {
 
         // Create default data.
-        root.data_players = root.initData();
+        root.appData = root.initData();
         root.initVue();
 
       }
@@ -212,10 +211,13 @@ root.mainApp = function() {
   var app = new Vue({
     el: '#app',
     data: {
-      title: 'Score',
-      players: root.data_players,
+      title: root.appData.title,
+      players: root.appData.players,
+      winner: null,
       modal_visible: false,
       options_visible: false,
+      options_filter: 'all',
+      score_limit: root.appData.score_limit,
       version: root.appVersion
     },
     computed: {
@@ -271,11 +273,20 @@ root.mainApp = function() {
         root.save();
       },
 
-      showModal: function(modal_name) {
+      /**
+       * Show the modal.
+       *
+       * @param {String} modal_name - Modal name
+       * @param {String} filter - Modal filter to hide other options
+       */
+      showModal: function(modal_name, filter = 'all') {
 
+        // This variable toggle a class if true.
         this.modal_visible = true;
+        this.options_filter = filter;
 
         if (modal_name == 'options') {
+          // This variable toggle a class if true.
           this.options_visible = true;
         }
 
@@ -290,6 +301,17 @@ root.mainApp = function() {
         }
 
       },
+
+      show_winner: function(player) {
+        this.winner = player;
+        this.showModal('options', 'winner');
+      },
+
+      play_again: function() {
+        this.hideModal('options');
+        this.raz();
+      }
+
     }
   });
 
@@ -316,20 +338,42 @@ root.checkCompatibility = function() {
  */
 root.players = function() {
 
-  var player_template = '<div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">' +
-  '<div class="player__header">' +
-  '  <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{player.name}}</p>' +
-  '  <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>' +
-  '</div>' +
-  '<div class="player__action">' +
-  '  <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>' +
-  '  <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1"><span class="visually-hidden">Ajouter 1 point</span></button>' +
-  '</div>' +
-  '</div>';
+  var player_template = `
+  <div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">
+    <div class="player__header">
+      <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
+      <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
+    </div>
+    <div class="player__action">
+      <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>
+      <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1"><span class="visually-hidden">Ajouter 1 point</span></button>
+    </div>
+    <div v-if="remain != score_limit && remain > 0" class="player__remain">
+      Reste <strong>{{ remain }} point(s)</strong>
+    </div>
+  </div>
+  `;
 
   Vue.component('player', {
-    props: ['player'],
+    props: ['player', 'score_limit'],
     template: player_template,
+    computed: {
+
+      /**
+       * Calculate remaining point.
+       */
+      remain: function() {
+        var c = this.score_limit - this.player.score;
+
+        // Send winner to the app.
+        if (c <= 0) {
+          this.$emit('we-got-a-winner', this.player);
+        }
+
+        return c;
+      }
+
+    },
     methods: {
 
       /**
@@ -340,6 +384,9 @@ root.players = function() {
         root.save();
       },
 
+      /**
+       * Add 1 point to the player.
+       */
       addPoint: function() {
         this.player.score += 1;
         this.bounce();
@@ -349,6 +396,9 @@ root.players = function() {
 
       },
 
+      /**
+       * Remove 1 point to the player.
+       */
       removePoint: function() {
         this.player.score -= 1;
         this.bounce();
@@ -375,6 +425,7 @@ root.players = function() {
 
       }
     }
+
   });
 
 
