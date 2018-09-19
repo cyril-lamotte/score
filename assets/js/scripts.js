@@ -12,7 +12,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'players',
   dbVersion: 1,
-  appVersion: '1.0.5 (19/09/2018)',
+  appVersion: '1.1.0 (19/09/2018)',
   appData: {}
 };
 
@@ -36,13 +36,6 @@ root.createDB = function() {
 
     // Create Objects stores.
     var objStore = db.createObjectStore(root.tableName, { autoIncrement : true });
-
-    //objStore.createIndex('by-name', 'id', { unique: true });
-
-    // Objects stores are created, store default data.
-    objStore.transaction.oncomplete = function(event) {
-      //root.save();
-    };
 
   };
 
