@@ -17,13 +17,6 @@ root.createDB = function() {
     // Create Objects stores.
     var objStore = db.createObjectStore(root.tableName, { autoIncrement : true });
 
-    //objStore.createIndex('by-name', 'id', { unique: true });
-
-    // Objects stores are created, store default data.
-    objStore.transaction.oncomplete = function(event) {
-      //root.save();
-    };
-
   };
 
   request.onsuccess = function(event) {
