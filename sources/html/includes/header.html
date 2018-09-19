@@ -60,7 +60,7 @@
     <section class="app__option app__option--score-limit" v-if="options_filter == 'all' || options_filter == 'score_limit'">
 
       <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
-      <input type="number" class="option__input" v-model:value="score_limit" aria-labelled-by="score-limit-label">
+      <input type="number" class="option__input" @blur="update_score_limit($event.target.value)" :value="score_limit" aria-labelled-by="score-limit-label">
 
     </section>
 
