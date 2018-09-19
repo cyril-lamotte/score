@@ -54,7 +54,7 @@ root.mainApp = function() {
 
       // Fade in.
       setTimeout(function() {
-        document.querySelector('.app').classList.add('app-is-mounted');
+        document.querySelector('body').classList.add('app-is-mounted');
       }, 1);
 
     },
