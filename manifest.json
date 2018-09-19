@@ -2,7 +2,7 @@
   "name": "Score",
   "short_name": "Score",
   "description": "Compter les points entre amis !",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "icons": [{
     "src": "assets/img/app/apple-touch-icon.png",
