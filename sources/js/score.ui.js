@@ -18,6 +18,7 @@ root.mainApp = function() {
       version: root.appVersion
     },
     computed: {
+
       player_count: function() {
 
         var c = 0;
@@ -45,24 +46,42 @@ root.mainApp = function() {
     },
 
     mounted: function () {
-      //console.log('mounted', this.title);
 
+      // If there is no player, show the options.
       if (!this.player_count) {
         this.showModal('options');
       }
 
+      // Fade in.
+      setTimeout(function() {
+        document.querySelector('.app').classList.add('app-is-mounted');
+      }, 1);
+
     },
 
-    updated: function () {
-    },
+    updated: function () {},
 
     methods: {
+
+      /**
+       * Update the board title.
+       */
+      updateTitle: function(new_name) {
+
+        if (this.title != new_name) {
+          root.appData.title = new_name;
+
+          // Save in indexDB.
+          root.save();
+        }
+
+      },
 
       /**
        * Add new default player.
        */
       addPlayer: function() {
-        this.players.push({ id: this.player_count + 1, name: 'Joueur X', score: 0, visible: true });
+        this.players.push({ id: this.player_count + 1, name: 'Nouveau joueur', score: 0, visible: true });
       },
 
       /**
@@ -117,8 +136,13 @@ root.mainApp = function() {
        * @param {Object} player - Player object.
        */
       show_winner: function(player) {
-        this.winner = player;
-        this.showModal('options', 'winner');
+
+        // Do not show winner screen if there is no score limit.
+        if (this.score_limit > 0) {
+          this.winner = player;
+          this.showModal('options', 'winner');
+        }
+
       },
 
       /**
@@ -135,7 +159,10 @@ root.mainApp = function() {
        * @param {Int} score_limit - New score limit
        */
       update_score_limit: function(score_limit) {
-        this.score_limit = score_limit;
+        root.appData.score_limit = parseInt(score_limit);
+
+        // Save in indexDB.
+        root.save();
       }
 
     }

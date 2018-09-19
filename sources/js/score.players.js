@@ -46,8 +46,14 @@ root.players = function() {
        * Rename the player.
        */
       rename: function(new_name) {
-        this.player.name = new_name;
-        root.save();
+
+        if (this.player.name != new_name) {
+          this.player.name = new_name;
+
+          // Save in indexDB.
+          root.save();
+        }
+
       },
 
       /**

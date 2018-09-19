@@ -1,7 +1,7 @@
 
 <header class="main-header" role="banner">
 
-  <h1 class="main-title" contenteditable="true">{{ title }}</h1>
+  <h1 class="main-title" contenteditable="true" @blur="updateTitle($event.target.innerHTML)">{{ title }}</h1>
   <button type="button" class="header__btn" @click.prevent="showModal('options')" v-if="!options_visible"><span class="visually-hidden">Options</span><span>Options&hellip;</span></button>
 
 </header>
