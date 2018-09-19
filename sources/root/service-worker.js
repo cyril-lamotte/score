@@ -1,3 +1,4 @@
+const CACHE = 'cache-v1.1.0';
 
 // List all static ressources that will be cached.
 var staticAssets = [
@@ -44,7 +45,7 @@ if (env == 'dev') {
 self.addEventListener('install', function(event) {
 
   event.waitUntil(
-    caches.open('cache').then(function(cache) {
+    caches.open(CACHE).then(function(cache) {
 
       // addAll() will fail if one ressource or more is not reachable.
       return cache.addAll(staticAssetsToCache);

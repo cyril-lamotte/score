@@ -159,7 +159,7 @@ root.mainApp = function() {
        * @param {Int} score_limit - New score limit
        */
       update_score_limit: function(score_limit) {
-        this.score_limit = parseInt(score_limit);
+        root.appData.score_limit = parseInt(score_limit);
 
         // Save in indexDB.
         root.save();

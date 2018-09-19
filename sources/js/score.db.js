@@ -88,7 +88,7 @@ root.save = function() {
     var objStore = trans.objectStore(objName);
 
     // Add curent time.
-    //root.appData.date = Date.now();
+    root.appData.date = Date.now();
     var requestObj = objStore.add(root.appData);
 
     requestObj.onsuccess = function() {

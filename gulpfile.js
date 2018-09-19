@@ -131,6 +131,7 @@ gulp.task('minify-css', ['build-css'], function() {
     .pipe(cleanCSS({compatibility: '*'}, function(details) {
        console.log(details.name + ': ' + Math.round(details.stats.originalSize/1024) + 'ko >> min : ' + Math.round(details.stats.minifiedSize/1024) + 'ko');
     }))
+    .pipe(concat('styles.css'))
     .pipe(rename({
       extname: '.min.css'
     }))
