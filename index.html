@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-800422-4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,6 +11,7 @@
 
     gtag('config', 'UA-800422-4');
   </script>
+  
 
 
   <title>Score </title>
@@ -161,7 +162,7 @@
         <section class="app__option app__option--score-limit" v-if="options_filter == 'all' || options_filter == 'score_limit'">
 
           <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
-          <input type="number" class="option__input" v-model:value="score_limit" aria-labelled-by="score-limit-label">
+          <input type="number" class="option__input" @blur="update_score_limit($event.target.value)" :value="score_limit" aria-labelled-by="score-limit-label">
 
         </section>
 
@@ -247,13 +248,11 @@
 
 
 <script>
-  /*if ('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('service-worker.js')
-      .then(function() {
-        console.log("Service Worker Registered");
-      });
-  }*/
+      .then(function() {});
+  }
 </script>
 
 

@@ -2,7 +2,10 @@
   text-align: center;
   font-size: 2rem; }
   .winner strong {
-    font-size: 2.4rem; }
+    font-size: 2.4rem;
+    cursor: pointer; }
+    .winner strong:hover, .winner strong:focus, .winner strong:active {
+      color: #ff9c00; }
 
 .app__version {
   text-align: center;
@@ -134,9 +137,9 @@
       -webkit-box-pack: justify;
           -ms-flex-pack: justify;
               justify-content: space-between;
-      -webkit-box-align: center;
-          -ms-flex-align: center;
-              align-items: center;
+      -webkit-box-align: start;
+          -ms-flex-align: start;
+              align-items: flex-start;
       -ms-flex-line-pack: start;
           align-content: flex-start; } }
 

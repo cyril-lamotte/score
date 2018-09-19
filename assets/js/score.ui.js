@@ -57,10 +57,17 @@ root.mainApp = function() {
     },
 
     methods: {
+
+      /**
+       * Add new default player.
+       */
       addPlayer: function() {
         this.players.push({ id: this.player_count + 1, name: 'Joueur X', score: 0, visible: true });
       },
 
+      /**
+       * Set all scores to zero.
+       */
       raz: function() {
         this.players.forEach(function(player, key) {
           player.score = 0;
@@ -89,6 +96,11 @@ root.mainApp = function() {
 
       },
 
+      /**
+       * Hide the modal.
+       *
+       * @param {String} modal_name - Modal name
+       */
       hideModal: function(modal_name) {
 
         this.modal_visible = false;
@@ -99,14 +111,31 @@ root.mainApp = function() {
 
       },
 
+      /**
+       * Show the winner screen.
+       *
+       * @param {Object} player - Player object.
+       */
       show_winner: function(player) {
         this.winner = player;
         this.showModal('options', 'winner');
       },
 
+      /**
+       * Launch a new game, set all score to zero & hide modal.
+       */
       play_again: function() {
         this.hideModal('options');
         this.raz();
+      },
+
+      /**
+       * Define the new score limit.
+       *
+       * @param {Int} score_limit - New score limit
+       */
+      update_score_limit: function(score_limit) {
+        this.score_limit = score_limit;
       }
 
     }
