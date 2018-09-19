@@ -87,15 +87,15 @@ root.save = function() {
     // Create transaction.
     var trans = db.transaction(objName, 'readwrite');
 
-    trans.oncomplete = function(event) {
-    };
-
     trans.onerror = function(event) {
       console.log('Transaction error.');
     };
 
     // Add new data.
     var objStore = trans.objectStore(objName);
+
+    // Add curent time.
+    //root.appData.date = Date.now();
     var requestObj = objStore.add(root.appData);
 
     requestObj.onsuccess = function() {
@@ -114,7 +114,7 @@ root.initData = function() {
 
   var defaultData = {
     'title': 'Score',
-    'score_limit': 3,
+    'score_limit': 0,
     'players': []
   };
   var visible  = true;
@@ -171,6 +171,7 @@ root.getLastData = function() {
       } else {
 
         // Create default data.
+        console.log('Default data created.');
         root.appData = root.initData();
         root.initVue();
 

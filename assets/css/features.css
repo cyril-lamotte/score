@@ -1,3 +1,11 @@
+.app {
+  opacity: 0;
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s; }
+  .app-is-mounted .app {
+    opacity: 1; }
+
 .winner {
   text-align: center;
   font-size: 2rem; }

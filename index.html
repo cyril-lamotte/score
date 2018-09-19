@@ -3,18 +3,9 @@
 <head>
 
   
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-800422-4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-800422-4');
-  </script>
-  
 
 
-  <title>Score </title>
+  <title>Score [dev]</title>
 
   <!-- Define Internet Explorer's compatibility mode  -->
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
@@ -34,10 +25,10 @@
   <meta name="description" content="Compter les points entre amis avec la webapp Score !"/>
 
   
-
+  <link rel="stylesheet" href="assets/css/common.css" media="all">
+  <link rel="stylesheet" href="assets/css/features.css" media="all">
   
-  <link rel="stylesheet" href="assets/css/common.min.css" media="all">
-  <link rel="stylesheet" href="assets/css/features.min.css" media="all">
+
   
 
   <link rel="apple-touch-icon" href="assets/img/app/apple-touch-icon.png">
@@ -103,7 +94,7 @@
     
     <header class="main-header" role="banner">
 
-      <h1 class="main-title" contenteditable="true">{{ title }}</h1>
+      <h1 class="main-title" contenteditable="true" @blur="updateTitle($event.target.innerHTML)">{{ title }}</h1>
       <button type="button" class="header__btn" @click.prevent="showModal('options')" v-if="!options_visible"><span class="visually-hidden">Options</span><span>Options&hellip;</span></button>
 
     </header>
@@ -241,10 +232,14 @@
 </div><!--/outer-wrap-->
 
 
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="assets/js/score.config.js"></script>
+<script src="assets/js/score.db.js"></script>
+<script src="assets/js/score.ui.js"></script>
+<script src="assets/js/score.players.js"></script>
+<script src="assets/js/score.js"></script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="assets/js/scripts.min.js"></script>
 
 
 <script>

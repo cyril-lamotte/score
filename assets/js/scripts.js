@@ -12,7 +12,8 @@ window.root = {
   dbName: 'score_db',
   tableName: 'players',
   dbVersion: 1,
-  appVersion: '1.0.4 (19/09/2018)'
+  appVersion: '1.0.5 (19/09/2018)',
+  appData: {}
 };
 
 })();
@@ -106,15 +107,15 @@ root.save = function() {
     // Create transaction.
     var trans = db.transaction(objName, 'readwrite');
 
-    trans.oncomplete = function(event) {
-    };
-
     trans.onerror = function(event) {
       console.log('Transaction error.');
     };
 
     // Add new data.
     var objStore = trans.objectStore(objName);
+
+    // Add curent time.
+    //root.appData.date = Date.now();
     var requestObj = objStore.add(root.appData);
 
     requestObj.onsuccess = function() {
@@ -133,7 +134,7 @@ root.initData = function() {
 
   var defaultData = {
     'title': 'Score',
-    'score_limit': 3,
+    'score_limit': 0,
     'players': []
   };
   var visible  = true;
@@ -190,6 +191,7 @@ root.getLastData = function() {
       } else {
 
         // Create default data.
+        console.log('Default data created.');
         root.appData = root.initData();
         root.initVue();
 
@@ -221,6 +223,7 @@ root.mainApp = function() {
       version: root.appVersion
     },
     computed: {
+
       player_count: function() {
 
         var c = 0;
@@ -248,24 +251,42 @@ root.mainApp = function() {
     },
 
     mounted: function () {
-      //console.log('mounted', this.title);
 
+      // If there is no player, show the options.
       if (!this.player_count) {
         this.showModal('options');
       }
 
+      // Fade in.
+      setTimeout(function() {
+        document.querySelector('body').classList.add('app-is-mounted');
+      }, 1);
+
     },
 
-    updated: function () {
-    },
+    updated: function () {},
 
     methods: {
+
+      /**
+       * Update the board title.
+       */
+      updateTitle: function(new_name) {
+
+        if (this.title != new_name) {
+          root.appData.title = new_name;
+
+          // Save in indexDB.
+          root.save();
+        }
+
+      },
 
       /**
        * Add new default player.
        */
       addPlayer: function() {
-        this.players.push({ id: this.player_count + 1, name: 'Joueur X', score: 0, visible: true });
+        this.players.push({ id: this.player_count + 1, name: 'Nouveau joueur', score: 0, visible: true });
       },
 
       /**
@@ -320,8 +341,13 @@ root.mainApp = function() {
        * @param {Object} player - Player object.
        */
       show_winner: function(player) {
-        this.winner = player;
-        this.showModal('options', 'winner');
+
+        // Do not show winner screen if there is no score limit.
+        if (this.score_limit > 0) {
+          this.winner = player;
+          this.showModal('options', 'winner');
+        }
+
       },
 
       /**
@@ -338,7 +364,10 @@ root.mainApp = function() {
        * @param {Int} score_limit - New score limit
        */
       update_score_limit: function(score_limit) {
-        this.score_limit = score_limit;
+        this.score_limit = parseInt(score_limit);
+
+        // Save in indexDB.
+        root.save();
       }
 
     }
@@ -409,8 +438,14 @@ root.players = function() {
        * Rename the player.
        */
       rename: function(new_name) {
-        this.player.name = new_name;
-        root.save();
+
+        if (this.player.name != new_name) {
+          this.player.name = new_name;
+
+          // Save in indexDB.
+          root.save();
+        }
+
       },
 
       /**
@@ -490,24 +525,16 @@ root.checkCompatibility();
 // Create database.
 root.createDB();
 
-
 /**
  * Vue initialisation, launched by createDB() function.
  */
 root.initVue = function() {
 
+  // Player component.
   root.players();
 
+  // Main component.
   root.mainApp();
-
-  // Add player.
-  //app.players.push({ id: 4, name: 'Arnaud', score: 0, visible: false });
-  //app.players[0].name = 'Cycy';
-
-  // Update score.
-  //app.players[0].score = 7;
-  //app.players[1].score = 2;
-
 
 };
 
