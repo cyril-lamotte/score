@@ -22,7 +22,7 @@ var staticAssetsProd = [
   'https://cdn.jsdelivr.net/npm/vue',
   'assets/css/common.min.css',
   'assets/css/features.min.css',
-  'assets/js/script.min.js'
+  'assets/js/script.min.js',
 ];
 
 
