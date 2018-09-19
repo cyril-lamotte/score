@@ -12,7 +12,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'players',
   dbVersion: 1,
-  appVersion: '1.1.0 (19/09/2018)',
+  appVersion: '1.1.2 (19/09/2018)',
   appData: {}
 };
 
@@ -108,7 +108,7 @@ root.save = function() {
     var objStore = trans.objectStore(objName);
 
     // Add curent time.
-    //root.appData.date = Date.now();
+    root.appData.date = Date.now();
     var requestObj = objStore.add(root.appData);
 
     requestObj.onsuccess = function() {
@@ -357,7 +357,7 @@ root.mainApp = function() {
        * @param {Int} score_limit - New score limit
        */
       update_score_limit: function(score_limit) {
-        this.score_limit = parseInt(score_limit);
+        root.appData.score_limit = parseInt(score_limit);
 
         // Save in indexDB.
         root.save();
