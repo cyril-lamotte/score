@@ -16,9 +16,10 @@
   strong {
     font-size: 2.4rem;
     cursor: pointer;
+    color: $brand;
 
     @include hover {
-      color: $brand;
+      text-decoration: underline;
     }
 
   }
