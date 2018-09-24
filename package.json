@@ -4,9 +4,15 @@
   "description": "Base for frontend projet",
   "author": "CYL",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git:github.com/cyril-lamotte/base.git"
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "script",
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "es6": true
+    }
   },
   "devDependencies": {
     "autoprefixer": "^8.0.0",
@@ -33,7 +39,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-zip": "^4.0.0",
     "gulp.spritesmith": "^6.5.1",
-    "jshint": "^2.9.5",
+    "jshint": "^2.9.6",
     "jshint-stylish": "^2.2.1",
     "node-sass": "^4.5.3",
     "postcss-normalize": "^4.0.0",

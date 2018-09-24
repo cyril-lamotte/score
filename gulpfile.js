@@ -150,6 +150,7 @@ gulp.task('concat', function() {
     paths.js_src + 'score.db.js',
     paths.js_src + 'score.ui.js',
     paths.js_src + 'score.players.js',
+    paths.js_src + 'score.logs.js',
     paths.js_src + 'score.js'
   ])
     .pipe(concat('scripts.js'))
@@ -280,7 +281,7 @@ gulp.task('jshint', function() {
     .pipe(ignore.exclude('**/lib/*.js'))
     .pipe(ignore.exclude('**/plugins/contrib/*.js'))
     .pipe(ignore.exclude('**/*.min.js'))
-    .pipe(jshint())
+    .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'));
 });
 

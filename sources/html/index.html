@@ -25,12 +25,22 @@
         :score_limit="score_limit"
         :key="player.id"
         v-if="player.visible"
-        @we-got-a-winner="show_winner">
+        @we-got-a-winner="show_winner"
+        @request-save="waitForSaving">
       </player>
 
     </section><!--/player-list-->
 
-    <!-- @@include('includes/footer.html') -->
+    <section class="logs">
+      <ul v-if="logs">
+        <log
+          v-for="log in logs"
+          :log="log"
+          :key="log.id">
+        </log>
+      </ul>
+
+    </section>
 
   </div><!--/app-->
 

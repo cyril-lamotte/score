@@ -65,40 +65,6 @@ root.deleteDb = function() {
 
 
 
-/**
- * Save config in database.
- */
-root.save = function() {
-
-  // Connect to database.
-  var request = root.openDB();
-  request.onsuccess = function(event) {
-
-    var db = event.target.result;
-    var objName = root.tableName;
-
-    // Create transaction.
-    var trans = db.transaction(objName, 'readwrite');
-
-    trans.onerror = function(event) {
-      console.log('Transaction error.');
-    };
-
-    // Add new data.
-    var objStore = trans.objectStore(objName);
-
-    // Add curent time.
-    root.appData.date = Date.now();
-    var requestObj = objStore.add(root.appData);
-
-    requestObj.onsuccess = function() {
-      //console.log('Data added for ' + objStore.name);
-    };
-
-  };
-
-};
-
 
 /**
  * Create default data.
@@ -175,3 +141,4 @@ root.getLastData = function() {
   };
 
 };
+

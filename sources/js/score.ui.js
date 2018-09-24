@@ -1,5 +1,4 @@
 
-
 /**
  * Create vue instance.
  */
@@ -10,6 +9,7 @@ root.mainApp = function() {
     data: {
       title: root.appData.title,
       players: root.appData.players,
+      logs: [],
       winner: null,
       modal_visible: false,
       options_visible: false,
@@ -57,6 +57,10 @@ root.mainApp = function() {
         document.querySelector('body').classList.add('app-is-mounted');
       }, 1);
 
+      // Check offline mode.
+      window.addEventListener('online', root.updateOnlineStatus());
+      window.addEventListener('offline', root.updateOnlineStatus());
+
     },
 
     updated: function () {},
@@ -72,7 +76,7 @@ root.mainApp = function() {
           root.appData.title = new_name;
 
           // Save in indexDB.
-          root.save();
+          this.waitForSaving();
         }
 
       },
@@ -85,6 +89,13 @@ root.mainApp = function() {
       },
 
       /**
+       * Add new log.
+       */
+      addLog: function(log) {
+        this.logs.push(log);
+      },
+
+      /**
        * Set all scores to zero.
        */
       raz: function() {
@@ -92,9 +103,172 @@ root.mainApp = function() {
           player.score = 0;
         });
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.waitForSaving();
+
       },
+
+      /**
+       * Delay saving.
+       */
+      waitForSaving: function() {
+
+        // Cancel other save.
+        clearTimeout(root.time);
+
+        root.time = setTimeout(function() {
+
+          // 'this' is not available in this context.
+          app.save();
+
+        }, 1000);
+
+      },
+
+      /**
+       * Save config in database.
+       */
+      save: function() {
+
+        // Connect to database.
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objName = root.tableName;
+
+          // Create transaction.
+          var trans = db.transaction(objName, 'readwrite');
+
+          trans.onerror = function(event) {
+            console.log('Transaction error.');
+          };
+
+          // Add new data.
+          var objStore = trans.objectStore(objName);
+
+          // Add curent time.
+          var date = new Date();
+          root.appData.date = ('0' + date.getHours()).substr(-2) + "h" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
+
+          var requestObj = objStore.add(root.appData);
+
+          requestObj.onsuccess = function(event) {
+
+            //console.log(event);
+
+            // Get last record promise.
+            var last2RecordsPromise = app.getLastRecord();
+
+            // We need to wait for the request.
+            // Process once promise is resolved.
+            last2RecordsPromise.then(function(last_2_records) {
+              app.showDiffAndLog(last_2_records);
+            });
+
+          };
+
+        };
+
+      },
+
+      getLastRecord: async function() {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            var db = event.target.result;
+            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+            objStore.count().onsuccess = function(event) {
+
+              var count = event.target.result;
+              if (count > 2) {
+                objStore.getAll(IDBKeyRange.bound(count - 1, count)).onsuccess = function(event) {
+                  resolve(event.target.result);
+                };
+              }
+              else {
+                reject('Not enough records.');
+              }
+
+            };
+
+          };
+
+        });
+
+      },
+
+
+      /**
+       * Evaluate difference with last save then show log.
+       *
+       * @param {Array} last_2_records - Array of the last two records.
+       */
+      showDiffAndLog: function(last_2_records) {
+
+        var previousRecord = last_2_records[0];
+        var lastRecord     = last_2_records[1];
+        var diffText       = '';
+
+        //console.log('previousRecord', previousRecord);
+        //console.log('lastRecord', lastRecord);
+
+        // Check if title was updated.
+        if (lastRecord.title != previousRecord.title) {
+          diffText += '<span>Titre : ' + lastRecord.title + '</span>';
+        }
+
+        // Check if score limit was updated.
+        if (lastRecord.score_limit != previousRecord.score_limit) {
+          diffText += '<span>Limite de score : ' + lastRecord.score_limit + '</span>';
+        }
+
+        // Check if players was updated.
+        if (!Object.is(lastRecord.players, previousRecord.players)) {
+
+          // Compare scores.
+          var i = 0;
+
+          lastRecord.players.forEach(function(lastPlayer) {
+            var diff = 0;
+
+            previousRecord.players.forEach(function(prevPlayer) {
+
+              if (lastPlayer.id == prevPlayer.id) {
+
+                diff = prevPlayer.score - lastPlayer.score;
+
+                if (diff < 0) {
+                  diffText += '<span>' + lastPlayer.name + ' +' + Math.abs(diff) + ' point(s).' + '</span>';
+                }
+                else if (diff > 0) {
+                  diffText += '<span>' + lastPlayer.name + ' -' + Math.abs(diff) + ' point(s). ' + '</span>';
+                }
+
+              }
+
+            });
+
+            i++;
+
+          });
+
+        }
+
+        // Log action.
+        var log = {
+          content: diffText,
+          date: root.appData.date
+        };
+
+        app.addLog(log);
+
+      },
+
 
       /**
        * Show the modal.
@@ -158,11 +332,11 @@ root.mainApp = function() {
        *
        * @param {Int} score_limit - New score limit
        */
-      update_score_limit: function(score_limit) {
-        root.appData.score_limit = parseInt(score_limit);
+      updateScoreLimit: function(score_limit) {
+        this.score_limit = root.appData.score_limit = parseInt(score_limit);
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.waitForSaving();
       }
 
     }
@@ -184,3 +358,22 @@ root.checkCompatibility = function() {
 };
 
 
+/**
+ * Check if app is online or offline. It add the related HTML class on body.
+ */
+root.updateOnlineStatus = function() {
+
+  var bodyClasses = document.querySelector('body').classList;
+  var onlineClass = 'app-is-online';
+  var offlineClass = 'app-is-offline';
+
+  if (navigator.onLine) {
+    bodyClasses.remove(offlineClass);
+    bodyClasses.add(onlineClass);
+  }
+  else {
+    bodyClasses.remove(onlineClass);
+    bodyClasses.add(offlineClass);
+  }
+
+};
