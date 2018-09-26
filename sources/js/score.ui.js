@@ -265,7 +265,7 @@ root.mainApp = function() {
           date: root.appData.date
         };
 
-        app.addLog(log);
+        this.addLog(log);
 
       },
 

@@ -5,7 +5,7 @@
 root.logs = function() {
 
   var log_template = `
-  <li class="log">{{ log.date }} : <strong>{{ log.content }}</strong></li>
+  <li class="log">{{ log.date }} : <strong v-html="log.content"></strong></li>
   `;
 
   Vue.component('log', {
