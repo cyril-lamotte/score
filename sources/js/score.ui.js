@@ -9,12 +9,12 @@ root.mainApp = function() {
     data: {
       title: root.appData.title,
       players: root.appData.players,
+      score_limit: root.appData.score_limit,
       logs: [],
       winner: null,
       modal_visible: false,
       options_visible: false,
       options_filter: 'all',
-      score_limit: root.appData.score_limit,
       version: root.appVersion
     },
     computed: {
@@ -149,13 +149,11 @@ root.mainApp = function() {
 
           // Add curent time.
           var date = new Date();
-          root.appData.date = ('0' + date.getHours()).substr(-2) + "h" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
+          root.appData.date = ('0' + date.getHours()).substr(-2) + ":" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
 
           var requestObj = objStore.add(root.appData);
 
           requestObj.onsuccess = function(event) {
-
-            //console.log(event);
 
             // Get last record promise.
             var last2RecordsPromise = app.getLastRecord();
@@ -172,6 +170,69 @@ root.mainApp = function() {
 
       },
 
+
+      /**
+       * Rollback to a previous state.
+       *
+       * @param {Int} idb_key - Record's id.
+       */
+      rollback: function(idb_key) {
+
+        // Get last record promise.
+        var recordPromise = this.getRecord(idb_key);
+
+        // We need to wait for the request.
+        // Process once promise is resolved.
+        recordPromise.then(function(record) {
+
+          // Apply record.
+          app.applyRecord(record);
+
+        });
+
+      },
+
+
+      /**
+       * Get the specified record.
+       *
+       * @param {Int} idb_key - Record's id.
+       * @returns {Promise} Record
+       */
+      getRecord: async function(idb_key) {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            var db = event.target.result;
+            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+            objStore.get(idb_key).onsuccess = function(event) {
+              event.target.result.idb_key = idb_key;
+              resolve(event.target.result);
+            };
+
+          };
+
+        });
+
+      },
+
+
+      /**
+       * Apply the specified record to the app.
+       *
+       * @param {Object} record - Specific record
+       */
+      applyRecord: function(record) {
+        this.title = record.title;
+        this.players = record.players;
+        this.score_limit = record.score_limit;
+      },
+
+
       getLastRecord: async function() {
 
         return new Promise(function(resolve, reject) {
@@ -187,6 +248,11 @@ root.mainApp = function() {
               var count = event.target.result;
               if (count > 2) {
                 objStore.getAll(IDBKeyRange.bound(count - 1, count)).onsuccess = function(event) {
+
+                  // Add the indexedDB key to results.
+                  event.target.result[0].idb_key = count - 1;
+                  event.target.result[1].idb_key = count;
+
                   resolve(event.target.result);
                 };
               }
@@ -213,9 +279,11 @@ root.mainApp = function() {
         var previousRecord = last_2_records[0];
         var lastRecord     = last_2_records[1];
         var diffText       = '';
+        var synthesis      = '';
 
         //console.log('previousRecord', previousRecord);
         //console.log('lastRecord', lastRecord);
+
 
         // Check if title was updated.
         if (lastRecord.title != previousRecord.title) {
@@ -224,8 +292,11 @@ root.mainApp = function() {
 
         // Check if score limit was updated.
         if (lastRecord.score_limit != previousRecord.score_limit) {
-          diffText += '<span>Limite de score : ' + lastRecord.score_limit + '</span>';
+          diffText += '<span class="log__limit">Limite passée de ' + previousRecord.score_limit + ' à <strong>' + lastRecord.score_limit + '</strong></span>';
         }
+
+        synthesis += '<div class="log__synthesis">';
+        synthesis += '<div class="log__row"><span>Limite</span><span>' + lastRecord.score_limit + '</span></div>';
 
         // Check if players was updated.
         if (!Object.is(lastRecord.players, previousRecord.players)) {
@@ -234,19 +305,37 @@ root.mainApp = function() {
           var i = 0;
 
           lastRecord.players.forEach(function(lastPlayer) {
+
+            if (!lastPlayer.visible) {
+              return;
+            }
+
             var diff = 0;
+
+            synthesis += '<div class="log__row">';
+            synthesis += '<span>' + lastPlayer.name + '</span>';
+            synthesis += '<span>' + lastPlayer.score + '</span>';
+            synthesis += '</div>';
+
 
             previousRecord.players.forEach(function(prevPlayer) {
 
               if (lastPlayer.id == prevPlayer.id) {
 
+
+                // Score difference.
                 diff = prevPlayer.score - lastPlayer.score;
 
                 if (diff < 0) {
-                  diffText += '<span>' + lastPlayer.name + ' +' + Math.abs(diff) + ' point(s).' + '</span>';
+                  diffText += '<span class="log__diff">' + lastPlayer.name + ' <strong>+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
                 }
                 else if (diff > 0) {
-                  diffText += '<span>' + lastPlayer.name + ' -' + Math.abs(diff) + ' point(s). ' + '</span>';
+                  diffText += '<span class="log__diff">' + lastPlayer.name + ' <strong>-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+                }
+
+                // Name.
+                if (lastPlayer.name != prevPlayer.name) {
+                  diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
                 }
 
               }
@@ -259,9 +348,14 @@ root.mainApp = function() {
 
         }
 
+        synthesis += '</div>';
+
+        diffText = '<div class="log__difftext">' + diffText + '</div>'
+
         // Log action.
         var log = {
-          content: diffText,
+          idb_key: lastRecord.idb_key,
+          content: diffText + synthesis,
           date: root.appData.date
         };
 

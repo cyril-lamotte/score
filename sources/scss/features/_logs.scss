@@ -1,0 +1,64 @@
+
+
+.logs {
+
+  ul {
+    @include reset-list;
+  }
+
+}
+
+.log {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  max-width: 200px;
+}
+
+.log__button {
+  @include reset-box-model;
+  margin: 15px 0;
+  font-size: 1.6rem;
+  background: $tomato;
+  color: #fff;
+  padding: 10px 10px;
+  cursor: pointer;
+
+  @include hover {
+    background: lighten($tomato, 5%);
+  }
+
+}
+
+.log__date {
+  display: block;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.log__diff {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.log__content {
+  display: block;
+}
+
+.log__new-name {
+  font-weight: bold;
+  color: $cadet-blue;
+}
+
+
+.log__synthesis {
+
+}
+
+.log__row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+}

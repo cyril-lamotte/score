@@ -31,12 +31,16 @@
 
     </section><!--/player-list-->
 
-    <section class="logs">
-      <ul v-if="logs">
-        <log
+    <section class="logs" v-if="logs.length">
+
+      <h2 class="other-players__title">Annuler/Revenir à une sauvegarde précédente</h2>
+
+      <ul>
+        <log v-if="logs"
           v-for="log in logs"
           :log="log"
-          :key="log.id">
+          :key="log.id"
+          @rollback="rollback">
         </log>
       </ul>
 

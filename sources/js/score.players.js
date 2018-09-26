@@ -51,7 +51,7 @@ root.players = function() {
           this.player.name = new_name;
 
           // Request for a save.
-          this.$emit('request-save', this.player.name + ' renommé.');
+          this.$emit('request-save');
         }
 
       },
@@ -64,7 +64,7 @@ root.players = function() {
         this.bounce();
 
         // Request for a save.
-        this.$emit('request-save', '+1 point pour ' + this.player.name);
+        this.$emit('request-save');
 
       },
 
@@ -76,7 +76,7 @@ root.players = function() {
         this.bounce();
 
         // Request for a save.
-        this.$emit('request-save', '-1 point pour ' + this.player.name);
+        this.$emit('request-save');
 
       },
 
@@ -84,7 +84,7 @@ root.players = function() {
         this.player.score = 0;
 
         // Request for a save.
-        this.$emit('request-save', 'Remise à zéro pour ' + this.player.name);
+        this.$emit('request-save');
 
       },
 
