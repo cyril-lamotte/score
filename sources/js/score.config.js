@@ -9,10 +9,11 @@
 
 // Define database's name & version...
 window.root = {
+  app: null,
   dbName: 'score_db',
-  tableName: 'players',
+  tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.4.0 (26 septembre 2018)',
+  appVersion: '1.5.1 (28 septembre 2018)',
   appData: {}
 };
 

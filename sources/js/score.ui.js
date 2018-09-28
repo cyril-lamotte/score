@@ -4,12 +4,12 @@
  */
 root.mainApp = function() {
 
-  var app = new Vue({
+  root.app = new Vue({
     el: '#app',
     data: {
-      title: root.appData.title,
-      players: root.appData.players,
-      score_limit: root.appData.score_limit,
+      title: 'Score',
+      players: [],
+      score_limit: 0,
       logs: [],
       winner: null,
       modal_visible: false,
@@ -47,10 +47,8 @@ root.mainApp = function() {
 
     mounted: function () {
 
-      // If there is no player, show the options.
-      if (!this.player_count) {
-        this.showModal('options');
-      }
+      // Get data or generate default data.
+      this.getLastDataOrInit();
 
       // Fade in.
       setTimeout(function() {
@@ -81,6 +79,7 @@ root.mainApp = function() {
 
       },
 
+
       /**
        * Add new default player.
        */
@@ -88,12 +87,14 @@ root.mainApp = function() {
         this.players.push({ id: this.player_count + 1, name: 'Nouveau joueur', score: 0, visible: true });
       },
 
+
       /**
        * Add new log.
        */
       addLog: function(log) {
         this.logs.push(log);
       },
+
 
       /**
        * Set all scores to zero.
@@ -108,6 +109,7 @@ root.mainApp = function() {
 
       },
 
+
       /**
        * Delay saving.
        */
@@ -119,11 +121,12 @@ root.mainApp = function() {
         root.time = setTimeout(function() {
 
           // 'this' is not available in this context.
-          app.save();
+          root.app.save();
 
         }, 1000);
 
       },
+
 
       /**
        * Save config in database.
@@ -135,33 +138,26 @@ root.mainApp = function() {
         request.onsuccess = function(event) {
 
           var db = event.target.result;
-          var objName = root.tableName;
-
-          // Create transaction.
-          var trans = db.transaction(objName, 'readwrite');
-
-          trans.onerror = function(event) {
-            console.log('Transaction error.');
-          };
-
-          // Add new data.
-          var objStore = trans.objectStore(objName);
+          var objStore = db.transaction(root.tableName, 'readwrite').objectStore(root.tableName);
 
           // Add curent time.
           var date = new Date();
-          root.appData.date = ('0' + date.getHours()).substr(-2) + ":" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
-
-          var requestObj = objStore.add(root.appData);
+          root.app.$data.date = ('0' + date.getHours()).substr(-2) + ":" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
+          var requestObj = objStore.add(root.app.$data);
 
           requestObj.onsuccess = function(event) {
 
             // Get last record promise.
-            var last2RecordsPromise = app.getLastRecord();
+            var last2RecordsPromise = root.app.getLast2Records();
 
             // We need to wait for the request.
             // Process once promise is resolved.
             last2RecordsPromise.then(function(last_2_records) {
-              app.showDiffAndLog(last_2_records);
+
+              if (last_2_records) {
+                root.app.showDiffAndLog(last_2_records);
+              }
+
             });
 
           };
@@ -173,6 +169,7 @@ root.mainApp = function() {
 
       /**
        * Rollback to a previous state.
+       * If no key is provided, rollback to the previous state.
        *
        * @param {Int} idb_key - Record's id.
        */
@@ -186,7 +183,10 @@ root.mainApp = function() {
         recordPromise.then(function(record) {
 
           // Apply record.
-          app.applyRecord(record);
+          root.app.applyRecord(record);
+
+          // Remove newer records.
+          //root.app.removeRecord(idb_key + 1);
 
         });
 
@@ -222,6 +222,155 @@ root.mainApp = function() {
 
 
       /**
+       * Rollback to previous record.
+       */
+      cancel: function() {
+
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+          // Get previous state key.
+          objStore.getAllKeys().onsuccess = function(event) {
+
+            var result = event.target.result;
+            var currentKey  = result[result.length-1];
+
+
+            // Remove current record.
+            root.app.removeRecord(currentKey);
+
+            // Remove last log.
+            root.app.logs.pop();
+
+
+            // Rollback to the previous record.
+            if (result.length > 1) {
+              var previousKey = result[result.length-2];
+              root.app.rollback(previousKey);
+            } else {
+              // There is no previous record, so RAZ.
+              root.app.raz();
+            }
+
+          };
+
+        };
+
+      },
+
+
+      getLastKey: async function(offset = -1) {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            var db = event.target.result;
+            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+            objStore.getAllKeys().onsuccess = function(event) {
+
+              var result = event.target.result;
+
+              if (result.length) {
+                resolve(result[result.length + offset]);
+              } else {
+                resolve(false);
+              }
+
+
+            };
+
+          };
+
+        });
+
+      },
+
+
+      getLast2Keys: async function() {
+
+        var keys = [];
+
+        var previous_key = await root.app.getLastKey(-2);
+        var current_key = await root.app.getLastKey(-1);
+
+        if (current_key) {
+          keys.push(current_key);
+
+          // Insert de older key at the beginning of the array.
+          if (previous_key) {
+            keys.unshift(previous_key);
+          }
+
+        }
+
+        return keys;
+      },
+
+
+      getLastDataOrInit: function() {
+
+        // Get last key promise.
+        var last_key_promise = this.getLastKey();
+
+        // We need to wait for the request.
+        // Process once promise is resolved.
+        last_key_promise.then(function(last_key) {
+
+          if (!last_key) {
+            root.app.initData();
+          } else {
+
+            // Get the last save.
+            var last_record_promise = root.app.getRecord(last_key);
+            last_record_promise.then(function(last_record) {
+
+              root.app.title = last_record.title;
+              root.app.score_limit = last_record.score_limit;
+              root.app.players = last_record.players;
+
+            });
+
+          }
+
+        });
+
+      },
+
+
+      initData: function() {
+
+        var defaultData = []
+        var visible  = true;
+
+        // Data for default players.
+        for (var i = 1; i <= 4; i++) {
+
+          if (i > 2) {
+            visible = false;
+          }
+
+          defaultData.push({
+            'id': i,
+            'name': 'Joueur ' + i,
+            'score': 0,
+            'visible': visible,
+            'update': false
+          });
+
+        }
+
+        this.players = defaultData;
+
+      },
+
+
+      /**
        * Apply the specified record to the app.
        *
        * @param {Object} record - Specific record
@@ -233,34 +382,60 @@ root.mainApp = function() {
       },
 
 
-      getLastRecord: async function() {
+      /**
+       * Remove all records form idb_key to the end.
+       *
+       * @param {Int} idb_key - Record's id.
+       */
+      removeRecord: function(idb_key) {
+
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objStore = db.transaction(root.tableName, 'readwrite').objectStore(root.tableName);
+
+          objStore.delete(IDBKeyRange.lowerBound(idb_key));
+
+        };
+
+      },
+
+
+      /**
+       * Get the two last records for comparaison.
+       *
+       * @returns {Promise} The 2 last records.
+       */
+      getLast2Records: async function() {
 
         return new Promise(function(resolve, reject) {
 
           var request = root.openDB();
           request.onsuccess = function(event) {
 
-            var db = event.target.result;
-            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+            // Get last two keys.
+            var last_2_keys_promise = root.app.getLast2Keys();
+            last_2_keys_promise.then(function(keys) {
 
-            objStore.count().onsuccess = function(event) {
+              // Get last two records.
+              var db = event.target.result;
+              var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+              objStore.getAll(IDBKeyRange.lowerBound(keys[0]), 2).onsuccess = function(event) {
 
-              var count = event.target.result;
-              if (count > 2) {
-                objStore.getAll(IDBKeyRange.bound(count - 1, count)).onsuccess = function(event) {
+                // Add the indexedDB key to results.
+                if (event.target.result[0]) {
+                  event.target.result[0].idb_key = keys[0];
+                }
 
-                  // Add the indexedDB key to results.
-                  event.target.result[0].idb_key = count - 1;
-                  event.target.result[1].idb_key = count;
+                if (event.target.result[1]) {
+                  event.target.result[1].idb_key = keys[1];
+                }
 
-                  resolve(event.target.result);
-                };
-              }
-              else {
-                reject('Not enough records.');
-              }
+                resolve(event.target.result);
+              };
 
-            };
+            });
 
           };
 
@@ -270,20 +445,45 @@ root.mainApp = function() {
 
 
       /**
-       * Evaluate difference with last save then show log.
+       * Generate log HTML.
        *
-       * @param {Array} last_2_records - Array of the last two records.
+       * @param {Object} record - A record
        */
-      showDiffAndLog: function(last_2_records) {
+      generateLog: function(record) {
 
-        var previousRecord = last_2_records[0];
-        var lastRecord     = last_2_records[1];
-        var diffText       = '';
-        var synthesis      = '';
+        var synthesis = '';
 
-        //console.log('previousRecord', previousRecord);
-        //console.log('lastRecord', lastRecord);
+        synthesis += '<div class="log__synthesis">';
+        synthesis += '<div class="log__row"><span>Limite</span><span>' + record.score_limit + '</span></div>';
 
+        record.players.forEach(function(player) {
+
+          if (!player.visible) {
+            return;
+          }
+
+          synthesis += '<div class="log__row">';
+          synthesis += '  <span>' + player.name + '</span>';
+          synthesis += '  <span>' + player.score + '</span>';
+          synthesis += '</div>';
+
+        });
+
+        synthesis += '</div>';
+
+        return synthesis;
+
+      },
+
+
+      /**
+       * Generate diff log HTML.
+       *
+       * @param {Object} record - A record
+       */
+      generateDiffLog: function(previousRecord, lastRecord) {
+
+        var diffText = '';
 
         // Check if title was updated.
         if (lastRecord.title != previousRecord.title) {
@@ -294,9 +494,6 @@ root.mainApp = function() {
         if (lastRecord.score_limit != previousRecord.score_limit) {
           diffText += '<span class="log__limit">Limite passée de ' + previousRecord.score_limit + ' à <strong>' + lastRecord.score_limit + '</strong></span>';
         }
-
-        synthesis += '<div class="log__synthesis">';
-        synthesis += '<div class="log__row"><span>Limite</span><span>' + lastRecord.score_limit + '</span></div>';
 
         // Check if players was updated.
         if (!Object.is(lastRecord.players, previousRecord.players)) {
@@ -312,16 +509,9 @@ root.mainApp = function() {
 
             var diff = 0;
 
-            synthesis += '<div class="log__row">';
-            synthesis += '<span>' + lastPlayer.name + '</span>';
-            synthesis += '<span>' + lastPlayer.score + '</span>';
-            synthesis += '</div>';
-
-
             previousRecord.players.forEach(function(prevPlayer) {
 
               if (lastPlayer.id == prevPlayer.id) {
-
 
                 // Score difference.
                 diff = prevPlayer.score - lastPlayer.score;
@@ -348,9 +538,40 @@ root.mainApp = function() {
 
         }
 
-        synthesis += '</div>';
-
         diffText = '<div class="log__difftext">' + diffText + '</div>'
+
+        return diffText;
+
+      },
+
+
+      /**
+       * Evaluate difference with last save then show log.
+       *
+       * @param {Array} last_2_records - Array of the last two records.
+       */
+      showDiffAndLog: function(last_2_records) {
+
+        var previousRecord,
+            lastRecord,
+            synthesis,
+            diffText = '';
+
+        // For the first record, there is no comparaison, display a simple log.
+        // In this case, the first record is the last one.
+        if (last_2_records.length < 2) {
+          lastRecord = last_2_records[0];
+          synthesis = this.generateLog(lastRecord);
+        } else {
+
+          previousRecord = last_2_records[0];
+          lastRecord     = last_2_records[1];
+
+          // Generate diff.
+          diffText  = this.generateDiffLog(previousRecord, lastRecord);
+          synthesis = this.generateLog(lastRecord);
+
+        }
 
         // Log action.
         var log = {
