@@ -93,7 +93,7 @@ root.mainApp = function() {
        * Add new log.
        */
       addLog: function(log) {
-        this.logs.push(log);
+        this.logs.unshift(log);
       },
 
 
@@ -130,7 +130,7 @@ root.mainApp = function() {
 
 
       /**
-       * Save config in database.
+       * Save config in database & generate a log.
        */
       save: function() {
 
@@ -148,7 +148,7 @@ root.mainApp = function() {
 
           requestObj.onsuccess = function(event) {
 
-            // Get last record promise.
+            // Get last records promise.
             var last2RecordsPromise = root.app.getLast2Records();
 
             // We need to wait for the request.
@@ -239,13 +239,11 @@ root.mainApp = function() {
             var result = event.target.result;
             var currentKey  = result[result.length-1];
 
-
             // Remove current record.
             root.app.removeRecord(currentKey);
 
             // Remove last log.
-            root.app.logs.pop();
-
+            root.app.logs.shift();
 
             // Rollback to the previous record.
             if (result.length > 1) {
@@ -483,6 +481,7 @@ root.mainApp = function() {
 
       /**
        * Generate diff log HTML.
+       * previousRecord = false if there is only one record.
        *
        * @param {Object} record - A record
        */
@@ -491,12 +490,12 @@ root.mainApp = function() {
         var diffText = '';
 
         // Check if title was updated.
-        if (lastRecord.title != previousRecord.title) {
+        if (lastRecord.title != previousRecord.title && previousRecord) {
           diffText += '<span>Titre : ' + lastRecord.title + '</span>';
         }
 
         // Check if score limit was updated.
-        if (lastRecord.score_limit != previousRecord.score_limit) {
+        if (lastRecord.score_limit != previousRecord.score_limit && previousRecord) {
           diffText += '<span class="log__limit">Limite passée de ' + previousRecord.score_limit + ' à <strong>' + lastRecord.score_limit + '</strong></span>';
         }
 
@@ -512,30 +511,30 @@ root.mainApp = function() {
               return;
             }
 
-            var diff = 0;
+            if (previousRecord == false) {
 
-            previousRecord.players.forEach(function(prevPlayer) {
+              // Score difference.
+              diffText += root.app.compareScore(0, lastPlayer);
 
-              if (lastPlayer.id == prevPlayer.id) {
+            } else {
 
-                // Score difference.
-                diff = prevPlayer.score - lastPlayer.score;
+              previousRecord.players.forEach(function(prevPlayer) {
 
-                if (diff < 0) {
-                  diffText += '<span class="log__diff">' + lastPlayer.name + ' <strong>+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+                if (lastPlayer.id == prevPlayer.id) {
+
+                  // Score difference.
+                  diffText += root.app.compareScore(prevPlayer.score, lastPlayer);
+
+                  // Name.
+                  if (lastPlayer.name != prevPlayer.name) {
+                    diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
+                  }
+
                 }
-                else if (diff > 0) {
-                  diffText += '<span class="log__diff">' + lastPlayer.name + ' <strong>-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
-                }
 
-                // Name.
-                if (lastPlayer.name != prevPlayer.name) {
-                  diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
-                }
+              });
 
-              }
-
-            });
+            }
 
             i++;
 
@@ -543,7 +542,34 @@ root.mainApp = function() {
 
         }
 
-        diffText = '<div class="log__difftext">' + diffText + '</div>'
+        if (diffText) {
+          diffText = '<div class="log__difftext">' + diffText + '</div>'
+        }
+
+        return diffText;
+
+      },
+
+
+      /**
+       * Generate difference string for a player score.
+       *
+       * @param {Int} previousScore - Previous score
+       * @param {Object} player - Player object
+       * @returns {String} Difference text
+       */
+      compareScore: function(previousScore, player) {
+
+        var diff = previousScore - player.score;
+
+        var diffText = '';
+
+        if (diff < 0) {
+          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+        }
+        else if (diff > 0) {
+          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+        }
 
         return diffText;
 
@@ -566,6 +592,7 @@ root.mainApp = function() {
         // In this case, the first record is the last one.
         if (last_2_records.length < 2) {
           lastRecord = last_2_records[0];
+          diffText  = this.generateDiffLog(false, lastRecord);
           synthesis = this.generateLog(lastRecord);
         } else {
 
@@ -581,11 +608,13 @@ root.mainApp = function() {
         // Log action.
         var log = {
           idb_key: lastRecord.idb_key,
-          content: diffText + synthesis,
-          date: root.appData.date
+          content: diffText, // + synthesis not displayed for now.
+          date: root.app.$data.date
         };
 
-        this.addLog(log);
+        if (log.content) {
+          this.addLog(log);
+        }
 
       },
 

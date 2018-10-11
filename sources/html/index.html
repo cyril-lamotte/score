@@ -37,7 +37,7 @@
 
     <footer class="logs" v-if="logs.length">
 
-      <button type="button" class="logs__trigger" @click.prevent="toggle_history"  :class="{ 'history-is-open': history_visible }">Afficher l'historique</button>
+      <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
 
       <ul v-if="history_visible">
         <log v-if="logs"
