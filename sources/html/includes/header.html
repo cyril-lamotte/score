@@ -72,14 +72,6 @@
     </section>
 
 
-    <section class="app__option app__option--raz" v-if="options_filter == 'all'">
-
-      <h2 class="other-players__title">Réinitaliser les scores</h2>
-      <button type="button" class="btn-important btn--wide" @click.prevent="raz">Tous les scores à 0</button>
-
-    </section>
-
-
     <section class="app__option app__option--share" v-if="options_filter == 'all'">
 
       <h2 class="other-players__title">Partager l'application</h2>
@@ -113,6 +105,15 @@
       </div>
 
     </section>
+
+
+    <section class="app__option app__option--raz" v-if="options_filter == 'all'">
+
+      <h2 class="other-players__title">Réinitaliser les scores</h2>
+      <button type="button" class="btn-important btn--wide" @click.prevent="show_confirm(false)">Tous les scores à 0</button>
+
+    </section>
+
 
     <div class="app__version" v-if="options_filter == 'all'">Version {{ version }}</div>
 
