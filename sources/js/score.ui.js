@@ -15,6 +15,7 @@ root.mainApp = function() {
       modal_visible: false,
       options_visible: false,
       options_filter: 'all',
+      modal_name: null,
       history_visible: false,
       version: root.appVersion
     },
@@ -636,6 +637,8 @@ root.mainApp = function() {
           // This variable toggle a class if true.
           this.options_visible = true;
         }
+
+        this.modal_name = 'modal--' + modal_name + '--' + filter;
 
       },
 
