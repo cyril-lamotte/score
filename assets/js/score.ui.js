@@ -73,7 +73,8 @@ root.mainApp = function() {
       updateTitle: function(new_name) {
 
         if (this.title != new_name) {
-          root.appData.title = new_name;
+
+          this.title = root.appData.title = new_name;
 
           // Save in indexDB.
           this.waitForSaving();
