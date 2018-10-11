@@ -109,7 +109,7 @@
     </header>
 
 
-    <div class="modal modal--options" :class="{ 'modal--is-visible': options_visible }">
+    <div class="modal modal--options" :class="[{ 'modal--is-visible': options_visible }, modal_name]">
 
       <div class="modal__close-wrap">
         <button type="button" @click.prevent="hideModal('options')" class="btn-close"><span class="visually-hidden">Fermer</span></button>
@@ -162,6 +162,10 @@
 
           <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
           <input type="number" class="option__input" @blur="updateScoreLimit($event.target.value)" :value="score_limit" aria-label="Limite de score">
+
+          <div class="btn-wrap align-center">
+            <button type="button" class="btn-brand btn--wide" @click.prevent="hideModal('options')">Fermer</button>
+          </div>
 
         </section>
 

@@ -222,6 +222,12 @@
 .option__confirm .other-players__title {
   text-align: center; }
 
+.modal--options--all .app__option--score-limit .btn-wrap {
+  display: none; }
+
+.modal--options--score_limit .btn-wrap {
+  margin-top: 15px; }
+
 .other-players {
   max-width: 500px;
   margin: 0 auto; }

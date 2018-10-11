@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.6.0 (11 octobre 2018)',
+  appVersion: '1.6.1 (11 octobre 2018)',
   appData: {}
 };
 
@@ -101,6 +101,7 @@ root.mainApp = function() {
       modal_visible: false,
       options_visible: false,
       options_filter: 'all',
+      modal_name: null,
       history_visible: false,
       version: root.appVersion
     },
@@ -722,6 +723,8 @@ root.mainApp = function() {
           // This variable toggle a class if true.
           this.options_visible = true;
         }
+
+        this.modal_name = 'modal--' + modal_name + '--' + filter;
 
       },
 
