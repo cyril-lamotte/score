@@ -31,13 +31,15 @@
 
     </section><!--/player-list-->
 
-    <section class="logs" v-if="logs.length">
+    <footer>
+      <button type="button" class="logs__cancel" @click.prevent="cancel"><span>Annuler</span></button>
+    </footer>
 
-      <button type="button" @click.prevent="cancel">Annuler</button>
+    <footer class="logs" v-if="logs.length">
 
-      <h2 class="other-players__title">Annuler/Revenir à une sauvegarde précédente</h2>
+      <button type="button" class="logs__trigger" @click.prevent="toggle_history"  :class="{ 'history-is-open': history_visible }">Afficher l'historique</button>
 
-      <ul>
+      <ul v-if="history_visible">
         <log v-if="logs"
           v-for="log in logs"
           :log="log"
@@ -46,7 +48,7 @@
         </log>
       </ul>
 
-    </section>
+    </footer>
 
   </div><!--/app-->
 

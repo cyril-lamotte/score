@@ -100,6 +100,8 @@
 
 .player__update-btn--minus-1 {
   background: darken($brand, 5%);
+  transform: scale(0.9);
+  transition: all 150ms;
 
   &:before {
     content: '';
@@ -109,6 +111,10 @@
     width: 30px;
     height: 6px;
     background: $brand-bg;
+  }
+
+  &:hover {
+    transform: scale(1);
   }
 
 }

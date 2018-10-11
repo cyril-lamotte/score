@@ -15,6 +15,7 @@ root.mainApp = function() {
       modal_visible: false,
       options_visible: false,
       options_filter: 'all',
+      history_visible: false,
       version: root.appVersion
     },
     computed: {
@@ -418,6 +419,10 @@ root.mainApp = function() {
             var last_2_keys_promise = root.app.getLast2Keys();
             last_2_keys_promise.then(function(keys) {
 
+              if (!keys.length) {
+                return reject('No key stored.');
+              }
+
               // Get last two records.
               var db = event.target.result;
               var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
@@ -618,6 +623,15 @@ root.mainApp = function() {
         }
 
       },
+
+
+      /**
+       * Show/hide history.
+       */
+      toggle_history: function() {
+        this.history_visible = !this.history_visible;
+      },
+
 
       /**
        * Show the winner screen.

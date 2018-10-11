@@ -8,9 +8,10 @@ root.logs = function() {
   <li class="log">
     <span class="log__date">{{ log.date }}</span>
     <span v-html="log.content" class="log__content"></span>
-    <button type="button" class="log__button" @click.prevent="rollback(log.idb_key)">Revenir à cet état ({{ log.idb_key }})</button>
   </li>
   `;
+
+  //     <button type="button" class="log__button" @click.prevent="rollback(log.idb_key)">Revenir à cet état ({{ log.idb_key }})</button>
 
   Vue.component('log', {
     props: ['log'],
