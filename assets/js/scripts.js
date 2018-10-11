@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.5.1 (28 septembre 2018)',
+  appVersion: '1.6.0 (11 octobre 2018)',
   appData: {}
 };
 
@@ -187,6 +187,7 @@ root.mainApp = function() {
        * Set all scores to zero.
        */
       raz: function() {
+
         this.players.forEach(function(player, key) {
           player.score = 0;
         });
@@ -763,6 +764,25 @@ root.mainApp = function() {
 
       },
 
+
+      show_confirm: function(player) {
+        this.showModal('options', 'confirm');
+        this.selectedPlayer = player;
+      },
+
+
+      setScoreToZero: function() {
+
+        this.selectedPlayer.score = 0;
+
+        this.hideModal('options');
+
+        // Request for a save.
+        this.waitForSaving();
+
+      },
+
+
       /**
        * Launch a new game, set all score to zero & hide modal.
        */
@@ -832,7 +852,7 @@ root.players = function() {
   <div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">
     <div class="player__header">
       <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
-      <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
+      <p class="player__total" @click.prevent="show_confirm" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
     </div>
     <div class="player__action">
       <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>
@@ -910,6 +930,10 @@ root.players = function() {
         // Request for a save.
         this.$emit('request-save');
 
+      },
+
+      show_confirm: function() {
+        this.$emit('show-confirm', this.player);
       },
 
       bounce: function() {

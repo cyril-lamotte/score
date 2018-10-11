@@ -206,6 +206,16 @@
         </section>
 
 
+        <section class="app__option option__confirm" v-if="options_filter == 'confirm'">
+
+          <h2 class="other-players__title">Confirmez-vous la remise à 0&nbsp;?</h2>
+
+          <div class="btn-wrap align-center">
+            <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero">Remise à 0 !</button>
+          </div>
+
+        </section>
+
         <div class="app__version" v-if="options_filter == 'all'">Version {{ version }}</div>
 
       </div><!--/modal__inner-->
@@ -223,7 +233,8 @@
         :key="player.id"
         v-if="player.visible"
         @we-got-a-winner="show_winner"
-        @request-save="waitForSaving">
+        @request-save="waitForSaving"
+        @show-confirm="show_confirm">
       </player>
 
     </section><!--/player-list-->
