@@ -765,15 +765,29 @@ root.mainApp = function() {
       },
 
 
+      /**
+       * Show confirm modal & set selected player.
+       *
+       * @param {Object} player - Current player.
+       */
       show_confirm: function(player) {
         this.showModal('options', 'confirm');
         this.selectedPlayer = player;
       },
 
 
+      /**
+       * Set selectedPlayer score to 0 or all scores to 0 if selectedPlayer
+       * equals to false.
+       */
       setScoreToZero: function() {
 
-        this.selectedPlayer.score = 0;
+        if (this.selectedPlayer) {
+          this.selectedPlayer.score = 0;
+        } else {
+          this.raz();
+        }
+
 
         this.hideModal('options');
 
