@@ -8,7 +8,7 @@ root.players = function() {
   <div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">
     <div class="player__header">
       <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
-      <p class="player__total" @click.prevent="setToZero" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
+      <p class="player__total" @click.prevent="show_confirm" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
     </div>
     <div class="player__action">
       <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>
@@ -86,6 +86,10 @@ root.players = function() {
         // Request for a save.
         this.$emit('request-save');
 
+      },
+
+      show_confirm: function() {
+        this.$emit('show-confirm', this.player);
       },
 
       bounce: function() {

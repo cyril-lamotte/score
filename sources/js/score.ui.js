@@ -101,6 +101,7 @@ root.mainApp = function() {
        * Set all scores to zero.
        */
       raz: function() {
+
         this.players.forEach(function(player, key) {
           player.score = 0;
         });
@@ -676,6 +677,25 @@ root.mainApp = function() {
         }
 
       },
+
+
+      show_confirm: function(player) {
+        this.showModal('options', 'confirm');
+        this.selectedPlayer = player;
+      },
+
+
+      setScoreToZero: function() {
+
+        this.selectedPlayer.score = 0;
+
+        this.hideModal('options');
+
+        // Request for a save.
+        this.waitForSaving();
+
+      },
+
 
       /**
        * Launch a new game, set all score to zero & hide modal.

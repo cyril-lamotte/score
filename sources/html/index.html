@@ -26,7 +26,8 @@
         :key="player.id"
         v-if="player.visible"
         @we-got-a-winner="show_winner"
-        @request-save="waitForSaving">
+        @request-save="waitForSaving"
+        @show-confirm="show_confirm">
       </player>
 
     </section><!--/player-list-->
