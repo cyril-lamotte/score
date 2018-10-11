@@ -25,6 +25,9 @@ root.initVue = function() {
   // Player component.
   root.players();
 
+  // Log component.
+  root.logs();
+
   // Main component.
   root.mainApp();
 

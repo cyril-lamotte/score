@@ -50,8 +50,8 @@ root.players = function() {
         if (this.player.name != new_name) {
           this.player.name = new_name;
 
-          // Save in indexDB.
-          root.save();
+          // Request for a save.
+          this.$emit('request-save');
         }
 
       },
@@ -63,8 +63,8 @@ root.players = function() {
         this.player.score += 1;
         this.bounce();
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.$emit('request-save');
 
       },
 
@@ -75,27 +75,23 @@ root.players = function() {
         this.player.score -= 1;
         this.bounce();
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.$emit('request-save');
+
       },
 
       setToZero: function() {
         this.player.score = 0;
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.$emit('request-save');
+
       },
 
       bounce: function() {
-
         this.player.update = true;
-
-        // Remove bounce.
-        //window.setTimeout(function(player) {
-        //  player.update = false;
-        //}, 150);
-
       }
+
     }
 
   });

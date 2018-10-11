@@ -16,6 +16,7 @@ var staticAssetsDev = [
   'assets/js/score.db.js',
   'assets/js/score.ui.js',
   'assets/js/score.players.js',
+  'assets/js/score.logs.js',
   'assets/js/score.js'
 ];
 

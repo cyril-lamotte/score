@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .app {
   opacity: 0;
   -webkit-transition: all 1s;
@@ -11,13 +12,158 @@
   font-size: 2rem; }
   .winner strong {
     font-size: 2.4rem;
-    cursor: pointer; }
+    cursor: pointer;
+    color: #ff9c00; }
     .winner strong:hover, .winner strong:focus, .winner strong:active {
-      color: #ff9c00; }
+      text-decoration: underline; }
+
+.logs__cancel {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1.2;
+  width: 6.8rem;
+  height: 6.8rem; }
+  .logs__cancel:hover, .logs__cancel:focus, .logs__cancel:active {
+    background-color: rgba(255, 255, 255, 0.3); }
+  .logs__cancel span {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden; }
+  .logs__cancel:before {
+    content: '↻';
+    font-size: 3rem;
+    line-height: 1.2;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle; }
+    @media only screen and (max-width: 47.9375em) {
+      .logs__cancel:before {
+        font-size: 4rem; } }
+
+.logs {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 0 15px; }
+  .logs ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    margin: 15px 0; }
+
+.log {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  padding-bottom: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: start;
+      align-content: flex-start; }
+  .log:not(:last-child) {
+    border-bottom: 1px solid #fff; }
+
+.log__button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  margin: 15px 0;
+  font-size: 1.6rem;
+  background: #ff6347;
+  color: #fff;
+  padding: 10px 10px;
+  cursor: pointer; }
+  .log__button:hover, .log__button:focus, .log__button:active {
+    background: #ff7961; }
+
+.log__date {
+  display: block; }
+
+.log__diff {
+  display: block;
+  text-align: center; }
+
+.log__content {
+  display: block; }
+
+.log__new-name {
+  font-weight: bold;
+  color: #98f5ff; }
+
+.log__score {
+  font-weight: bold;
+  color: #caff70; }
+
+.log__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: start;
+      align-content: flex-start; }
+
+.logs__trigger {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1.2;
+  font-weight: 300; }
+  .logs__trigger:hover {
+    background-color: rgba(255, 255, 255, 0.3); }
+
+.history-is-open {
+  background: #ff9c00;
+  color: #1a1a1a; }
+
+.log__synthesis {
+  display: none; }
 
 .app__version {
   text-align: center;
   margin: 20px 0; }
+  .app-is-offline .app__version:after {
+    content: 'Offline';
+    display: inline-block;
+    vertical-align: middle;
+    background: red;
+    border-radius: 3px;
+    margin-left: 10px;
+    padding: 1px 3px; }
 
 .app__option {
   max-width: 500px;
@@ -251,7 +397,13 @@
           transform: rotate(90deg); }
 
 .player__update-btn--minus-1 {
-  background: #e68c00; }
+  background: #e68c00;
+  -webkit-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+          transform: scale(0.9);
+  -webkit-transition: all 150ms;
+  -o-transition: all 150ms;
+  transition: all 150ms; }
   .player__update-btn--minus-1:before {
     content: '';
     position: absolute;
@@ -260,6 +412,10 @@
     width: 30px;
     height: 6px;
     background: #1a1a1a; }
+  .player__update-btn--minus-1:hover {
+    -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+            transform: scale(1); }
 
 .player--zero-point .player__score {
   color: #ff4200; }

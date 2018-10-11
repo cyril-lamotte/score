@@ -1,20 +1,21 @@
 
-
 /**
  * Create vue instance.
  */
 root.mainApp = function() {
 
-  var app = new Vue({
+  root.app = new Vue({
     el: '#app',
     data: {
-      title: root.appData.title,
-      players: root.appData.players,
+      title: 'Score',
+      players: [],
+      score_limit: 0,
+      logs: [],
       winner: null,
       modal_visible: false,
       options_visible: false,
       options_filter: 'all',
-      score_limit: root.appData.score_limit,
+      history_visible: false,
       version: root.appVersion
     },
     computed: {
@@ -47,15 +48,17 @@ root.mainApp = function() {
 
     mounted: function () {
 
-      // If there is no player, show the options.
-      if (!this.player_count) {
-        this.showModal('options');
-      }
+      // Get data or generate default data.
+      this.getLastDataOrInit();
 
       // Fade in.
       setTimeout(function() {
         document.querySelector('body').classList.add('app-is-mounted');
       }, 1);
+
+      // Check offline mode.
+      window.addEventListener('online', root.updateOnlineStatus());
+      window.addEventListener('offline', root.updateOnlineStatus());
 
     },
 
@@ -72,10 +75,11 @@ root.mainApp = function() {
           root.appData.title = new_name;
 
           // Save in indexDB.
-          root.save();
+          this.waitForSaving();
         }
 
       },
+
 
       /**
        * Add new default player.
@@ -83,6 +87,15 @@ root.mainApp = function() {
       addPlayer: function() {
         this.players.push({ id: this.player_count + 1, name: 'Nouveau joueur', score: 0, visible: true });
       },
+
+
+      /**
+       * Add new log.
+       */
+      addLog: function(log) {
+        this.logs.unshift(log);
+      },
+
 
       /**
        * Set all scores to zero.
@@ -92,9 +105,519 @@ root.mainApp = function() {
           player.score = 0;
         });
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.waitForSaving();
+
       },
+
+
+      /**
+       * Delay saving.
+       */
+      waitForSaving: function() {
+
+        // Cancel other save.
+        clearTimeout(root.time);
+
+        root.time = setTimeout(function() {
+
+          // 'this' is not available in this context.
+          root.app.save();
+
+        }, 1000);
+
+      },
+
+
+      /**
+       * Save config in database & generate a log.
+       */
+      save: function() {
+
+        // Connect to database.
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objStore = db.transaction(root.tableName, 'readwrite').objectStore(root.tableName);
+
+          // Add curent time.
+          var date = new Date();
+          root.app.$data.date = ('0' + date.getHours()).substr(-2) + ":" + ('0' + date.getMinutes()).substr(-2) + ":" + ('0' + date.getSeconds()).substr(-2);
+          var requestObj = objStore.add(root.app.$data);
+
+          requestObj.onsuccess = function(event) {
+
+            // Get last records promise.
+            var last2RecordsPromise = root.app.getLast2Records();
+
+            // We need to wait for the request.
+            // Process once promise is resolved.
+            last2RecordsPromise.then(function(last_2_records) {
+
+              if (last_2_records) {
+                root.app.showDiffAndLog(last_2_records);
+              }
+
+            });
+
+          };
+
+        };
+
+      },
+
+
+      /**
+       * Rollback to a previous state.
+       * If no key is provided, rollback to the previous state.
+       *
+       * @param {Int} idb_key - Record's id.
+       */
+      rollback: function(idb_key) {
+
+        // Get last record promise.
+        var recordPromise = this.getRecord(idb_key);
+
+        // We need to wait for the request.
+        // Process once promise is resolved.
+        recordPromise.then(function(record) {
+
+          // Apply record.
+          root.app.applyRecord(record);
+
+          // Remove newer records.
+          //root.app.removeRecord(idb_key + 1);
+
+        });
+
+      },
+
+
+      /**
+       * Get the specified record.
+       *
+       * @param {Int} idb_key - Record's id.
+       * @returns {Promise} Record
+       */
+      getRecord: async function(idb_key) {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            var db = event.target.result;
+            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+            objStore.get(idb_key).onsuccess = function(event) {
+              event.target.result.idb_key = idb_key;
+              resolve(event.target.result);
+            };
+
+          };
+
+        });
+
+      },
+
+
+      /**
+       * Rollback to previous record.
+       */
+      cancel: function() {
+
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+          // Get previous state key.
+          objStore.getAllKeys().onsuccess = function(event) {
+
+            var result = event.target.result;
+            var currentKey  = result[result.length-1];
+
+            // Remove current record.
+            root.app.removeRecord(currentKey);
+
+            // Remove last log.
+            root.app.logs.shift();
+
+            // Rollback to the previous record.
+            if (result.length > 1) {
+              var previousKey = result[result.length-2];
+              root.app.rollback(previousKey);
+            } else {
+              // There is no previous record, so RAZ.
+              root.app.raz();
+            }
+
+          };
+
+        };
+
+      },
+
+
+      getLastKey: async function(offset = -1) {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            var db = event.target.result;
+            var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+
+            objStore.getAllKeys().onsuccess = function(event) {
+
+              var result = event.target.result;
+
+              if (result.length) {
+                resolve(result[result.length + offset]);
+              } else {
+                resolve(false);
+              }
+
+
+            };
+
+          };
+
+        });
+
+      },
+
+
+      getLast2Keys: async function() {
+
+        var keys = [];
+
+        var previous_key = await root.app.getLastKey(-2);
+        var current_key = await root.app.getLastKey(-1);
+
+        if (current_key) {
+          keys.push(current_key);
+
+          // Insert de older key at the beginning of the array.
+          if (previous_key) {
+            keys.unshift(previous_key);
+          }
+
+        }
+
+        return keys;
+      },
+
+
+      getLastDataOrInit: function() {
+
+        // Get last key promise.
+        var last_key_promise = this.getLastKey();
+
+        // We need to wait for the request.
+        // Process once promise is resolved.
+        last_key_promise.then(function(last_key) {
+
+          if (!last_key) {
+            root.app.initData();
+          } else {
+
+            // Get the last save.
+            var last_record_promise = root.app.getRecord(last_key);
+            last_record_promise.then(function(last_record) {
+
+              root.app.title = last_record.title;
+              root.app.score_limit = last_record.score_limit;
+              root.app.players = last_record.players;
+
+            });
+
+          }
+
+        });
+
+      },
+
+
+      initData: function() {
+
+        var defaultData = []
+        var visible  = true;
+
+        // Data for default players.
+        for (var i = 1; i <= 4; i++) {
+
+          if (i > 2) {
+            visible = false;
+          }
+
+          defaultData.push({
+            'id': i,
+            'name': 'Joueur ' + i,
+            'score': 0,
+            'visible': visible,
+            'update': false
+          });
+
+        }
+
+        this.players = defaultData;
+
+      },
+
+
+      /**
+       * Apply the specified record to the app.
+       *
+       * @param {Object} record - Specific record
+       */
+      applyRecord: function(record) {
+        this.title = record.title;
+        this.players = record.players;
+        this.score_limit = record.score_limit;
+      },
+
+
+      /**
+       * Remove all records form idb_key to the end.
+       *
+       * @param {Int} idb_key - Record's id.
+       */
+      removeRecord: function(idb_key) {
+
+        var request = root.openDB();
+        request.onsuccess = function(event) {
+
+          var db = event.target.result;
+          var objStore = db.transaction(root.tableName, 'readwrite').objectStore(root.tableName);
+
+          objStore.delete(IDBKeyRange.lowerBound(idb_key));
+
+        };
+
+      },
+
+
+      /**
+       * Get the two last records for comparaison.
+       *
+       * @returns {Promise} The 2 last records.
+       */
+      getLast2Records: async function() {
+
+        return new Promise(function(resolve, reject) {
+
+          var request = root.openDB();
+          request.onsuccess = function(event) {
+
+            // Get last two keys.
+            var last_2_keys_promise = root.app.getLast2Keys();
+            last_2_keys_promise.then(function(keys) {
+
+              if (!keys.length) {
+                return reject('No key stored.');
+              }
+
+              // Get last two records.
+              var db = event.target.result;
+              var objStore = db.transaction(root.tableName, 'readonly').objectStore(root.tableName);
+              objStore.getAll(IDBKeyRange.lowerBound(keys[0]), 2).onsuccess = function(event) {
+
+                // Add the indexedDB key to results.
+                if (event.target.result[0]) {
+                  event.target.result[0].idb_key = keys[0];
+                }
+
+                if (event.target.result[1]) {
+                  event.target.result[1].idb_key = keys[1];
+                }
+
+                resolve(event.target.result);
+              };
+
+            });
+
+          };
+
+        });
+
+      },
+
+
+      /**
+       * Generate log HTML.
+       *
+       * @param {Object} record - A record
+       */
+      generateLog: function(record) {
+
+        var synthesis = '';
+
+        synthesis += '<div class="log__synthesis">';
+        synthesis += '<div class="log__row"><span>Limite</span><span>' + record.score_limit + '</span></div>';
+
+        record.players.forEach(function(player) {
+
+          if (!player.visible) {
+            return;
+          }
+
+          synthesis += '<div class="log__row">';
+          synthesis += '  <span>' + player.name + '</span>';
+          synthesis += '  <span>' + player.score + '</span>';
+          synthesis += '</div>';
+
+        });
+
+        synthesis += '</div>';
+
+        return synthesis;
+
+      },
+
+
+      /**
+       * Generate diff log HTML.
+       * previousRecord = false if there is only one record.
+       *
+       * @param {Object} record - A record
+       */
+      generateDiffLog: function(previousRecord, lastRecord) {
+
+        var diffText = '';
+
+        // Check if title was updated.
+        if (lastRecord.title != previousRecord.title && previousRecord) {
+          diffText += '<span>Titre : ' + lastRecord.title + '</span>';
+        }
+
+        // Check if score limit was updated.
+        if (lastRecord.score_limit != previousRecord.score_limit && previousRecord) {
+          diffText += '<span class="log__limit">Limite passée de ' + previousRecord.score_limit + ' à <strong>' + lastRecord.score_limit + '</strong></span>';
+        }
+
+        // Check if players was updated.
+        if (!Object.is(lastRecord.players, previousRecord.players)) {
+
+          // Compare scores.
+          var i = 0;
+
+          lastRecord.players.forEach(function(lastPlayer) {
+
+            if (!lastPlayer.visible) {
+              return;
+            }
+
+            if (previousRecord == false) {
+
+              // Score difference.
+              diffText += root.app.compareScore(0, lastPlayer);
+
+            } else {
+
+              previousRecord.players.forEach(function(prevPlayer) {
+
+                if (lastPlayer.id == prevPlayer.id) {
+
+                  // Score difference.
+                  diffText += root.app.compareScore(prevPlayer.score, lastPlayer);
+
+                  // Name.
+                  if (lastPlayer.name != prevPlayer.name) {
+                    diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
+                  }
+
+                }
+
+              });
+
+            }
+
+            i++;
+
+          });
+
+        }
+
+        if (diffText) {
+          diffText = '<div class="log__difftext">' + diffText + '</div>'
+        }
+
+        return diffText;
+
+      },
+
+
+      /**
+       * Generate difference string for a player score.
+       *
+       * @param {Int} previousScore - Previous score
+       * @param {Object} player - Player object
+       * @returns {String} Difference text
+       */
+      compareScore: function(previousScore, player) {
+
+        var diff = previousScore - player.score;
+
+        var diffText = '';
+
+        if (diff < 0) {
+          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+        }
+        else if (diff > 0) {
+          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+        }
+
+        return diffText;
+
+      },
+
+
+      /**
+       * Evaluate difference with last save then show log.
+       *
+       * @param {Array} last_2_records - Array of the last two records.
+       */
+      showDiffAndLog: function(last_2_records) {
+
+        var previousRecord,
+            lastRecord,
+            synthesis,
+            diffText = '';
+
+        // For the first record, there is no comparaison, display a simple log.
+        // In this case, the first record is the last one.
+        if (last_2_records.length < 2) {
+          lastRecord = last_2_records[0];
+          diffText  = this.generateDiffLog(false, lastRecord);
+          synthesis = this.generateLog(lastRecord);
+        } else {
+
+          previousRecord = last_2_records[0];
+          lastRecord     = last_2_records[1];
+
+          // Generate diff.
+          diffText  = this.generateDiffLog(previousRecord, lastRecord);
+          synthesis = this.generateLog(lastRecord);
+
+        }
+
+        // Log action.
+        var log = {
+          idb_key: lastRecord.idb_key,
+          content: diffText, // + synthesis not displayed for now.
+          date: root.app.$data.date
+        };
+
+        if (log.content) {
+          this.addLog(log);
+        }
+
+      },
+
 
       /**
        * Show the modal.
@@ -130,6 +653,15 @@ root.mainApp = function() {
 
       },
 
+
+      /**
+       * Show/hide history.
+       */
+      toggle_history: function() {
+        this.history_visible = !this.history_visible;
+      },
+
+
       /**
        * Show the winner screen.
        *
@@ -158,11 +690,11 @@ root.mainApp = function() {
        *
        * @param {Int} score_limit - New score limit
        */
-      update_score_limit: function(score_limit) {
-        root.appData.score_limit = parseInt(score_limit);
+      updateScoreLimit: function(score_limit) {
+        this.score_limit = root.appData.score_limit = parseInt(score_limit);
 
-        // Save in indexDB.
-        root.save();
+        // Request for a save.
+        this.waitForSaving();
       }
 
     }
@@ -184,3 +716,22 @@ root.checkCompatibility = function() {
 };
 
 
+/**
+ * Check if app is online or offline. It add the related HTML class on body.
+ */
+root.updateOnlineStatus = function() {
+
+  var bodyClasses = document.querySelector('body').classList;
+  var onlineClass = 'app-is-online';
+  var offlineClass = 'app-is-offline';
+
+  if (navigator.onLine) {
+    bodyClasses.remove(offlineClass);
+    bodyClasses.add(onlineClass);
+  }
+  else {
+    bodyClasses.remove(onlineClass);
+    bodyClasses.add(offlineClass);
+  }
+
+};
