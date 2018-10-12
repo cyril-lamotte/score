@@ -485,7 +485,8 @@
       -ms-flex-align: center;
           align-items: center;
   -ms-flex-line-pack: start;
-      align-content: flex-start; }
+      align-content: flex-start;
+  margin: 0 0 1.5rem; }
 
 .points__button {
   display: block;
