@@ -60,6 +60,15 @@
   width: 100%;
   padding: 20px;
   height: 120px;
+
+  &:focus {
+    background: lighten($brand, 10%);
+  }
+
+  &:hover {
+    background: $tomato;
+  }
+
 }
 
 
@@ -76,6 +85,11 @@
   font-size: 4em;
   line-height: 1;
   cursor: pointer;
+
+  .player--zero-point & {
+    color: $red;
+  }
+
 }
 
 
@@ -119,15 +133,6 @@
 
 }
 
-
-
-.player--zero-point {
-
-  .player__score {
-    color: $red;
-  }
-
-}
 
 
 

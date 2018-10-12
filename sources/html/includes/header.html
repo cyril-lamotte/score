@@ -56,6 +56,14 @@
     </section>
 
 
+    <section class="app__option app__option--new-player" v-if="options_filter == 'all'">
+
+      <h2 class="other-players__title">Nouveau joueur</h2>
+      <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
+
+    </section>
+
+
     <section class="app__option app__option--score-limit" v-if="options_filter == 'all' || options_filter == 'score_limit'">
 
       <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
@@ -64,14 +72,6 @@
       <div class="btn-wrap align-center">
         <button type="button" class="btn-brand btn--wide" @click.prevent="hideModal('options')">Fermer</button>
       </div>
-
-    </section>
-
-
-    <section class="app__option app__option--new-player" v-if="options_filter == 'all'">
-
-      <h2 class="other-players__title">Nouveau joueur</h2>
-      <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
 
     </section>
 
