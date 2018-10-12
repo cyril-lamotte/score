@@ -51,6 +51,15 @@
   color: $brand-bg;
   padding: 2rem 1rem;
   font-size: 2rem;
+
+  &:focus {
+    background: lighten($brand, 10%);
+  }
+
+  &:hover {
+    background: $tomato;
+  }
+
 }
 
 
@@ -60,5 +69,14 @@
   color: #fff;
   padding: 2rem 1rem;
   font-size: 2rem;
+
+  &:focus {
+    background: lighten($red, 10%);
+  }
+
+  &:hover {
+    background: $tomato;
+  }
+
 }
 

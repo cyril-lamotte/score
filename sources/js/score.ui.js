@@ -17,6 +17,8 @@ root.mainApp = function() {
       options_filter: 'all',
       modal_name: null,
       history_visible: false,
+      total_temp: 0,
+      point_mode: 'add',
       version: root.appVersion
     },
     computed: {
@@ -727,6 +729,8 @@ root.mainApp = function() {
       show_confirm: function(player) {
         this.showModal('options', 'confirm');
         this.selectedPlayer = player;
+
+        this.total_temp = 0;
       },
 
 
@@ -750,6 +754,32 @@ root.mainApp = function() {
         // Request for a save.
         this.waitForSaving({'no_log': true});
 
+      },
+
+
+      addValueToTotal(value) {
+
+        if (this.point_mode == 'remove') {
+          value *= -1;
+        }
+
+        this.total_temp += value;
+      },
+
+
+      setPointMode(mode) {
+        this.point_mode = mode;
+      },
+
+
+      addScore(value) {
+
+        this.selectedPlayer.score += value;
+
+        this.hideModal('options');
+
+        // Request for a save.
+        this.waitForSaving();
       },
 
 

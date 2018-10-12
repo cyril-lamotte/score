@@ -102,7 +102,33 @@
 
     <section class="app__option option__confirm" v-if="options_filter == 'confirm'">
 
-      <h2 class="other-players__title">Confirmez-vous la remise à 0&nbsp;?</h2>
+      <h2 class="other-players__title">Ajouter/retirer des points</h2>
+
+      <div class="points__buttons-mode">
+        <button type="button" class="btn-brand btn--wide" :class="[{ 'btn-mode--is-active': point_mode == 'add' }]" @click.prevent="setPointMode('add')">Ajout</button>
+        <button type="button" class="btn-brand btn--wide" :class="[{ 'btn-mode--is-active': point_mode == 'remove' }]" @click.prevent="setPointMode('remove')">Retrait</button>
+      </div>
+
+
+      <div class="points__buttons">
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(1)">1</button>
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(2)">2</button>
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(5)">5</button>
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(10)">10</button>
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(50)">50</button>
+        <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(100)">100</button>
+      </div>
+
+      <div class="points__total">
+        <span>{{ total_temp }}</span> point(s)
+      </div>
+
+      <div class="btn-wrap align-center">
+        <button type="button" class="btn-brand btn--wide" @click.prevent="addScore(total_temp)"><span>Ajouter</span> <strong>{{ total_temp }}</strong> point(s)</button>
+      </div>
+
+
+      <h2 class="other-players__title">Mise à zéro</h2>
 
       <div class="btn-wrap align-center">
         <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero">Remise à 0 !</button>

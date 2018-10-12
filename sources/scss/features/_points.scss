@@ -1,0 +1,86 @@
+
+.points__buttons-mode {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+  margin-bottom: 1.5rem;
+
+  > button {
+    border: 1px solid #000;
+    border-width: 0 1px;
+  }
+
+  .btn-mode--is-active {
+    background: $tomato;
+    font-weight: bold;
+
+    &:before {
+      content: '✓';
+      margin-right: 5px;
+    }
+
+  }
+
+}
+
+.points__buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: flex-start;
+}
+
+.points__button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 0 1px;
+
+  &:nth-child(2) {
+    background: desaturate($brand, 15%);
+  }
+
+  &:nth-child(3) {
+    background: desaturate($brand, 25%);
+  }
+
+  &:nth-child(4) {
+    background: desaturate($brand, 35%);
+  }
+
+  &:nth-child(5) {
+    background: desaturate($brand, 45%);
+  }
+
+  &:nth-child(6) {
+    background: desaturate($brand, 55%);
+  }
+
+  &:nth-child(1n) {
+
+    &:focus {
+      background: lighten($brand, 10%);
+    }
+
+    &:hover {
+      background: $tomato;
+    }
+
+  }
+
+}
+
+.points__total {
+  margin: 1rem 0;
+  text-align: center;
+  font-size: 2rem;
+
+  span {
+    font-size: 7rem;
+    font-weight: 300;
+  }
+
+}
