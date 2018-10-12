@@ -18,7 +18,6 @@ root.mainApp = function() {
       modal_name: null,
       history_visible: false,
       total_temp: 0,
-      point_mode: 'add',
       version: root.appVersion
     },
     computed: {
@@ -688,6 +687,9 @@ root.mainApp = function() {
        */
       hideModal: function(modal_name) {
 
+        // Scroll to the top of modal for next display.
+        document.querySelector('.modal__inner').scrollTop = 0;
+
         this.modal_visible = false;
 
         if (modal_name == 'options') {
@@ -729,7 +731,6 @@ root.mainApp = function() {
       show_confirm: function(player) {
         this.showModal('options', 'confirm');
         this.selectedPlayer = player;
-
         this.total_temp = 0;
       },
 
@@ -758,19 +759,8 @@ root.mainApp = function() {
 
 
       addValueToTotal(value) {
-
-        if (this.point_mode == 'remove') {
-          value *= -1;
-        }
-
         this.total_temp += value;
       },
-
-
-      setPointMode(mode) {
-        this.point_mode = mode;
-      },
-
 
       addScore(value) {
 
