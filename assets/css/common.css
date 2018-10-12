@@ -137,6 +137,10 @@ img {
   font-size: 2rem; }
   .btn-important:hover, .btn-important:focus, .btn-important:active {
     text-decoration: none; }
+  .btn-important:focus {
+    background: #ff6833; }
+  .btn-important:hover {
+    background: #ff6347; }
 
 .btn-brand {
   margin: 0;
@@ -161,6 +165,10 @@ img {
   font-size: 2rem; }
   .btn-brand:hover, .btn-brand:focus, .btn-brand:active {
     text-decoration: none; }
+  .btn-brand:focus {
+    background: #ffb033; }
+  .btn-brand:hover {
+    background: #ff6347; }
 
 @font-face {
   font-family: "Open Sans";
