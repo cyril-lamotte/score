@@ -75,7 +75,7 @@ root.mainApp = function() {
 
         if (this.title != new_name) {
 
-          this.title = root.appData.title = new_name;
+          this.title = root.appData = new_name;
 
           // Save in indexDB.
           this.waitForSaving();
@@ -88,7 +88,15 @@ root.mainApp = function() {
        * Add new default player.
        */
       addPlayer: function() {
-        this.players.push({ id: this.player_count + 1, name: 'Nouveau joueur', score: 0, visible: true });
+
+        this.players.push({
+          id: this.player_count + 1,
+          name: 'Nouveau joueur',
+          score: 0,
+          visible: true,
+          hasHand: false
+        });
+
       },
 
 
@@ -372,7 +380,8 @@ root.mainApp = function() {
             'name': 'Joueur ' + i,
             'score': 0,
             'visible': visible,
-            'update': false
+            'update': false,
+            'hasHand': (i == 1) ? true : false
           });
 
         }
@@ -585,6 +594,14 @@ root.mainApp = function() {
                     diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
                   }
 
+                  // Hand.
+                  if (lastPlayer.hasHand != prevPlayer.hasHand) {
+
+                    if (lastPlayer.hasHand) {
+                      diffText += '<span class="log__rename">La main passe à <span class="log__new-name">' + lastPlayer.name + '</span>.</span>';
+                    }
+                  }
+
                 }
 
               });
@@ -680,6 +697,7 @@ root.mainApp = function() {
 
       },
 
+
       /**
        * Hide the modal.
        *
@@ -704,6 +722,49 @@ root.mainApp = function() {
        */
       toggle_history: function() {
         this.history_visible = !this.history_visible;
+      },
+
+
+      /**
+       * Give the hand to the next visible player.
+       */
+      pass_the_hand: function() {
+
+        var currentPlayerKey = null;
+        var nextPlayerKey = null;
+        var first_visible_player = null;
+
+        this.players.forEach(function(player, key) {
+
+          if (player.visible) {
+
+            // Save the first visible player.
+            if (first_visible_player == null) {
+              first_visible_player = key;
+            }
+
+          }
+
+          // Remove the current hand.
+          if (player.hasHand) {
+            currentPlayerKey = key;
+          }
+
+        });
+
+        // Remove the current hand.
+        this.players[currentPlayerKey].hasHand = false;
+
+        nextPlayerKey = currentPlayerKey + 1;
+        if (this.players[nextPlayerKey] == undefined || !this.players[nextPlayerKey].visible) {
+          nextPlayerKey = first_visible_player;
+        }
+
+        // Give the hand.
+        this.players[nextPlayerKey].hasHand = true;
+
+        this.waitForSaving();
+
       },
 
 
@@ -787,7 +848,7 @@ root.mainApp = function() {
        * @param {Int} score_limit - New score limit
        */
       updateScoreLimit: function(score_limit) {
-        this.score_limit = root.appData.score_limit = parseInt(score_limit);
+        this.score_limit = root.appData = parseInt(score_limit);
 
         // Request for a save.
         this.waitForSaving();

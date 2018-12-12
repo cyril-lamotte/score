@@ -36,6 +36,22 @@
   
 
   
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="assets/js/scripts.min.js"></script>
+  
+
+  <script>
+    /*if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('service-worker.js')
+        .then(function() {});
+    }*/
+  </script>
+
+
+  
+
+  
   <link rel="stylesheet" href="assets/css/styles.min.css" media="all">
   
 
@@ -277,18 +293,24 @@
       <button type="button" class="logs__cancel" @click.prevent="cancel"><span>Annuler</span></button>
     </footer>
 
-    <footer class="logs" v-if="logs.length">
+    <footer class="logs">
 
-      <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
+      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand">Passer la main</button>
 
-      <ul v-if="history_visible">
-        <log v-if="logs"
-          v-for="log in logs"
-          :log="log"
-          :key="log.id"
-          @rollback="rollback">
-        </log>
-      </ul>
+      <template v-if="logs.length">
+
+        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
+
+        <ul v-if="history_visible">
+          <log v-if="logs"
+            v-for="log in logs"
+            :log="log"
+            :key="log.id"
+            @rollback="rollback">
+          </log>
+        </ul>
+
+      </template>
 
     </footer>
 
@@ -297,22 +319,6 @@
 
 </div><!--/wrap-->
 </div><!--/outer-wrap-->
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="assets/js/scripts.min.js"></script>
-
-
-<script>
-  /*if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('service-worker.js')
-      .then(function() {});
-  }*/
-</script>
-
 
 </body>
 </html>

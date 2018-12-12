@@ -5,7 +5,7 @@
 root.players = function() {
 
   var player_template = `
-  <div class="player" :class="{ \'player--zero-point\': player.score <= 0 }">
+  <div class="player" :class="{ \'player--zero-point\': player.score <= 0, \'player--has-hand\': player.hasHand }">
     <div class="player__header">
       <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
       <p class="player__total" @click.prevent="show_confirm" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>

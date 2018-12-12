@@ -745,15 +745,19 @@ html {
 
 .main-header {
   text-align: center;
-  padding: 10px; }
+  padding: 10px;
+  background: #ff9c00;
+  margin-bottom: 2rem; }
 
 .main-title {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
-  color: #ff9c00;
+  color: #000;
   font-weight: 300;
   font-size: 3rem; }
+  .main-title[contenteditable="true"] {
+    border-bottom-color: #000; }
 
 .header__btn {
   margin: 0;

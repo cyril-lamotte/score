@@ -21,7 +21,7 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
   padding: 10px 15px;
   position: fixed;
   top: 0;
@@ -305,7 +305,8 @@
 
 .player {
   position: relative;
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  padding-top: 10px; }
   @media only screen and (min-width: 30em) {
     .player {
       -webkit-box-flex: 0;
@@ -331,11 +332,12 @@
   margin-bottom: 1rem; }
 
 .player__name {
+  position: relative;
   margin: 0;
   font-weight: 300;
   font-size: 4rem;
   line-height: 1.2;
-  padding: 1rem;
+  padding: 1rem 30px 1rem 1rem;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1; }
@@ -424,6 +426,26 @@
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1); }
+
+.player--has-hand .player__name:before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 13px);
+  right: 1rem;
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border-radius: 50%; }
+
+.player--has-hand .player__name:after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 13px;
+  width: 20px;
+  height: 20px;
+  background: #ff9c00;
+  border-radius: 50%; }
 
 .anim-bounce {
   -webkit-animation: bounce 100ms ease-in 2 alternate forwards;
