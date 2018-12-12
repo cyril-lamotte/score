@@ -15,6 +15,7 @@
 .player {
   position: relative;
   margin-bottom: 2rem;
+  padding-top: 10px;
 
   @include mq-from('xs') {
     flex: 0 0 48%;
@@ -33,11 +34,12 @@
 
 
 .player__name {
+  position: relative;
   margin: 0;
   font-weight: 300;
   font-size: 4rem;
   line-height: 1.2;
-  padding: 1rem;
+  padding: 1rem 30px 1rem 1rem;
   flex-grow: 1;
 }
 
@@ -125,7 +127,35 @@
 }
 
 
+.player--has-hand {
 
+  .player__name {
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: calc(50% - 13px);
+      right: 1rem;
+      width: 26px;
+      height: 26px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 10px);
+      right: 13px;
+      width: 20px;
+      height: 20px;
+      background: $brand;
+      border-radius: 50%;
+    }
+
+  }
+
+}
 
 .anim-bounce {
   animation: bounce 100ms ease-in 2 alternate forwards;

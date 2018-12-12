@@ -2,15 +2,22 @@
 .main-header {
   text-align: center;
   padding: 10px;
+  background: $brand;
+  margin-bottom: 2rem;
 }
 
 .main-title {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
-  color: $brand;
+  color: #000;
   font-weight: 300;
   font-size: 3rem;
+
+  &[contenteditable="true"] {
+    border-bottom-color: #000;
+  }
+
 }
 
 
