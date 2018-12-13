@@ -44,25 +44,32 @@
 
 }
 
+
+.log__rename,
 .log__date {
+  margin: 0;
   display: block;
 }
 
 .log__diff {
+  margin: 0;
   display: block;
   text-align: right;
 }
 
 .log__content {
+  margin: 0;
   display: block;
 }
 
 .log__new-name {
+  margin: 0;
   font-weight: bold;
   color: $cadet-blue;
 }
 
 .log__score {
+  margin: 0;
   font-weight: bold;
   color: $dark-olive-green-1;
 }

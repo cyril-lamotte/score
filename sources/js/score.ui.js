@@ -4,6 +4,20 @@
  */
 root.mainApp = function() {
 
+  /**
+   * Description
+   *
+   * @param {String} title - Header label
+   * @param {Array} players - Player's list
+   * @param {Int} score_limit - Game's score limit
+   * @param {Array} logs - User's action logs
+   * @param {Bool} modal_visible - Is modal visible ?
+   * @param {Bool} options_visible - Are options visible ?
+   * @param {String} options_filter - Filter which options are visible
+   * @param {Bool} history_visible - Is history visible ?
+   * @param {Int} total_temp - Subtotal in "add score" modal
+   * @param {Int} version - App version
+   */
   root.app = new Vue({
     el: '#app',
     data: {
@@ -44,6 +58,41 @@ root.mainApp = function() {
         });
 
         return c;
+      },
+
+      total_temp_label: function() {
+
+        var label_points = ' point';
+        if (this.total_temp > 1) {
+          label_points += 's';
+        }
+
+        return '<span>' + this.total_temp + '</span>' + label_points + ' <span class="visually-hidden">au total</span>';
+      },
+
+      /**
+       * Give tabindex related to modal state.
+       */
+      modal_tabindex: function() {
+
+        if (!this.modal_visible) {
+          return -1;
+        }
+
+        return 0;
+      },
+
+
+      /**
+       * Give tabindex related to modal state.
+       */
+      body_tabindex: function() {
+
+        if (this.modal_visible) {
+          return -1;
+        }
+
+        return 0;
       },
 
     },
@@ -591,14 +640,14 @@ root.mainApp = function() {
 
                   // Name.
                   if (lastPlayer.name != prevPlayer.name) {
-                    diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
+                    diffText += '<p class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </p>';
                   }
 
                   // Hand.
                   if (lastPlayer.hasHand != prevPlayer.hasHand) {
 
                     if (lastPlayer.hasHand) {
-                      diffText += '<span class="log__rename">La main passe à <span class="log__new-name">' + lastPlayer.name + '</span>.</span>';
+                      diffText += '<p class="log__rename">La main passe à <span class="log__new-name">' + lastPlayer.name + '</span>.</p>';
                     }
                   }
 
@@ -637,10 +686,10 @@ root.mainApp = function() {
         var diffText = '';
 
         if (diff < 0) {
-          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+          diffText += '<p class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</p>';
         }
         else if (diff > 0) {
-          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+          diffText += '<p class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</p>';
         }
 
         return diffText;
@@ -823,6 +872,7 @@ root.mainApp = function() {
         this.total_temp += value;
       },
 
+
       addScore(value) {
 
         this.selectedPlayer.score += value;
@@ -841,6 +891,7 @@ root.mainApp = function() {
         this.hideModal('options');
         this.raz();
       },
+
 
       /**
        * Define the new score limit.

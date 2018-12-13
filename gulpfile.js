@@ -53,7 +53,6 @@ try {
       $                = require('gulp-load-plugins')(), // Automatic plugins loads.
       del              = require('del'),                 // Remove files.
       sass             = require('gulp-sass'),           // Compile SASS code.
-      jshint           = require('gulp-jshint'),         // JS Code quality.
       stylelint        = require('gulp-stylelint'),      // CSS code quality.
       ignore           = require('gulp-ignore'),         // Exclude files.
       postcss          = require('gulp-postcss'),        // Post CSS features.
@@ -275,16 +274,6 @@ gulp.task('lint-css', ['build-css'], function lintCssTask() {
 });
 
 
-// JS.
-gulp.task('jshint', function() {
-  return gulp.src(paths.js_src + '**/*.js')
-    .pipe(ignore.exclude('**/lib/*.js'))
-    .pipe(ignore.exclude('**/plugins/contrib/*.js'))
-    .pipe(ignore.exclude('**/*.min.js'))
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
 
 /* =============================================================================
    Server
@@ -372,7 +361,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.scss + '**/*.scss', ['build-css', 'minify-css', 'lint-css']);
 
 
-  gulp.watch(paths.js_src + '**/*.js', ['jshint', 'concat']);
+  gulp.watch(paths.js_src + '**/*.js', ['concat']);
   gulp.watch(paths.sprites + '*.png', ['sprites']);
 });
 

@@ -6,8 +6,8 @@ root.logs = function() {
 
   var log_template = `
   <li class="log">
-    <span class="log__date">{{ log.date }}</span>
-    <span v-html="log.content" class="log__content"></span>
+    <p class="log__date">{{ log.date }}</p>
+    <div v-html="log.content" class="log__content"></div>
   </li>
   `;
 

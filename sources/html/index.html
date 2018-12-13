@@ -14,35 +14,23 @@
   <div id="app" class="app" :class="{ 'modal-is-open': modal_visible }">
 
     <!-- @@include('includes/header.html') -->
+    <!-- @@include('includes/modals.html') -->
 
     <div class="winner" v-if="score_limit > 0">Le premier joueur à <strong @click="showModal('options', 'score_limit')">{{ score_limit }} points</strong>.</div>
 
     <section class="player-list">
-
-      <player
-        v-for="player in players"
-        :player="player"
-        :score_limit="score_limit"
-        :key="player.id"
-        v-if="player.visible"
-        @we-got-a-winner="show_winner"
-        @request-save="waitForSaving"
-        @show-confirm="show_confirm">
-      </player>
-
+      <!-- @@include('includes/player.html') -->
     </section><!--/player-list-->
 
-    <footer>
-      <button type="button" class="logs__cancel" @click.prevent="cancel"><span>Annuler</span></button>
-    </footer>
+    <button type="button" class="logs__cancel" @click.prevent="cancel" v-bind:tabindex="body_tabindex"><span>Annuler</span></button>
 
-    <footer class="logs">
+    <section class="logs">
 
-      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand">Passer la main</button>
+      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">Passer la main</button>
 
       <template v-if="logs.length">
 
-        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
+        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }" v-bind:aria-expanded="history_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
 
         <ul v-if="history_visible">
           <log v-if="logs"
@@ -55,7 +43,7 @@
 
       </template>
 
-    </footer>
+    </section>
 
   </div><!--/app-->
 

@@ -1,0 +1,33 @@
+
+<player inline-template
+  v-for="player in players"
+  :player="player"
+  :score_limit="score_limit"
+  :key="player.id"
+  :tabindex="body_tabindex"
+  v-if="player.visible"
+  @we-got-a-winner="show_winner"
+  @request-save="waitForSaving"
+  @show-confirm="show_confirm">
+
+  <div class="player" :class="{'player--zero-point': player.score <= 0, 'player--has-hand': player.hasHand}">
+
+      <h2 aria-live="polite" class="visually-hidden">{{ player.name }}, {{player.score}} points.</h2>
+
+      <div class="player__header">
+        <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)" v-bind:aria-label="player.name" v-bind:tabindex="tabindex">{{ player.name }}</p>
+        <p class="player__total" @click.prevent="show_confirm" :class="{ 'anim-bounce': player.update }"><button type="button" class="player__score" v-bind:tabindex="tabindex">{{ player.score }} <span class="visually-hidden">point(s)</span></button></p>
+      </div>
+
+      <div class="player__action">
+        <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Retirer 1 point</span></button>
+        <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point</span></button>
+      </div>
+
+      <p v-if="remain != score_limit && remain > 0" class="player__remain">
+        Reste <strong>{{ remain }} point(s)</strong>
+      </p>
+
+  </div>
+
+</player>
