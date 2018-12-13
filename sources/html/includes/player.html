@@ -22,8 +22,8 @@
       </div>
 
       <div class="player__action">
-        <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Retirer 1 point</span></button>
-        <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point</span></button>
+        <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Retirer 1 point à {{ player.name }}</span></button>
+        <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point à {{ player.name }}</span></button>
       </div>
 
       <p v-if="remain != score_limit && remain > 0" class="player__remain">

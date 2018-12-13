@@ -1,8 +1,6 @@
 
 <section class="modal modal--options" :class="[{ 'modal--is-visible': options_visible }, modal_name]" v-bind:aria-hidden="modal_visible ? 'false' : 'true'">
 
-  <h1>Options</h1>
-
   <div class="modal__close-wrap">
     <button type="button" @click.prevent="hideModal('options')" class="btn-close" v-bind:tabindex="modal_tabindex"><span class="visually-hidden">Fermer la fenêtre d'options</span></button>
   </div>
@@ -140,7 +138,7 @@
 
     <section class="app__option app__option--raz" v-if="options_filter == 'all'">
 
-      <h2 class="other-players__title">Réinitaliser les scores</h2>
+      <h2 class="other-players__title">Réinitialiser les scores</h2>
       <button type="button" class="btn-important btn--wide" @click.prevent="show_confirm(false)" v-bind:tabindex="modal_tabindex">Tous les scores à 0</button>
 
     </section>
