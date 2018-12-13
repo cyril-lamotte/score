@@ -12,13 +12,15 @@
 
   <div class="player" :class="{'player--zero-point': player.score <= 0, 'player--has-hand': player.hasHand}">
 
-      <h2 aria-live="polite" class="visually-hidden">{{ player.name }}, {{player.score}} points.
+      <!---Voice over doesn't update h2 vocalisation after update by JS-->
+      <h2 class="visually-hidden">{{ player.name }}</h2>
+      <div aria-live="polite" class="visually-hidden">{{ player.name }}, {{player.score}} points.
         <template v-if="player.hasHand">(possède la main)</template>
-      </h2>
+      </div>
 
       <div class="player__header">
         <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)" v-bind:aria-label="player.name" v-bind:tabindex="tabindex">{{ player.name }}</p>
-        <p class="player__total" @click.prevent="show_confirm" :class="{ 'anim-bounce': player.update }"><button type="button" class="player__score" v-bind:tabindex="tabindex">{{ player.score }} <span class="visually-hidden">point(s)</span></button></p>
+        <p class="player__total" @click.prevent="show_confirm" :class="{ 'anim-bounce': player.update }"><button type="button" class="player__score" v-bind:tabindex="tabindex">{{ player.score }} <span class="visually-hidden">points</span></button></p>
       </div>
 
       <div class="player__action">
