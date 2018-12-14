@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" xmlns:og="http://ogp.me/ns#">
 <head>
 
   
@@ -12,7 +12,6 @@
     gtag('config', 'UA-800422-4');
   </script>
   
-
 
   <title>Score </title>
 
@@ -31,7 +30,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#ff9c00"/>
 
-  <meta name="description" content="Compter les points entre amis avec la webapp 'Score' !"/>
+  <meta name="description" content="Compter les points entre amis ou en famille avec la webapp 'Score' !"/>
+
+  <meta property="og:title" content="Score, webapp de comptage de points" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cyril-lamotte.github.io/score/" />
+  <meta property="og:description" content="Compter les points entre amis ou en famille avec la webapp 'Score' !" />
+  <meta property="og:image" content="https://cyril-lamotte.github.io/score/assets/img/score-webapp.png" />
+
 
   
 
@@ -119,16 +125,17 @@
     
     <header class="main-header" role="banner">
 
-      <h1 class="main-title" contenteditable="true" @blur="updateTitle($event.target.innerHTML)">{{ title }}</h1>
-      <button type="button" class="header__btn" @click.prevent="showModal('options')" v-if="!options_visible"><span class="visually-hidden">Options</span><span>Options&hellip;</span></button>
+      <h1 class="main-title" contenteditable="true" @blur="updateTitle($event.target.innerHTML)" v-bind:tabindex="body_tabindex">{{ title }}</h1>
+      <button type="button" class="header__btn" @click.prevent="showModal('options')" v-bind:aria-expanded="modal_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><span>Options&hellip;</span></button>
 
     </header>
 
 
-    <div class="modal modal--options" :class="[{ 'modal--is-visible': options_visible }, modal_name]">
+    
+    <section class="modal modal--options" :class="[{ 'modal--is-visible': modal_visible }, modal_name]" v-bind:aria-hidden="modal_visible ? 'false' : 'true'">
 
       <div class="modal__close-wrap">
-        <button type="button" @click.prevent="hideModal('options')" class="btn-close"><span class="visually-hidden">Fermer</span></button>
+        <button type="button" @click.prevent="hideModal('options')" class="btn-close" v-bind:tabindex="modal_tabindex"><span class="visually-hidden">Fermer la fenêtre d'options</span></button>
       </div>
 
       <div class="modal__inner">
@@ -141,10 +148,12 @@
               <h2 class="other-players__title">Joueurs inactifs</h2>
 
               <ul class="other-players__list other-players__list--inactives">
-                <other_player
+                <other_players
                   v-for="player in players"
                   :player="player"
                   :key="player.id"
+                  :tabindex="modal_tabindex"
+                  label="Ajouter"
                   v-if="!player.visible">
                 </other_player>
               </ul>
@@ -160,10 +169,12 @@
               <h2 class="other-players__title">Joueurs actifs</h2>
 
               <ul class="other-players__list">
-                <other_player
+                <other_players
                   v-for="player in players"
                   :player="player"
                   :key="player.id"
+                  :tabindex="modal_tabindex"
+                  label="Désactiver"
                   v-if="player.visible">
                 </other_player>
               </ul>
@@ -177,7 +188,7 @@
         <section class="app__option app__option--new-player" v-if="options_filter == 'all'">
 
           <h2 class="other-players__title">Nouveau joueur</h2>
-          <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer">Ajouter un joueur</button>
+          <button type="button" class="btn-brand btn--wide" @click.prevent="addPlayer" v-bind:tabindex="modal_tabindex">Ajouter un joueur</button>
 
         </section>
 
@@ -185,10 +196,10 @@
         <section class="app__option app__option--score-limit" v-if="options_filter == 'all' || options_filter == 'score_limit'">
 
           <h2 class="other-players__title" id="score-limit-label">Limite de score</h2>
-          <input type="number" class="option__input" @blur="updateScoreLimit($event.target.value)" :value="score_limit" aria-label="Limite de score">
+          <input type="number" class="option__input" @blur="updateScoreLimit($event.target.value)" :value="score_limit" aria-label="Limite de score" v-bind:tabindex="modal_tabindex">
 
           <div class="btn-wrap align-center">
-            <button type="button" class="btn-brand btn--wide" @click.prevent="hideModal('options')">Fermer</button>
+            <button type="button" class="btn-brand btn--wide" @click.prevent="hideModal('options')" v-bind:tabindex="modal_tabindex">Fermer</button>
           </div>
 
         </section>
@@ -212,7 +223,7 @@
           <div class="winner__name">{{ winner.name }}&nbsp;!</div>
 
           <div class="btn-wrap align-center">
-            <button type="button" class="btn-brand" @click.prevent="play_again">Nouvelle partie</button>
+            <button type="button" class="btn-brand" @click.prevent="play_again" v-bind:tabindex="modal_tabindex">Nouvelle partie</button>
           </div>
 
         </section>
@@ -220,39 +231,39 @@
 
         <section class="app__option option__confirm" v-if="options_filter == 'confirm'">
 
-          <h2 class="other-players__title">Ajouter/retirer des points</h2>
+          <h2 class="other-players__title" id="title-add-points">Ajouter ou retirer des points</h2>
 
-          <div class="points__total">
-            <span>{{ total_temp }}</span> point<template v-if="total_temp > 1 || total_temp < -1">s</template>
+          <p class="visually-hidden">Utilisez les boutons si dessous pour ajuster les points à ajouter, puis validez.</p>
+
+          <div class="points__total" aria-live="polite" v-html="total_temp_label"></div>
+
+          <div class="points__buttons">
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(1)" aria-label="Ajouter 1 points">+1</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(2)" aria-label="Ajouter 2 points">+2</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(5)" aria-label="Ajouter 5 points">+5</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(10)" aria-label="Ajouter 10 points">+10</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(50)" aria-label="Ajouter 50 points">+50</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(100)" aria-label="Ajouter 100 points">+100</button>
           </div>
 
           <div class="points__buttons">
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(1)">+1</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(2)">+2</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(5)">+5</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(10)">+10</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(50)">+50</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(100)">+100</button>
-          </div>
-
-          <div class="points__buttons">
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-1)">-1</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-2)">-2</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-5)">-5</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-10)">-10</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-50)">-50</button>
-            <button type="button" class="btn-brand points__button" @click.prevent="addValueToTotal(-100)">-100</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-1)">-1</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-2)">-2</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-5)">-5</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-10)">-10</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-50)">-50</button>
+            <button type="button" class="btn-brand points__button" v-bind:tabindex="modal_tabindex" @click.prevent="addValueToTotal(-100)">-100</button>
           </div>
 
           <div class="btn-wrap align-center">
-            <button type="button" class="btn-brand btn--wide" @click.prevent="addScore(total_temp)"><span v-if="total_temp >= 0">Ajouter</span><span v-else>Retirer</span> <strong>{{ total_temp }}</strong> point<template v-if="total_temp > 1 || total_temp < -1">s</template></button>
+            <button type="button" class="btn-brand btn--wide" @click.prevent="addScore(total_temp)" v-bind:tabindex="modal_tabindex"><span v-if="total_temp >= 0">Ajouter</span><span v-else>Retirer</span> <strong>{{ total_temp }}</strong> point<template v-if="total_temp > 1 || total_temp < -1">s</template></button>
           </div>
 
 
           <h2 class="other-players__title">Mise à zéro</h2>
 
           <div class="btn-wrap align-center">
-            <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero">Remise à 0 !</button>
+            <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero" v-bind:tabindex="modal_tabindex">Remise à 0 !</button>
           </div>
 
         </section>
@@ -260,8 +271,8 @@
 
         <section class="app__option app__option--raz" v-if="options_filter == 'all'">
 
-          <h2 class="other-players__title">Réinitaliser les scores</h2>
-          <button type="button" class="btn-important btn--wide" @click.prevent="show_confirm(false)">Tous les scores à 0</button>
+          <h2 class="other-players__title">Réinitialiser les scores</h2>
+          <button type="button" class="btn-important btn--wide" @click.prevent="show_confirm(false)" v-bind:tabindex="modal_tabindex">Tous les scores à 0</button>
 
         </section>
 
@@ -269,37 +280,61 @@
         <div class="app__version" v-if="options_filter == 'all'">Version {{ version }}</div>
 
       </div><!--/modal__inner-->
-    </div><!--/modal-->
+    </section><!--/modal-->
 
 
     <div class="winner" v-if="score_limit > 0">Le premier joueur à <strong @click="showModal('options', 'score_limit')">{{ score_limit }} points</strong>.</div>
 
     <section class="player-list">
-
-      <player
+      
+      <player inline-template
         v-for="player in players"
         :player="player"
         :score_limit="score_limit"
         :key="player.id"
+        :tabindex="body_tabindex"
         v-if="player.visible"
         @we-got-a-winner="show_winner"
         @request-save="waitForSaving"
         @show-confirm="show_confirm">
+
+        <div class="player" :class="{'player--zero-point': player.score <= 0, 'player--has-hand': player.hasHand}">
+
+            <!---Voice over doesn't update h2 vocalisation after update by JS-->
+            <h2 class="visually-hidden">{{ player.name }}</h2>
+            <div aria-live="polite" class="visually-hidden">{{ player.name }}, {{player.score}} points.
+              <template v-if="player.hasHand">(possède la main)</template>
+            </div>
+
+            <div class="player__header">
+              <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)" aria-label="Nom du joueur" v-bind:tabindex="tabindex">{{ player.name }}</p>
+              <p class="player__total" @click.prevent="show_confirm" :class="{ 'anim-bounce': player.update }"><button type="button" class="player__score" v-bind:tabindex="tabindex">{{ player.score }} <span class="visually-hidden">points</span></button></p>
+            </div>
+
+            <div class="player__action">
+              <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Retirer 1 point à {{ player.name }}</span></button>
+              <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point à {{ player.name }}</span></button>
+            </div>
+
+            <p v-if="remain != score_limit && remain > 0" class="player__remain">
+              Reste <strong>{{ remain }} point(s)</strong>
+            </p>
+
+        </div>
+
       </player>
 
     </section><!--/player-list-->
 
-    <footer>
-      <button type="button" class="logs__cancel" @click.prevent="cancel"><span>Annuler</span></button>
-    </footer>
+    <button type="button" class="logs__cancel" @click.prevent="cancel" v-bind:tabindex="body_tabindex" aria-label="Annuler"><span>Annuler</span></button>
 
-    <footer class="logs">
+    <section class="logs">
 
-      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand">Passer la main</button>
+      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">Passer la main</button>
 
       <template v-if="logs.length">
 
-        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
+        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }" v-bind:aria-expanded="history_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
 
         <ul v-if="history_visible">
           <log v-if="logs"
@@ -312,7 +347,7 @@
 
       </template>
 
-    </footer>
+    </section>
 
   </div><!--/app-->
 

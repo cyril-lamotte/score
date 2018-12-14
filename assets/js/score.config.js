@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.8.0 (12 décembre 2018)',
+  appVersion: '1.9.0 (13 décembre 2018)',
   appData: {}
 };
 

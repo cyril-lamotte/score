@@ -200,6 +200,13 @@ a {
   a:hover, a:focus, a:active {
     text-decoration: underline; }
 
+a:focus,
+input:focus,
+[contenteditable="true"]:focus,
+button:focus {
+  outline: 2px dashed #fff;
+  outline-offset: 4px; }
+
 [contenteditable="true"] {
   border-bottom: 1px solid #ff9c00; }
 
@@ -617,7 +624,8 @@ a {
 .wrap {
   display: flow-root;
   max-width: 1280px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-bottom: 1rem; }
   .wrap:after {
     content: "";
     display: table;
@@ -704,6 +712,22 @@ html {
   .btn-close span {
     display: block; }
 
+.modal-is-open {
+  overflow: hidden; }
+  .modal-is-open:after {
+    content: '';
+    background: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1; }
+  .modal-is-open .main-header,
+  .modal-is-open .player-list {
+    -webkit-filter: grayscale(50%) blur(2px);
+            filter: grayscale(50%) blur(2px); }
+
 .align-left {
   text-align: left !important; }
 
@@ -746,18 +770,21 @@ html {
 .main-header {
   text-align: center;
   padding: 10px;
-  background: #ff9c00;
-  margin-bottom: 2rem; }
+  color: #ff9c00;
+  margin-bottom: 2rem;
+  -webkit-transition: all 150ms;
+  -o-transition: all 150ms;
+  transition: all 150ms; }
 
 .main-title {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
-  color: #000;
+  color: #ff9c00;
   font-weight: 300;
   font-size: 3rem; }
   .main-title[contenteditable="true"] {
-    border-bottom-color: #000; }
+    border-bottom-color: #ff9c00; }
 
 .header__btn {
   margin: 0;
@@ -788,5 +815,7 @@ html {
   border-radius: 10px 0 0 0; }
   .header__btn:hover, .header__btn:focus, .header__btn:active {
     text-decoration: none; }
+  .modal-is-open .header__btn {
+    opacity: 0; }
 
 /*# sourceMappingURL=../maps/common.css.map */

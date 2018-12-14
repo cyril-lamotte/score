@@ -4,25 +4,8 @@
  */
 root.players = function() {
 
-  var player_template = `
-  <div class="player" :class="{ \'player--zero-point\': player.score <= 0, \'player--has-hand\': player.hasHand }">
-    <div class="player__header">
-      <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
-      <p class="player__total" @click.prevent="show_confirm" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
-    </div>
-    <div class="player__action">
-      <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>
-      <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1"><span class="visually-hidden">Ajouter 1 point</span></button>
-    </div>
-    <div v-if="remain != score_limit && remain > 0" class="player__remain">
-      Reste <strong>{{ remain }} point(s)</strong>
-    </div>
-  </div>
-  `;
-
   Vue.component('player', {
-    props: ['player', 'score_limit'],
-    template: player_template,
+    props: ['player', 'score_limit', 'tabindex'],
     computed: {
 
       /**
@@ -101,9 +84,9 @@ root.players = function() {
   });
 
 
-  Vue.component('other_player', {
-    props: ['player'],
-    template: '<li><button type="button" @click="setVisible" class="btn">{{ player.name }}</button></li>',
+  Vue.component('other_players', {
+    props: ['player', 'tabindex', 'label'],
+    template: '<li><button type="button" @click="setVisible" class="btn" v-bind:tabindex="tabindex"><span class="visually-hidden">{{ label }} </span>{{ player.name }}</button></li>',
     methods: {
       setVisible: function() {
         this.player.visible = !this.player.visible;

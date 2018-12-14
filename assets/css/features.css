@@ -97,21 +97,27 @@
   .log__button:hover, .log__button:focus, .log__button:active {
     background: #ff7961; }
 
+.log__rename,
 .log__date {
+  margin: 0;
   display: block; }
 
 .log__diff {
+  margin: 0;
   display: block;
   text-align: right; }
 
 .log__content {
+  margin: 0;
   display: block; }
 
 .log__new-name {
+  margin: 0;
   font-weight: bold;
   color: #98f5ff; }
 
 .log__score {
+  margin: 0;
   font-weight: bold;
   color: #caff70; }
 
@@ -284,7 +290,10 @@
     margin-right: 5px; }
 
 .player-list {
-  font-size: 2rem; }
+  font-size: 2rem;
+  -webkit-transition: all 150ms;
+  -o-transition: all 150ms;
+  transition: all 150ms; }
   @media only screen and (min-width: 30em) {
     .player-list {
       display: -webkit-box;
@@ -311,7 +320,8 @@
     .player {
       -webkit-box-flex: 0;
           -ms-flex: 0 0 48%;
-              flex: 0 0 48%; } }
+              flex: 0 0 48%;
+      max-width: 48%; } }
 
 .player__header {
   display: -webkit-box;
@@ -337,10 +347,15 @@
   font-weight: 300;
   font-size: 4rem;
   line-height: 1.2;
-  padding: 1rem 30px 1rem 1rem;
+  padding: 1rem 40px 1rem 1rem;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
-          flex-grow: 1; }
+          flex-grow: 1;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis; }
 
 .player__total {
   margin: 0;

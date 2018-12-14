@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.8.0 (12 décembre 2018)',
+  appVersion: '1.9.0 (13 décembre 2018)',
   appData: {}
 };
 
@@ -90,6 +90,19 @@ root.deleteDb = function() {
  */
 root.mainApp = function() {
 
+  /**
+   * Description
+   *
+   * @param {String} title - Header label
+   * @param {Array} players - Player's list
+   * @param {Int} score_limit - Game's score limit
+   * @param {Array} logs - User's action logs
+   * @param {Bool} modal_visible - Is modal visible ?
+   * @param {String} options_filter - Filter which options are visible
+   * @param {Bool} history_visible - Is history visible ?
+   * @param {Int} total_temp - Subtotal in "add score" modal
+   * @param {Int} version - App version
+   */
   root.app = new Vue({
     el: '#app',
     data: {
@@ -99,7 +112,6 @@ root.mainApp = function() {
       logs: [],
       winner: null,
       modal_visible: false,
-      options_visible: false,
       options_filter: 'all',
       modal_name: null,
       history_visible: false,
@@ -132,6 +144,49 @@ root.mainApp = function() {
         return c;
       },
 
+      total_temp_label: function() {
+
+        var label_points = ' point';
+        if (this.total_temp > 1) {
+          label_points += 's';
+        }
+
+        return '<span>' + this.total_temp + '</span>' + label_points + ' <span class="visually-hidden">au total</span>';
+      },
+
+      /**
+       * Give tabindex related to modal state.
+       */
+      modal_tabindex: function() {
+
+        if (!this.modal_visible) {
+          return -1;
+        }
+
+        return 0;
+      },
+
+
+      /**
+       * Give tabindex related to modal state.
+       */
+      body_tabindex: function() {
+
+        if (this.modal_visible) {
+          return -1;
+        }
+
+        return 0;
+      },
+
+    },
+
+    created: function() {
+      document.addEventListener('keyup', this.escapeKeyListener);
+    },
+
+    destroyed: function() {
+      document.removeEventListener('keyup', this.escapeKeyListener);
     },
 
     mounted: function () {
@@ -153,6 +208,18 @@ root.mainApp = function() {
     updated: function () {},
 
     methods: {
+
+      /**
+       * Close modal if ESC key is pressed.
+       * @param {Event} event
+       */
+      escapeKeyListener: function(event) {
+
+        if (event.key == 'Escape') {
+          this.hideModal('options');
+        }
+
+      },
 
       /**
        * Update the board title.
@@ -188,10 +255,13 @@ root.mainApp = function() {
 
       /**
        * Add new log and keep the 20 last logs.
+       * @param {Object} log - Log object
        */
       addLog: function(log) {
         this.logs.unshift(log);
         this.logs = this.logs.slice(0, 20);
+
+        return true;
       },
 
 
@@ -677,14 +747,14 @@ root.mainApp = function() {
 
                   // Name.
                   if (lastPlayer.name != prevPlayer.name) {
-                    diffText += '<span class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </span>';
+                    diffText += '<p class="log__rename">' + prevPlayer.name + ' renommé en <span class="log__new-name">' + lastPlayer.name + '</span>. </p>';
                   }
 
                   // Hand.
                   if (lastPlayer.hasHand != prevPlayer.hasHand) {
 
                     if (lastPlayer.hasHand) {
-                      diffText += '<span class="log__rename">La main passe à <span class="log__new-name">' + lastPlayer.name + '</span>.</span>';
+                      diffText += '<p class="log__rename">La main passe à <span class="log__new-name">' + lastPlayer.name + '</span>.</p>';
                     }
                   }
 
@@ -723,10 +793,10 @@ root.mainApp = function() {
         var diffText = '';
 
         if (diff < 0) {
-          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+          diffText += '<p class="log__diff">' + player.name + ' <strong class="log__score">+' + Math.abs(diff) + ' point(s).</strong>' + '</p>';
         }
         else if (diff > 0) {
-          diffText += '<span class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</span>';
+          diffText += '<p class="log__diff">' + player.name + ' <strong class="log__score">-' + Math.abs(diff) + ' point(s).</strong>' + '</p>';
         }
 
         return diffText;
@@ -774,12 +844,10 @@ root.mainApp = function() {
         this.modal_visible = true;
         this.options_filter = filter;
 
-        if (modal_name == 'options') {
-          // This variable toggle a class if true.
-          this.options_visible = true;
-        }
-
         this.modal_name = 'modal--' + modal_name + '--' + filter;
+
+        document.body.classList.add('modal-is-open');
+        document.querySelector('.btn-close').focus();
 
       },
 
@@ -796,9 +864,8 @@ root.mainApp = function() {
 
         this.modal_visible = false;
 
-        if (modal_name == 'options') {
-          this.options_visible = false;
-        }
+        document.body.classList.remove('modal-is-open');
+        document.querySelector('.header__btn').focus();
 
       },
 
@@ -909,6 +976,7 @@ root.mainApp = function() {
         this.total_temp += value;
       },
 
+
       addScore(value) {
 
         this.selectedPlayer.score += value;
@@ -927,6 +995,7 @@ root.mainApp = function() {
         this.hideModal('options');
         this.raz();
       },
+
 
       /**
        * Define the new score limit.
@@ -985,25 +1054,8 @@ root.updateOnlineStatus = function() {
  */
 root.players = function() {
 
-  var player_template = `
-  <div class="player" :class="{ \'player--zero-point\': player.score <= 0, \'player--has-hand\': player.hasHand }">
-    <div class="player__header">
-      <p class="player__name" contenteditable="true" @blur="rename($event.target.innerHTML)">{{ player.name }}</p>
-      <p class="player__total" @click.prevent="show_confirm" :class="{ \'anim-bounce\': player.update }"><button type="button" class="player__score">{{player.score}}</button></p>
-    </div>
-    <div class="player__action">
-      <button type="button" @click.prevent="removePoint" class="player__update-btn btn player__update-btn--minus-1"><span class="visually-hidden">Retirer 1 point</span></button>
-      <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1"><span class="visually-hidden">Ajouter 1 point</span></button>
-    </div>
-    <div v-if="remain != score_limit && remain > 0" class="player__remain">
-      Reste <strong>{{ remain }} point(s)</strong>
-    </div>
-  </div>
-  `;
-
   Vue.component('player', {
-    props: ['player', 'score_limit'],
-    template: player_template,
+    props: ['player', 'score_limit', 'tabindex'],
     computed: {
 
       /**
@@ -1082,9 +1134,9 @@ root.players = function() {
   });
 
 
-  Vue.component('other_player', {
-    props: ['player'],
-    template: '<li><button type="button" @click="setVisible" class="btn">{{ player.name }}</button></li>',
+  Vue.component('other_players', {
+    props: ['player', 'tabindex', 'label'],
+    template: '<li><button type="button" @click="setVisible" class="btn" v-bind:tabindex="tabindex"><span class="visually-hidden">{{ label }} </span>{{ player.name }}</button></li>',
     methods: {
       setVisible: function() {
         this.player.visible = !this.player.visible;
@@ -1103,8 +1155,8 @@ root.logs = function() {
 
   var log_template = `
   <li class="log">
-    <span class="log__date">{{ log.date }}</span>
-    <span v-html="log.content" class="log__content"></span>
+    <p class="log__date">{{ log.date }}</p>
+    <div v-html="log.content" class="log__content"></div>
   </li>
   `;
 
