@@ -32,3 +32,21 @@
   background: none;
   @include cross(50px, #fff);
 }
+
+
+.modal-is-open {
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    background: rgba(#000, 0.2);
+    @include absolute-full;
+    z-index: 1;
+  }
+
+  .main-header,
+  .player-list {
+    filter: grayscale(50%) blur(2px);
+  }
+
+}

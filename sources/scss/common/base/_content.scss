@@ -23,7 +23,20 @@ a {
   color: $base-color;
 }
 
+a,
+input,
+[contenteditable="true"],
+button {
+
+  &:focus {
+    outline: 2px dashed #fff;
+    outline-offset: 4px;
+  }
+
+}
+
 
 [contenteditable="true"] {
   border-bottom: 1px solid $brand;
 }
+

@@ -1,6 +1,7 @@
 
 .player-list {
   font-size: 2rem;
+  transition: all 150ms;
 
   @include mq-from('xs') {
     display: flex;
@@ -19,7 +20,9 @@
 
   @include mq-from('xs') {
     flex: 0 0 48%;
+    max-width: 48%;
   }
+
 }
 
 
@@ -39,8 +42,9 @@
   font-weight: 300;
   font-size: 4rem;
   line-height: 1.2;
-  padding: 1rem 30px 1rem 1rem;
+  padding: 1rem 40px 1rem 1rem;
   flex-grow: 1;
+  @include text-overflow;
 }
 
 .player__total {

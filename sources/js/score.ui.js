@@ -12,7 +12,6 @@ root.mainApp = function() {
    * @param {Int} score_limit - Game's score limit
    * @param {Array} logs - User's action logs
    * @param {Bool} modal_visible - Is modal visible ?
-   * @param {Bool} options_visible - Are options visible ?
    * @param {String} options_filter - Filter which options are visible
    * @param {Bool} history_visible - Is history visible ?
    * @param {Int} total_temp - Subtotal in "add score" modal
@@ -27,7 +26,6 @@ root.mainApp = function() {
       logs: [],
       winner: null,
       modal_visible: false,
-      options_visible: false,
       options_filter: 'all',
       modal_name: null,
       history_visible: false,
@@ -97,6 +95,14 @@ root.mainApp = function() {
 
     },
 
+    created: function() {
+      document.addEventListener('keyup', this.escapeKeyListener);
+    },
+
+    destroyed: function() {
+      document.removeEventListener('keyup', this.escapeKeyListener);
+    },
+
     mounted: function () {
 
       // Get data or generate default data.
@@ -116,6 +122,18 @@ root.mainApp = function() {
     updated: function () {},
 
     methods: {
+
+      /**
+       * Close modal if ESC key is pressed.
+       * @param {Event} event
+       */
+      escapeKeyListener: function(event) {
+
+        if (event.key == 'Escape') {
+          this.hideModal('options');
+        }
+
+      },
 
       /**
        * Update the board title.
@@ -151,10 +169,13 @@ root.mainApp = function() {
 
       /**
        * Add new log and keep the 20 last logs.
+       * @param {Object} log - Log object
        */
       addLog: function(log) {
         this.logs.unshift(log);
         this.logs = this.logs.slice(0, 20);
+
+        return true;
       },
 
 
@@ -737,12 +758,10 @@ root.mainApp = function() {
         this.modal_visible = true;
         this.options_filter = filter;
 
-        if (modal_name == 'options') {
-          // This variable toggle a class if true.
-          this.options_visible = true;
-        }
-
         this.modal_name = 'modal--' + modal_name + '--' + filter;
+
+        document.body.classList.add('modal-is-open');
+        document.querySelector('.btn-close').focus();
 
       },
 
@@ -759,9 +778,8 @@ root.mainApp = function() {
 
         this.modal_visible = false;
 
-        if (modal_name == 'options') {
-          this.options_visible = false;
-        }
+        document.body.classList.remove('modal-is-open');
+        document.querySelector('.header__btn').focus();
 
       },
 
