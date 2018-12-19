@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.9.0 (13 décembre 2018)',
+  appVersion: '1.10.0 (19 décembre 2018)',
   appData: {}
 };
 
@@ -938,12 +938,28 @@ root.mainApp = function() {
 
 
       /**
+       * Show confirm modal.
+       *
+       * @param {Object} player1 - If true, the update will apply to the
+       * selected player.
+       */
+      show_confirm: function(player1) {
+        this.showModal('options', 'confirm');
+
+        if (!player1) {
+          this.selectedPlayer = false;
+        }
+
+      },
+
+
+      /**
        * Show confirm modal & set selected player.
        *
        * @param {Object} player - Current player.
        */
-      show_confirm: function(player) {
-        this.showModal('options', 'confirm');
+      show_set_score_modal: function(player) {
+        this.showModal('options', 'set-score');
         this.selectedPlayer = player;
         this.total_temp = 0;
       },
@@ -1122,7 +1138,7 @@ root.players = function() {
       },
 
       show_confirm: function() {
-        this.$emit('show-confirm', this.player);
+        this.$emit('set-player-score', this.player);
       },
 
       bounce: function() {

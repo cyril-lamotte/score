@@ -206,18 +206,6 @@
 
         </section>
 
-
-        <section class="app__option app__option--share" v-if="options_filter == 'all'">
-
-          <h2 class="other-players__title">Partager l'application</h2>
-          <div class="app__qrcode-wrap">
-            <img src="assets/img/qrcode.jpg" alt="QRCode">
-          </div>
-
-        </section>
-
-
-
         <section class="app__option option__winner" v-if="options_filter == 'winner'">
 
           <h2 class="other-players__title">Nous avons un gagnant&nbsp;!</h2>
@@ -231,7 +219,7 @@
         </section>
 
 
-        <section class="app__option option__confirm" v-if="options_filter == 'confirm'">
+        <section class="app__option option__confirm" v-if="options_filter == 'set-score'">
 
           <h2 class="other-players__title" id="title-add-points">Ajouter ou retirer des points</h2>
 
@@ -261,11 +249,19 @@
             <button type="button" class="btn-brand btn--wide" @click.prevent="addScore(total_temp)" v-bind:tabindex="modal_tabindex"><span v-if="total_temp >= 0">Ajouter</span><span v-else>Retirer</span> <strong>{{ total_temp }}</strong> point<template v-if="total_temp > 1 || total_temp < -1">s</template></button>
           </div>
 
-
           <h2 class="other-players__title">Mise à zéro</h2>
+          <button type="button" class="btn-important btn--wide" @click.prevent="show_confirm(true)" v-bind:tabindex="modal_tabindex">Remise à 0 !</button>
+
+        </section>
+
+
+
+        <section class="app__option option__confirm" v-if="options_filter == 'confirm'">
+
+          <h2 class="other-players__title">Confirmer la mise à zéro</h2>
 
           <div class="btn-wrap align-center">
-            <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero" v-bind:tabindex="modal_tabindex">Remise à 0 !</button>
+            <button type="button" class="btn-important btn--wide" @click.prevent="setScoreToZero" v-bind:tabindex="modal_tabindex">Je confirme la remise à 0 !</button>
           </div>
 
         </section>
@@ -278,6 +274,14 @@
 
         </section>
 
+        <section class="app__option app__option--share" v-if="options_filter == 'all'">
+
+          <h2 class="other-players__title">Partager l'application</h2>
+          <div class="app__qrcode-wrap">
+            <img src="assets/img/qrcode.jpg" alt="QRCode">
+          </div>
+
+        </section>
 
         <div class="app__version" v-if="options_filter == 'all'">Version {{ version }}</div>
 
@@ -298,7 +302,7 @@
         v-if="player.visible"
         @we-got-a-winner="show_winner"
         @request-save="waitForSaving"
-        @show-confirm="show_confirm">
+        @set-player-score="show_set_score_modal">
 
         <div class="player" :class="{'player--zero-point': player.score <= 0, 'player--has-hand': player.hasHand}">
 
