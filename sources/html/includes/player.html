@@ -8,7 +8,7 @@
   v-if="player.visible"
   @we-got-a-winner="show_winner"
   @request-save="waitForSaving"
-  @show-confirm="show_confirm">
+  @set-player-score="show_set_score_modal">
 
   <div class="player" :class="{'player--zero-point': player.score <= 0, 'player--has-hand': player.hasHand}">
 

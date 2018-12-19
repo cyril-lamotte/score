@@ -852,12 +852,28 @@ root.mainApp = function() {
 
 
       /**
+       * Show confirm modal.
+       *
+       * @param {Object} player1 - If true, the update will apply to the
+       * selected player.
+       */
+      show_confirm: function(player1) {
+        this.showModal('options', 'confirm');
+
+        if (!player1) {
+          this.selectedPlayer = false;
+        }
+
+      },
+
+
+      /**
        * Show confirm modal & set selected player.
        *
        * @param {Object} player - Current player.
        */
-      show_confirm: function(player) {
-        this.showModal('options', 'confirm');
+      show_set_score_modal: function(player) {
+        this.showModal('options', 'set-score');
         this.selectedPlayer = player;
         this.total_temp = 0;
       },

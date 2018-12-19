@@ -72,7 +72,7 @@ root.players = function() {
       },
 
       show_confirm: function() {
-        this.$emit('show-confirm', this.player);
+        this.$emit('set-player-score', this.player);
       },
 
       bounce: function() {
