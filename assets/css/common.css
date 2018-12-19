@@ -767,6 +767,14 @@ html {
   width: 1px !important;
   overflow: hidden; }
 
+.main-footer {
+  padding-top: 5rem;
+  text-align: center; }
+  .main-footer a {
+    text-decoration: underline; }
+    .main-footer a:hover, .main-footer a:focus, .main-footer a:active {
+      text-decoration: none; }
+
 .main-header {
   text-align: center;
   padding: 10px;
