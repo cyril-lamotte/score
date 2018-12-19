@@ -1,3 +1,13 @@
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('service-worker.js')
+      .then(function() {});
+  }
+</script>
+
+
 <!-- @@if (env === 'prod') {
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-800422-4"></script>
 <script>

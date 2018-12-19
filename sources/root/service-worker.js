@@ -1,11 +1,16 @@
-const CACHE = 'cache-v1.1.0';
+const CACHE = 'cache-v1.0.24';
+
+console.log(CACHE);
 
 // List all static ressources that will be cached.
 var staticAssets = [
   'index.html',
+  'manifest.json',
   'assets/img/qrcode.jpg',
+  'assets/img/app/apple-touch-icon.png',
+  'assets/img/app/favicon.ico',
   'assets/fonts/OpenSans/opensans-light-webfont.woff2',
-  'assets/fonts/OpenSans/opensans-regular-webfont.woff2'
+  'assets/fonts/OpenSans/opensans-regular-webfont.woff2',
 ];
 
 var staticAssetsDev = [
@@ -22,9 +27,8 @@ var staticAssetsDev = [
 
 var staticAssetsProd = [
   'https://cdn.jsdelivr.net/npm/vue',
-  'assets/css/common.min.css',
-  'assets/css/features.min.css',
-  'assets/js/script.min.js',
+  'assets/css/styles.min.css',
+  'assets/js/scripts.min.js'
 ];
 
 
@@ -39,7 +43,6 @@ var staticAssetsToCache = staticAssets.concat(staticAssetsProd);
 if (env == 'dev') {
   staticAssetsToCache = staticAssets.concat(staticAssetsDev);
 }
-
 
 // Install is triggered the first time the user hits the page.
 // It cache statics files.
