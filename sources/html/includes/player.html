@@ -28,7 +28,7 @@
         <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point à {{ player.name }}</span></button>
       </div>
 
-      <p v-if="remain != score_limit && remain > 0" class="player__remain">
+      <p v-if="remain != score_limit && remain > 0 && score_limit != 0" class="player__remain">
         Reste <strong>{{ remain }} point(s)</strong>
       </p>
 
