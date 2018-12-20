@@ -64,3 +64,20 @@
   }
 
 }
+
+.hand-pass {
+  @include reset-box-model;
+  font-family: $font-stack;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: rgba(#000, 0.8);
+  padding: 1.5rem 2rem;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1.2;
+  font-weight: 300;
+  font-weight: bold;
+  border-radius: 0 10px 0 0;
+}
