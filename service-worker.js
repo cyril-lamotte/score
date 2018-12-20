@@ -1,6 +1,4 @@
-const CACHE = 'cache-v1.12.0';
-
-console.log(CACHE);
+const CACHE = 'cache-v1.13.0';
 
 // List all static ressources that will be cached.
 var staticAssets = [
