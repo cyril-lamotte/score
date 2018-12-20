@@ -768,7 +768,9 @@ html {
   overflow: hidden; }
 
 .main-footer {
+  font-size: 1.6rem;
   padding-top: 5rem;
+  padding-bottom: 5rem;
   text-align: center; }
   .main-footer a {
     text-decoration: underline; }
@@ -814,8 +816,7 @@ html {
   position: fixed;
   bottom: 0;
   right: 0;
-  height: 80px;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
   font-size: 1.5rem;
   z-index: 9;
   text-align: center;

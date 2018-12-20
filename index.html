@@ -3,6 +3,9 @@
 <head>
 
   
+
+  
+
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
@@ -11,8 +14,6 @@
     }
   </script>
 
-
-  
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-800422-4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -325,7 +326,7 @@
               <button type="button" @click.prevent="addPoint" class="player__update-btn btn player__update-btn--plus-1" v-bind:tabindex="tabindex"><span class="visually-hidden">Ajouter 1 point à {{ player.name }}</span></button>
             </div>
 
-            <p v-if="remain != score_limit && remain > 0" class="player__remain">
+            <p v-if="remain != score_limit && remain > 0 && score_limit != 0" class="player__remain">
               Reste <strong>{{ remain }} point(s)</strong>
             </p>
 
@@ -339,7 +340,7 @@
 
     <section class="logs">
 
-      <button type="button" class="logs__trigger" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">Passer la main</button>
+      <button type="button" class="hand-pass" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">Passer la main</button>
 
       <template v-if="logs.length">
 

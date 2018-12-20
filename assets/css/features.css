@@ -53,6 +53,24 @@
       .logs__cancel:before {
         font-size: 4rem; } }
 
+.hand-pass {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Open Sans", arial, helvetica, sans-serif;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1.5rem 2rem;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1.2;
+  font-weight: 300;
+  font-weight: bold;
+  border-radius: 0 10px 0 0; }
+
 .logs {
   text-align: center;
   margin: 0 auto;
@@ -143,7 +161,7 @@
   padding: 0;
   border: 0;
   background: rgba(255, 255, 255, 0.2);
-  padding: 10px 15px;
+  padding: 15px 20px;
   color: #fff;
   font-size: 1.8rem;
   cursor: pointer;
