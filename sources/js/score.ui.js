@@ -29,6 +29,7 @@ root.mainApp = function() {
       options_filter: 'all',
       modal_name: null,
       history_visible: false,
+      currentPlayerKey: 0,
       total_temp: 0,
       version: root.appVersion
     },
@@ -797,38 +798,43 @@ root.mainApp = function() {
        */
       pass_the_hand: function() {
 
-        var currentPlayerKey = null;
         var nextPlayerKey = null;
+        var newPlayerHasHand = false;
         var first_visible_player = null;
 
+         // Remove the current hand.
+        this.players[this.currentPlayerKey].hasHand = false;
+
+        // Get next player key.
         this.players.forEach(function(player, key) {
 
-          if (player.visible) {
+          if (player.visible && !newPlayerHasHand) {
 
             // Save the first visible player.
             if (first_visible_player == null) {
               first_visible_player = key;
             }
 
-          }
+            if (key > root.app.currentPlayerKey) {
 
-          // Remove the current hand.
-          if (player.hasHand) {
-            currentPlayerKey = key;
+              // Give the hand.
+              nextPlayerKey = key;
+              newPlayerHasHand = true;
+
+            }
+
           }
 
         });
 
-        // Remove the current hand.
-        this.players[currentPlayerKey].hasHand = false;
-
-        nextPlayerKey = currentPlayerKey + 1;
-        if (this.players[nextPlayerKey] == undefined || !this.players[nextPlayerKey].visible) {
+        // Save the first visible player key.
+        if (!newPlayerHasHand) {
           nextPlayerKey = first_visible_player;
         }
 
         // Give the hand.
         this.players[nextPlayerKey].hasHand = true;
+        this.currentPlayerKey = nextPlayerKey;
 
         this.waitForSaving();
 

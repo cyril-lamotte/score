@@ -1,4 +1,4 @@
-const CACHE = 'cache-v1.11.0';
+const CACHE = 'cache-v1.12.0';
 
 console.log(CACHE);
 

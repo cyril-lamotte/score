@@ -1,4 +1,7 @@
 
+
+<!-- @@if (env === 'prod') {
+
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
@@ -7,8 +10,6 @@
   }
 </script>
 
-
-<!-- @@if (env === 'prod') {
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-800422-4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
