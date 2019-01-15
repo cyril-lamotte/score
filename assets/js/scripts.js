@@ -13,7 +13,7 @@ window.root = {
   dbName: 'score_db',
   tableName: 'config',
   dbVersion: 1,
-  appVersion: '1.13.0',
+  appVersion: '1.14.0',
   appData: {}
 };
 
@@ -1128,7 +1128,6 @@ root.players = function() {
        */
       removePoint: function() {
         this.player.score -= 1;
-        this.bounce();
 
         // Request for a save.
         this.$emit('request-save');
@@ -1149,6 +1148,14 @@ root.players = function() {
 
       bounce: function() {
         this.player.update = true;
+
+        var player = this.player;
+
+        // Fade in.
+        setTimeout(function() {
+          player.update = false;
+        }, 300);
+
       }
 
     }

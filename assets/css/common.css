@@ -184,6 +184,9 @@ img {
   font-style: normal;
   font-display: swap; }
 
+:root {
+  --brand: #ff9c00; }
+
 html {
   font: 0.625em/1.5 "Open Sans", arial, helvetica, sans-serif;
   color: #fff;
@@ -208,7 +211,7 @@ button:focus {
   outline-offset: 4px; }
 
 [contenteditable="true"] {
-  border-bottom: 1px solid #ff9c00; }
+  border-bottom: 1px solid var(--brand); }
 
 .options__row,
 .form__row {
