@@ -56,7 +56,6 @@ root.players = function() {
        */
       removePoint: function() {
         this.player.score -= 1;
-        this.bounce();
 
         // Request for a save.
         this.$emit('request-save');
@@ -77,6 +76,14 @@ root.players = function() {
 
       bounce: function() {
         this.player.update = true;
+
+        var player = this.player;
+
+        // Fade in.
+        setTimeout(function() {
+          player.update = false;
+        }, 300);
+
       }
 
     }
