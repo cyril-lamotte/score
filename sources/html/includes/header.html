@@ -2,7 +2,7 @@
 <header class="main-header" role="banner">
 
   <h1 class="main-title" contenteditable="true" @blur="updateTitle($event.target.innerHTML)" v-bind:tabindex="body_tabindex">{{ title }}</h1>
-  <button type="button" class="header__btn" @click.prevent="showModal('options')" v-bind:aria-expanded="modal_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><span>Options&hellip;</span></button>
+  <button type="button" class="header__btn" @click.prevent="showModal('options')" v-bind:aria-expanded="modal_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><span>{{ $t("message.settings") }}&hellip; </span></button>
 
 </header>
 

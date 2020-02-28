@@ -1,4 +1,99 @@
 
+//import messages from 'lang/messages';
+
+const messages = {
+  'en-GB': {
+    message: {
+      first_player: 'First player to gets',
+      settings: "Settings"
+    },
+    point: '0 point | 1 point | {count} points',
+    point_noscore: 'point | point | points',
+    cancel: 'Cancel',
+    pass_the_hand: 'Pass the hand',
+    show_history: 'Show history',
+    hide_history: 'Hide history',
+    bug_found: 'Found a bug ?',
+    on_twitter: 'on twitter',
+    new_window: '(new window)',
+    close_settings: 'Close settings window',
+    inactives_players: 'Inactive players',
+    actives_players: 'Active players',
+    new_player: 'New player',
+    add_player: 'Add a new player',
+    score_limit_option: 'Score limit',
+    close: 'Close',
+    we_got_winner: "We've got a winner !",
+    new_game: 'New game',
+    add_or_remove_points: 'Add or remove points',
+    use_buttons: 'Use the bellow buttons to adjust, then validate.',
+    add_x_point: 'Add 0 point | Add 1 point | Add {count} points',
+    add_1_point_to: 'Add 1 point to',
+    remove_x_point: 'Remove 0 point | Remove 1 point | Remove {count} points',
+    remove_1_point_to: 'Remove 1 point to',
+    reset: 'Reset',
+    valid_reset: 'Reset !',
+    confirm_reset: 'Confirm reset',
+    confirm_reset_action: 'I confirm reset !',
+    reset_all: 'Reinit all scores',
+    reset_all_action: 'Set all scores to 0',
+    share_app: 'Share the application',
+    version: 'Version',
+    has_hand: '(has the hand)',
+    player_name: "Player's name",
+    remain: '<strong>0 point</strong> remaining | <strong>1 point</strong> remaining | <strong>{count} points</strong> remaining',
+  },
+  'fr-FR': {
+    message: {
+      first_player: 'Le premier joueur à',
+      settings: "Options"
+    },
+    point: '0 point | 1 point | {count} points',
+    point_noscore: 'point | point | points',
+    cancel: 'Annuler',
+    pass_the_hand: 'Passer la main',
+    show_history: 'Afficher l\'historique',
+    hide_history: 'Masquer l\'historique',
+    bug_found: 'Un bug, une suggestion ?',
+    on_twitter: 'sur twitter',
+    new_window: '(nouvelle fenêtre)',
+    close_settings: 'Fermer la fenêtre d\'options',
+    inactives_players: 'Joueurs inactifs',
+    actives_players: 'Joueurs actifs',
+    new_player: 'Nouveau joueur',
+    add_player: 'Ajouter un joueur',
+    score_limit_option: 'Limite de score',
+    close: 'Fermer',
+    we_got_winner: 'Nous avons un gagnant !',
+    new_game: 'Nouvelle partie',
+    add_or_remove_points: 'Ajouter ou retirer des points',
+    use_buttons: 'Utilisez les boutons si dessous pour ajuster les points à ajouter, puis validez.',
+    add_x_point: 'Ajouter 0 point | Ajouter 1 point | Ajouter {count} points',
+    add_1_point_to: 'Ajouter 1 point à',
+    remove_x_point: 'Retirer 0 point | Retirer 1 point | Retirer {count} points',
+    remove_1_point_to: 'Retirer 1 point à',
+    reset: 'Mise à zéro',
+    valid_reset: 'Remise à 0 !',
+    confirm_reset: 'Confirmer la mise à zéro',
+    confirm_reset_action: 'Je confirme la remise à 0 !',
+    reset_all: 'Réinitialiser les scores',
+    reset_all_action: 'Tous les scores à 0',
+    share_app: 'Partager l\'application',
+    version: 'Version',
+    has_hand: '(possède la main)',
+    player_name: 'Nom du joueur',
+    remain: 'Reste <strong>0 point</strong> | Reste <strong>1 point</strong> | Reste <strong>{count} points</strong>',
+  }
+}
+
+let locale = navigator.language;
+const i18n = new VueI18n({
+  fallbackLocale: 'en-GB',
+  locale: locale,
+  messages
+});
+
+
 /**
  * Create vue instance.
  */
@@ -19,6 +114,7 @@ root.mainApp = function() {
    */
   root.app = new Vue({
     el: '#app',
+    i18n,
     data: {
       title: 'Score',
       players: [],

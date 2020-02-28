@@ -16,21 +16,21 @@
     <!-- @@include('includes/header.html') -->
     <!-- @@include('includes/modals.html') -->
 
-    <div class="winner" v-if="score_limit > 0">Le premier joueur à <strong @click="showModal('options', 'score_limit')">{{ score_limit }} points</strong>.</div>
+    <div class="winner" v-if="score_limit > 0">{{ $t("message.first_player") }} <strong @click="showModal('options', 'score_limit')">{{ $tc('point', score_limit) }}</strong>.</div>
 
     <section class="player-list">
       <!-- @@include('includes/player.html') -->
     </section><!--/player-list-->
 
-    <button type="button" class="logs__cancel" @click.prevent="cancel" v-bind:tabindex="body_tabindex" aria-label="Annuler"><span>Annuler</span></button>
+    <button type="button" class="logs__cancel" @click.prevent="cancel" v-bind:tabindex="body_tabindex" v-bind:aria-label="$t('cancel')"><span>{{ $t('cancel') }}</span></button>
 
     <section class="logs">
 
-      <button type="button" class="hand-pass" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">Passer la main</button>
+      <button type="button" class="hand-pass" @click.prevent="pass_the_hand" v-bind:tabindex="body_tabindex">{{ $t('pass_the_hand') }}</button>
 
       <template v-if="logs.length">
 
-        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }" v-bind:aria-expanded="history_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><template v-if="!history_visible">Afficher</template><template v-else>Masquer</template> l'historique</button>
+        <button type="button" class="logs__trigger" @click.prevent="toggle_history" :class="{ 'history-is-open': history_visible }" v-bind:aria-expanded="history_visible ? 'true' : 'false'" v-bind:tabindex="body_tabindex"><template v-if="!history_visible">{{ $t('show_history') }}</template><template v-else>{{ $t('hide_history') }}</template></button>
 
         <ul v-if="history_visible">
           <log v-if="logs"
@@ -46,7 +46,7 @@
     </section>
 
     <footer class="main-footer">
-      <p>Un bug, une suggestion ? <a href="https://twitter.com/__cyril" target="_blank" title="@__cyril sur twitter (nouvelle fenêtre)">@__cyril sur twitter</a></p>
+      <p>{{ $t('bug_found') }} <a href="https://twitter.com/__cyril" target="_blank" v-bind:title="'@__cyril ' + $t('on_twitter') + ' ' + $t('new_window')">@__cyril {{ $t('on_twitter') }}</a></p>
     </footer>
 
   </div><!--/app-->
